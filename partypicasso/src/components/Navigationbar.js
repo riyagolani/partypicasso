@@ -7,6 +7,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import HostForm from './HostForm';
 
 function Navigationbar() {
   return (
@@ -21,6 +22,7 @@ function Navigationbar() {
             <Nav className="ml-auto">
               <Nav.Link as={Link} to={'/chat'} className="text-light px-3">Group Chat</Nav.Link>
               <Nav.Link as={Link} to={'/profile'} className="text-light px-3">Profile</Nav.Link>
+              <Nav.Link as={Link} to={'/HostForm'} className="text-light px-3">Host Form</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -30,6 +32,7 @@ function Navigationbar() {
           <Route path='/' element={<Home />} />
           <Route path='/chat' element={<Chat />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/HostForm' element={<HostForm />} />
         </Routes>
       </div>
     </Router>
