@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css';
+import '../../App.css';
 import { Navbar, Nav } from 'react-bootstrap';
 import {
   BrowserRouter as Router,
@@ -28,7 +28,7 @@ function Navigationbar() {
       <div>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/chat' element={<Chat />} />
+          <Route path='/chat' element= {<ChatPage />} />
           <Route path='/profile' element={<Profile />} />
         </Routes>
       </div>
@@ -38,8 +38,8 @@ function Navigationbar() {
 function Home(){
   return <p>I'm home</p>
 }
-function Chat() {
-  return <p>Chatting</p>
+function ChatPage() {
+
 }
 function Profile() {
   return <p>My Profile</p>
