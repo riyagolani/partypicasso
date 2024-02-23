@@ -1,12 +1,14 @@
-import Navigationbar from './components/Navigationbar'
+import Navigationbar from './components/Navbar/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Chat from "./components/Chat/chat"
 
 
 function App() {
   return (
     <div className='main-div'>
-    <Navigationbar />
+      <Navigationbar />
+      <Chat />
     </div>
   );
 }
