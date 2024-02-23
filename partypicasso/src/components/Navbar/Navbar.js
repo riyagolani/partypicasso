@@ -9,9 +9,11 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import HostForm from './HostForm';
-import EventCreatedPage from './EventCreatedPage';
-import HostDashboard from './HostDashbord';
+import HostForm from '../Host/HostForm';
+import EventCreatedPage from '../Host/EventCreatedPage';
+import HostDashboard from '../Host/HostDashbord';
+import Chat from '../Chat/chat';
+import LoginForm from '../Login/Login';
 
 function Navigationbar() {
   return (
@@ -47,7 +49,7 @@ function Navigationbar() {
   );
 }
 function Home(){
-  return <p>I'm home</p>
+  return <p></p>
 }
 
 function Profile() {
