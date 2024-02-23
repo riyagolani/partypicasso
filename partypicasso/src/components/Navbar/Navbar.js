@@ -14,8 +14,16 @@ import {
   Route,
   Link
 } from "react-router-dom";
+<<<<<<< HEAD
 import Signup from '../Signup/signup';
 
+=======
+import HostForm from '../Host/HostForm';
+import EventCreatedPage from '../Host/EventCreatedPage';
+import HostDashboard from '../Host/HostDashbord';
+import Chat from '../Chat/chat';
+import LoginForm from '../Login/Login';
+>>>>>>> b531bd2481767bfe7bc4a9d67206d4ec114be8c5
 
 function Navigationbar() {
   return (
@@ -52,7 +60,7 @@ function Navigationbar() {
   );
 }
 function Home(){
-  return <p>I'm home</p>
+  return <p></p>
 }
 
 function Profile() {
