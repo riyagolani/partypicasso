@@ -1,7 +1,12 @@
 import React from 'react';
 import '../../App.css';
 import { Navbar, Nav } from 'react-bootstrap';
-import Logo from'../../Images/Logo.jpg';
+import Logo from '../../Images/Logo.jpg';
+import HostForm from '../Host/HostForm';
+import EventCreatedPage from '../Host/EventCreatedPage';
+import HostDashboard from '../Host/HostDashbord';
+import Login from '../Login/Login';
+import Chat from '../Chat/chat';
 
 import {
   BrowserRouter as Router,
@@ -9,9 +14,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import HostForm from './HostForm';
-import EventCreatedPage from './EventCreatedPage';
-import HostDashboard from './HostDashbord';
+import Signup from '../Signup/signup';
+
 
 function Navigationbar() {
   return (
@@ -40,7 +44,8 @@ function Navigationbar() {
           <Route path='/HostForm' element={<HostForm />} />
           <Route path='/EventCreatedPage' element={<EventCreatedPage/>}/>
           <Route path='/HostDashbord' element={<HostDashboard/>}/>
-          <Route path='/LoginForm' element={<LoginForm/>}/>
+          <Route path='/Login' element={<Login/>}/>
+          <Route path='/Signup' element={<Signup/>}/>
         </Routes>
       </div>
     </Router>

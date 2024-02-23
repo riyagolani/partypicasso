@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Signin = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -27,10 +27,10 @@ const Login = () => {
     <div className="container d-flex justify-content-center align-items-center" style={{ backgroundColor: '#b3d1c0', height: '100%', textAlign: 'left' }}>
       <div className="card-container" style={{ width: '70%', marginTop:"120px", padding: '100px', borderRadius: '20px', boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)', backgroundColor: '#f5f5f5' }}>
         <div className="card-body">
-          <h5 className="title h2 mb-4" style={{ textAlign: 'center', color: '#343a40' }}>Login</h5>
+          <h5 className="title h2 mb-4" style={{ textAlign: 'center', color: '#343a40' }}>Signup</h5>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">Email</label>
               <input
                 type="text"
                 className="form-control"
@@ -38,7 +38,7 @@ const Login = () => {
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
-                placeholder="Enter username"
+                placeholder="Enter email"
                 required
               />
             </div>
@@ -67,7 +67,7 @@ const Login = () => {
               <label className="form-check-label" htmlFor="rememberMe">Remember Me</label>
             </div>
             <div style={{ textAlign: 'center' }}>
-              <button type="submit" className="btn mt-4" style={{ background: '#b3d1c0' }}>Login</button>
+              <button type="submit" className="btn mt-4" style={{ background: '#b3d1c0' }}>Signup</button>
             </div>
           </form>
         </div>
@@ -76,4 +76,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signin;
