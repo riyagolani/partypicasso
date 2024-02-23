@@ -9,9 +9,9 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import HostForm from '../HostForm';
-import EventCreatedPage from '../EventCreatedPage';
-import HostDashboard from '../HostDashbord';
+import HostForm from './HostForm';
+import EventCreatedPage from './EventCreatedPage';
+import HostDashboard from './HostDashbord';
 
 function Navigationbar() {
   return (
@@ -35,11 +35,12 @@ function Navigationbar() {
       <div>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/chat' element= {<ChatPage />} />
+          <Route path='/chat' element= {<Chat/>} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/HostForm' element={<HostForm />} />
           <Route path='/EventCreatedPage' element={<EventCreatedPage/>}/>
           <Route path='/HostDashbord' element={<HostDashboard/>}/>
+          <Route path='/LoginForm' element={<LoginForm/>}/>
         </Routes>
       </div>
     </Router>
@@ -48,9 +49,7 @@ function Navigationbar() {
 function Home(){
   return <p>I'm home</p>
 }
-function ChatPage() {
 
-}
 function Profile() {
   return <p>My Profile</p>
 }
