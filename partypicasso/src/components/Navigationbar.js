@@ -36,7 +36,7 @@ function Navigationbar() {
   );
 }
 function Home(){
-  return <p>I'm home</p>
+  return <p></p>
 }
 function Chat() {
   return <p>Chatting</p>
