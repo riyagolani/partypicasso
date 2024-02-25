@@ -3,6 +3,7 @@ import '../../App.css';
 import { Navbar, Nav } from 'react-bootstrap';
 import Logo from'../../Images/Logo.jpg';
 import EventDetails from './Events/EventDetails';
+import BookingDetails from './Events/BookingDetails';
 
 import {
   BrowserRouter as Router,
@@ -45,6 +46,7 @@ function Navigationbar() {
           <Route path='/EventCreatedPage' element={<EventCreatedPage/>}/>
           <Route path='/HostDashbord' element={<HostDashboard/>}/>
           <Route path='/eventdetails' element={<EventDetails />}/>
+          <Route path='/bookingdetails' element={<BookingDetails />}/>
         </Routes>
       </div>
     </Router>

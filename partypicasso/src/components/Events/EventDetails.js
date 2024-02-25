@@ -24,7 +24,7 @@ const EventDetails = () => {
           <p className="font-semibold">{event.price}</p>
           <p>{event.description}</p>
           {/* Add any additional details you want to display */}
-          <button className="bg-neutral-700 text-white text-l w-40 px-5 py-1 rounded">Back to Events</button>
+          <button className="bg-neutral-700 text-white text-l w-40 px-5 py-1 rounded">Book this Events</button>
         </div>
       </div>
     </div>
