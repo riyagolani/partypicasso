@@ -2,6 +2,7 @@ import React from 'react';
 import '../../App.css';
 import { Navbar, Nav } from 'react-bootstrap';
 import Logo from'../../Images/Logo.jpg';
+import EventDetails from './Events/EventDetails';
 
 import {
   BrowserRouter as Router,
@@ -14,6 +15,7 @@ import EventCreatedPage from '../Host/EventCreatedPage';
 import HostDashboard from '../Host/HostDashbord';
 import Chat from '../Chat/chat';
 import LoginForm from '../Login/Login';
+
 
 function Navigationbar() {
   return (
@@ -42,6 +44,7 @@ function Navigationbar() {
           <Route path='/HostForm' element={<HostForm />} />
           <Route path='/EventCreatedPage' element={<EventCreatedPage/>}/>
           <Route path='/HostDashbord' element={<HostDashboard/>}/>
+          <Route path='/eventdetails' element={<EventDetails />}/>
         </Routes>
       </div>
     </Router>
