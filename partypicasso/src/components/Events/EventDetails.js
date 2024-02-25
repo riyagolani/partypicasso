@@ -1,49 +1,34 @@
-import { Paper, Typography, Divider } from '@material-ui/core/';
-import { Container, Button } from '@material-ui/core';
-import useStyles from './styles';
+import React from "react";
 
-function EventDetails() {
+const EventDetails = () => {
+  // Static hard-coded event data
+  const event = {
+    name: 'NFT.NYC 2024',
+    date: 'Wed, Apr 3',
+    time: '8:30 am',
+    price: '$224',
+    img: './images/musicconcert.jpg',
+    category: 'Music Concerts',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, magna et convallis lobortis, augue purus vehicula ex, at faucibus quam mi nec mi.'
+  };
 
-    const classes = useStyles();
-
-    return (
-
-        <Container maxWidth="lg">
-            <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-                <div className={classes.card}>
-                    <div className={classes.section}>
-                        <Typography variant="h3" component="h2">Google Seminar</Typography>
-                        <Typography gutterBottom variant="h6" color="textSecondary" component="h2">Seminar, Tech</Typography>
-                        <Typography gutterBottom variant="body1" component="p">Welcome to google seminar in which we are going to discuss how to get in to the google company without doing anything, Because we are hiring for free whoever going to attend this seminar</Typography>
-                        <Typography variant="h6">Created by: GOOGLE</Typography>
-                        <Typography variant="body1">25 February 2024</Typography>
-                        <Divider style={{ margin: '20px 0' }} />
-                        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Connect</Button>
-                        <Divider style={{ margin: '20px 0' }} />
-                        <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography>
-                        <Divider style={{ margin: '20px 0' }} />
-                    </div>
-                    <div className={classes.imageSection}>
-                        <img className={classes.media} src={'https://play.google.com/store/apps/dev?id=5700313618786177705&hl=en_US&gl=US'} alt="Google" />
-                    </div>
-                </div>
-                    <div className={classes.section}>
-                        <Typography gutterBottom variant="h5">You might also like:
-                        </Typography>
-                        <Divider />
-                        <div className={classes.recommendedPosts}>
-                                <div style={{ margin: '20px', cursor: 'pointer' }} onClick>
-                                    <Typography gutterBottom variant="h6">Metaverse</Typography>
-                                    <Typography gutterBottom variant="subtitle2">Meta</Typography>
-                                    <Typography gutterBottom variant="subtitle2">If you don't like google join here</Typography>
-                                    <Typography gutterBottom variant="subtitle1">Likes: 1000</Typography>
-                                    <img src = "https://mma.prnewswire.com/media/1673006/Meta_Logo.jpg?p=facebook" width="200px" alt='meta'/>
-                                </div>
-                        </div>
-                    </div>
-            </Paper>
-        </Container>
-    );
+  return (
+    <div className="h-screen flex justify-center items-center">
+      <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8">
+        <div className="h-60 rounded-t-xl bg-orange-900 flex justify-center items-center">
+          <img src={event.img} alt="" className="h-44 w-44 rounded-full" />
+        </div>
+        <div className="flex flex-col justify-center items-center gap-4 p-4">
+          <p className="text-xl font-bold">{event.name}</p>
+          <p>{event.date} {event.time}</p>
+          <p className="font-semibold">{event.price}</p>
+          <p>{event.description}</p>
+          {/* Add any additional details you want to display */}
+          <button className="bg-neutral-700 text-white text-l w-40 px-5 py-1 rounded">Back to Events</button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default EventDetails;
