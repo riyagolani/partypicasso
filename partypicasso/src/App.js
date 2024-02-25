@@ -6,6 +6,8 @@ import Navigationbar from './components/Navbar/Navbar';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
 
+
+
 function App() {
   return (
     <div className='main-div'>

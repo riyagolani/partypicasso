@@ -46,7 +46,7 @@ const HostForm = () => {
 
   return (
     <div className="container d-flex justify-content-center align-items-center" style={{ backgroundColor: '#b3d1c0', height: '100vh', textAlign: 'left' }}>
-      <div className="card-container" style={{ width: '800px', maxHeight: '80%', overflowY: 'auto' }}>
+      <div className="card-container" style={{ width: '800px', maxHeight: '70%', overflowY: 'auto' }}>
         <div className="card" style={{ width: '100%', padding: '30px', borderRadius: '20px', boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)', backgroundColor: '#f5f5f5' }}>
           <div className="card-body">
             <h5 className="title h2 mb-4" style={{ textAlign: 'center', color: '#343a40' }}>Host Event Form</h5>
