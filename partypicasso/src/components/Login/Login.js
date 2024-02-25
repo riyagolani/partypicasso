@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import './Login.css'; // Import the CSS file
 
-const LoginForm = () => {
+const Login = () => {
+  const location = useLocation();
+  const userType = new URLSearchParams(location.search).get('user');
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    rememberMe: false, // Added rememberMe field with default value false
+    rememberMe: false,
   });
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value; // Handle checkbox value separately
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     setFormData({
       ...formData,
       [e.target.name]: value,
@@ -20,17 +24,14 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your login logic here
-    // For example, you can send a request to your backend to authenticate the user
-    // and navigate to the appropriate page based on the response
-    navigate('/dashboard'); // Example redirection to dashboard after successful login
+    navigate('/dashboard');
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center" style={{ backgroundColor: '#b3d1c0', height: '100vh', textAlign: 'left' }}>
-      <div className="card-container" style={{ width: '400px', padding: '20px', borderRadius: '20px', boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)', backgroundColor: '#f5f5f5' }}>
+    <div className="container">
+      <div className="card-container">
         <div className="card-body">
-          <h5 className="title h2 mb-4" style={{ textAlign: 'center', color: '#343a40' }}>Login</h5>
+          <h1 className="title">{userType} Login</h1>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="username">Username</label>
@@ -45,7 +46,7 @@ const LoginForm = () => {
                 required
               />
             </div>
-            <div className="form-group mt-3">
+            <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -58,7 +59,7 @@ const LoginForm = () => {
                 required
               />
             </div>
-            <div className="form-check mt-3">
+            <div className="form-check">
               <input
                 type="checkbox"
                 className="form-check-input"
@@ -69,8 +70,8 @@ const LoginForm = () => {
               />
               <label className="form-check-label" htmlFor="rememberMe">Remember Me</label>
             </div>
-            <div style={{ textAlign: 'center' }}>
-              <button type="submit" className="btn mt-4" style={{ background: '#b3d1c0' }}>Login</button>
+            <div className="text-center">
+              <button type="submit" className="btn">Login</button>
             </div>
           </form>
         </div>
@@ -79,4 +80,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default Login;

@@ -13,9 +13,7 @@ import HostForm from '../Host/HostForm';
 import EventCreatedPage from '../Host/EventCreatedPage';
 import HostDashboard from '../Host/HostDashbord';
 import Chat from '../Chat/chat';
-import Login from '../Login/Login';
-import Signup from '../Signup/signup';
-import WeLogin from '../Login/weLogin';
+import LoginForm from '../Login/Login';
 
 function Navigationbar() {
   return (
@@ -44,9 +42,6 @@ function Navigationbar() {
           <Route path='/HostForm' element={<HostForm />} />
           <Route path='/EventCreatedPage' element={<EventCreatedPage/>}/>
           <Route path='/HostDashbord' element={<HostDashboard/>}/>
-          <Route path='/Login' element={<Login/>}/>
-          <Route path='/Signup' element={<Signup/>}/>
-          <Route path='/welogin' element={<WeLogin/>}/>
         </Routes>
       </div>
     </Router>
