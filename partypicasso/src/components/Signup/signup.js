@@ -134,8 +134,8 @@ const Signup = () => {
               </div>
             </div>
           </div>
-          <div className="text-center mt-4">
-            <button type="submit" className="btn btn-primary">
+          <div className="text-center">
+            <button type="submit" className="btn mt-3">
               Submit
             </button>
           </div>
