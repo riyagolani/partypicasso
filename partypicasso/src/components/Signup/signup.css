@@ -17,7 +17,7 @@
 
 .signup h1 {
   text-align: center;
-  font-size: larger;
+  font-size: large;
   font-weight: 700;
   margin-bottom: 10px;
 }
@@ -42,14 +42,13 @@
 .select-container {
   margin-top: 5px;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #4a8f63;
   border-radius: 5px;
 }
 
 .signup button {
   cursor: pointer;
-  background-color: #007bff;
-  color: #fff;
+  background: #89c4a3;
   border: none;
 }
 
@@ -59,4 +58,8 @@
   margin-top: 10px;
   margin-left: 60px;
   margin-bottom: -10px;
+}
+
+.row {
+  text-align: left;
 }
