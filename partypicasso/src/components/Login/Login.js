@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './Login.css'; // Import the CSS file
 
 const Login = () => {
@@ -24,16 +24,16 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate('/dashboard');
+    navigate('/');
   };
 
   return (
-    <div className="container">
-      <div className="card-container">
-        <div className="card-body">
-          <h1 className="title">{userType} Login</h1>
+    <div className="container-login">
+      <div className="card-container-login">
+        <div className="card-body-login">
+          <h1 className="title-login">{userType} Login</h1>
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
+            <div className="form-group-login">
               <label htmlFor="username">Username</label>
               <input
                 type="text"
@@ -74,6 +74,9 @@ const Login = () => {
               <button type="submit" className="btn">Login</button>
             </div>
           </form>
+          <div className="text-center">
+            <p>Don't have an account? <Link to="/signup">Sign up</Link></p> 
+          </div>
         </div>
       </div>
     </div>

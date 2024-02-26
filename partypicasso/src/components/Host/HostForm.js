@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const HostForm = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +13,8 @@ const HostForm = () => {
     eventDate: '',
     eventTime: '',
     bookingCharge: '',
-    capacity: ''
+    capacity: '',
+    category: '' 
   });
 
   const navigate = useNavigate();
@@ -22,6 +23,13 @@ const HostForm = () => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleCategoryChange = (e) => { 
+    setFormData({
+      ...formData,
+      category: e.target.value,
     });
   };
 
@@ -39,16 +47,17 @@ const HostForm = () => {
     //   Event Time: ${formData.eventTime}
     //   Booking Charge: ${formData.bookingCharge}
     //   Capacity: ${formData.capacity}
+    //   Category: ${formData.category}
     // `;
     // alert(formDataString);
     navigate('/EventCreatedPage');
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center" style={{ backgroundColor: '#b3d1c0', height: '100vh', textAlign: 'left' }}>
-      <div className="card-container" style={{ width: '800px', maxHeight: '70%', overflowY: 'auto' }}>
-        <div className="card" style={{ width: '100%', padding: '30px', borderRadius: '20px', boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)', backgroundColor: '#f5f5f5' }}>
-          <div className="card-body">
+    <div className="container-hf d-flex justify-content-center align-items-center" style={{ backgroundColor: '#b3d1c0', height: '100vh', textAlign: 'left' }}>
+      <div className="card-container-hf" style={{ width: '800px', maxHeight: '70%', overflowY: 'auto' }}>
+        <div className="card-hf" style={{ width: '100%', padding: '30px', borderRadius: '20px', boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)', backgroundColor: '#f5f5f5' }}>
+          <div className="card-body-hf">
             <h5 className="title h2 mb-4" style={{ textAlign: 'center', color: '#343a40' }}>Host Event Form</h5>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
@@ -222,8 +231,27 @@ const HostForm = () => {
                   required
                 />
               </div>
+
+              <div className="form-group mt-3">
+                <label htmlFor="category">Category</label>
+                <select
+                  className="form-control"
+                  id="category"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleCategoryChange}
+                  required
+                >
+                  <option value="">Select Category</option>
+                  <option value="Music Concerts">Music Concerts</option>
+                  <option value="Party">Party</option>
+                  <option value="Educational Workshop">Educational Workshop</option>
+                  <option value="Business Seminar">Business Seminar</option>
+                  <option value="Comedy Show">Comedy Show</option>
+                </select>
+              </div>
               <div style={{ textAlign: 'center' }}>
-                <button type="submit" className="btn mt-4" style={{ background: '#b3d1c0' }}>Submit</button>
+                <button type="submit" className="btn mt-4">Submit</button>
               </div>
             </form>
           </div>
