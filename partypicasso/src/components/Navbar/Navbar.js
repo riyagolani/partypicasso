@@ -16,6 +16,7 @@ import Chat from '../Chat/chat';
 import Login from '../Login/Login';
 import Signup from '../Signup/signup';
 import WeLogin from '../Login/weLogin';
+import Profile from '../Profile/Profile';
 
 function Navigationbar() {
   return (
@@ -55,10 +56,6 @@ function Navigationbar() {
 }
 function Home(){
   return <p></p>
-}
-
-function Profile() {
-  return <p>My Profile</p>
 }
 
 export default Navigationbar

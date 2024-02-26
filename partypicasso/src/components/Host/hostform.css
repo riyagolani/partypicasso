@@ -1,0 +1,66 @@
+.hostform-container {
+    display: flex;
+    height: 100vh;
+    background-size: cover;
+  }
+
+  .hosttext {
+    margin-top: -5px;
+  }
+  
+  .hostform {
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .hostform h1 {
+    text-align: center;
+    font-size: larger;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  .hostform form {
+    display:block;
+    justify-content: space-between;
+  }
+  
+  .column {
+    flex: 1;
+    margin-right: 50px;
+  }
+  
+  .hostform label {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .hostform input,
+  .hostform button,
+  .select-container {
+    margin-top: 5px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .hostform button {
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+  }
+  
+  .photo-container img {
+    width: 200px;
+    height: 200px;
+    margin-top: 10px;
+    margin-left: 60px;
+    margin-bottom: -10px;
+  }
+  
