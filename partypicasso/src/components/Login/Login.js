@@ -33,11 +33,11 @@ const Login = () => {
         <div className="card-body-login">
           <h1 className="title-login">{userType} Login</h1>
           <form onSubmit={handleSubmit}>
-            <div className="form-group-login">
+            <div className="form-group-login my-4">
               <label htmlFor="username">Username</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control mt-2"
                 id="username"
                 name="username"
                 value={formData.username}
@@ -46,11 +46,11 @@ const Login = () => {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className="form-group my-4">
               <label htmlFor="password">Password</label>
               <input
                 type="password"
-                className="form-control"
+                className="form-control mt-2"
                 id="password"
                 name="password"
                 value={formData.password}
@@ -62,19 +62,19 @@ const Login = () => {
             <div className="form-check">
               <input
                 type="checkbox"
-                className="form-check-input"
+                className="form-check-input my-3"
                 id="rememberMe"
                 name="rememberMe"
                 checked={formData.rememberMe}
                 onChange={handleChange}
               />
-              <label className="form-check-label" htmlFor="rememberMe">Remember Me</label>
+              <label className="form-check-label my-2" htmlFor="rememberMe">Remember Me</label>
             </div>
             <div className="text-center">
-              <button type="submit" className="btn">Login</button>
+              <button type="submit" className="btn mt-3">Login</button>
             </div>
           </form>
-          <div className="text-center">
+          <div className="text-center mt-3">
             <p>Don't have an account? <Link to="/signup">Sign up</Link></p> 
           </div>
         </div>
