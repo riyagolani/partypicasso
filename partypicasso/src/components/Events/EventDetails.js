@@ -1,7 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const EventDetails = () => {
-  // Static hard-coded event data
+  const navigate = useNavigate();
+
+  const payment = (e) => {
+    e.preventDefault();
+    navigate("/bookingdetails");
+  };
+
   const event = {
     name: "NFT.NYC 2024",
     date: "Wed, Apr 3",
@@ -29,8 +36,11 @@ const EventDetails = () => {
           </p>
           <p className="font-semibold">{event.price}</p>
           <p>{event.description}</p>
-          {/* Add any additional details you want to display */}
-          <button className="bg-neutral-700 text-white text-l w-80 px-4 py-2 rounded">
+
+          <button
+            className="bg-neutral-700 text-white text-l w-80 px-4 py-2 rounded"
+            onClick={payment}
+          >
             Book this Events
           </button>
         </div>

@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom'; // Import Link from react-router-dom
-import './Login.css'; // Import the CSS file
+import React, { useState } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom"; // Import Link from react-router-dom
+import "./Login.css"; // Import the CSS file
 
 const Login = () => {
   const location = useLocation();
-  const userType = new URLSearchParams(location.search).get('user');
+  const userType = new URLSearchParams(location.search).get("user");
 
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
     rememberMe: false,
   });
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     setFormData({
       ...formData,
       [e.target.name]: value,
@@ -24,7 +25,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate('/');
+    navigate("/dashboard");
   };
 
   return (
@@ -68,14 +69,20 @@ const Login = () => {
                 checked={formData.rememberMe}
                 onChange={handleChange}
               />
-              <label className="form-check-label my-2" htmlFor="rememberMe">Remember Me</label>
+              <label className="form-check-label my-2" htmlFor="rememberMe">
+                Remember Me
+              </label>
             </div>
             <div className="text-center">
-              <button type="submit" className="btn mt-3">Login</button>
+              <button type="submit" className="btn mt-3">
+                Login
+              </button>
             </div>
           </form>
           <div className="text-center mt-3">
-            <p>Don't have an account? <Link to="/signup">Sign up</Link></p> 
+            <p>
+              Don't have an account? <Link to="/signup">Sign up</Link>
+            </p>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BookingPage = () => {
   const [ticketQuantity, setTicketQuantity] = useState(1);
@@ -7,6 +8,8 @@ const BookingPage = () => {
   const ticketPrice = 17.85;
   const tablePrice = 81.88;
   const serviceFee = 3.0;
+
+  const navigate = useNavigate();
 
   const handleTicketQuantityChange = (e) => {
     const quantity = parseInt(e.target.value);
@@ -24,6 +27,12 @@ const BookingPage = () => {
     const subtotal = ticketTotal + tableTotal;
     const total = subtotal + serviceFee;
     return total;
+  };
+
+  const confirmBooking = (e) => {
+    e.preventDefault();
+    alert("Booking Confirmed");
+    navigate("/dashboard");
   };
 
   return (
@@ -100,7 +109,10 @@ const BookingPage = () => {
 
         <hr className="my-3 border-b border-black-300" />
 
-        <button className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-3 w-full">
+        <button
+          className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-3 w-full"
+          onClick={confirmBooking}
+        >
           Proceed to Payment
         </button>
       </div>
