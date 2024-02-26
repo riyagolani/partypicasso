@@ -1,64 +1,70 @@
-.container {
-    background-color: #b3d1c0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .title {
-    color: #343a40;
-    margin-bottom: 20px;
-    font-size: 24px;
-  }
-  
-  .card-container {
-    width: 40%;
-    display: flex;
-    justify-content: space-around; /* Distribute space between cards */
-    align-items: flex-start; /* Align items at the top */
-    margin-top: 20px;
-  }
-  
-  .card {
-    width: 200px; /* Adjust card width */
-    height: 250px; /* Adjust card height */
-    border-radius: 10px;
-    margin: 0 10px;
-    display: flex;
-    flex-direction: column; /* Arrange content in a column */
-    justify-content: flex-start; /* Align content at the top */
-    align-items: center;
-    text-align: center;
-    transition: transform 0.3s;
-    text-decoration: none;
-  }
-  
-  .card:hover {
-    transform: scale(1.1);
-  }
-  
-  .card img {
-    max-width: 100%;
-    max-height: 70%; /* Adjust image height */
-    border-radius: 10px 10px 0 0; /* Rounded corners for top */
-  }
-  
-  .card-text {
-    padding: 10px;
-    flex-grow: 1; /* Allow text to grow vertically */
-  }
-  
-  .host-card {
-    background-color: #ffffff;
-  }
-  
-  .user-card {
-    background-color: #ffffff;
-  }
-  
-  .admin-card {
-    background-color: #ffffff;
-  }
-  
+.container-wl {
+  background-color: #b3d1c0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+u{
+  font-size: 20px;
+}
+
+.title-wl {
+  color: #343a40;
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+.card-container-wl {
+  width: 40%;
+  display: flex;
+  height: 50%;
+  justify-content: space-around; 
+  align-items: flex-start; 
+  margin-top: 20px;
+}
+
+.card-wl {
+  width: 50%; 
+  height: 100%;
+  border-radius: 10px;
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s;
+  text-decoration: none;
+}
+
+.card-wl:hover {
+  transform: scale(1.1);
+}
+
+
+.card-text-wl {
+  padding: 10px;
+  flex-grow: 1; 
+}
+
+.host-card-wl {
+  background-color: #f5f5f5;
+}
+
+.user-card-wl {
+  background-color: #f8d7da;
+}
+
+.admin-card-wl {
+  background-color: #cce5ff;
+}
+
+.card-wl img {
+  max-width: 70%; 
+  max-height: 80%; 
+  border-radius: 10px 10px 0 0;
+  margin-top: 20px;
+}

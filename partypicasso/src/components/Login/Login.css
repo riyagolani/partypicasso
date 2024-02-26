@@ -1,41 +1,42 @@
-.container {
-    background-color: #b3d1c0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .card-container {
-    width: 70%;
-    max-width: 500px;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    background-color: #f5f5f5;
-  }
-  
-  .card-body {
-    text-align: left; 
-  }
-  
-  .title {
-    color: #343a40;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 24px;
-  }
-  
-  .form-group {
-    margin-top: 15px;
-  }
-  
-  .form-check {
-    margin-top: 15px;
-  }
-  
-  .btn {
-    background: #b3d1c0;
-  }
-  
-  
+.container-login {
+  background-color: #b3d1c0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-container-login {
+  width: 90%; 
+  max-width: 500px;
+  height: auto;
+  max-height: 500px;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  background-color: #f5f5f5;
+  overflow: hidden;
+}
+
+.card-body-login {
+  text-align: left;
+}
+
+.title-login {
+  color: #343a40;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.form-group-login {
+  margin-top: 15px;
+}
+
+.form-check {
+  margin-top: 15px;
+}
+
+.btn {
+  background: #b3d1c0;
+}

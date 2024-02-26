@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link
+import './signup.css'; 
 
 const Signup = () => {
   const [formData, setFormData] = useState({
+    email: '',
     username: '',
     password: '',
-    rememberMe: false,
+    confirmPassword: '',
+    userType: 'user', // Default to user type
   });
 
   const navigate = useNavigate();
@@ -20,17 +23,31 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate('/dashboard');
+    // Add validation for password and confirm password match here
+    navigate('/weLogin');
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center" style={{ backgroundColor: '#b3d1c0', height: '100%', textAlign: 'left' }}>
-      <div className="card-container" style={{ width: '70%', marginTop:"120px", padding: '100px', borderRadius: '20px', boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.1)', backgroundColor: '#f5f5f5' }}>
-        <div className="card-body">
-          <h5 className="title h2 mb-4" style={{ textAlign: 'center', color: '#343a40' }}>Signup</h5>
+    <div className="container-signup d-flex justify-content-center align-items-center">
+      <div className="card-container-signup">
+        <div className="card-body-signup">
+          <h5 className="title-signup h2 mb-4">Signup</h5>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="username">Email</label>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter email"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
               <input
                 type="text"
                 className="form-control"
@@ -38,11 +55,11 @@ const Signup = () => {
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
-                placeholder="Enter email"
+                placeholder="Enter username"
                 required
               />
             </div>
-            <div className="form-group mt-3">
+            <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -55,21 +72,40 @@ const Signup = () => {
                 required
               />
             </div>
-            <div className="form-check mt-3">
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirm Password</label>
               <input
-                type="checkbox"
-                className="form-check-input"
-                id="rememberMe"
-                name="rememberMe"
-                checked={formData.rememberMe}
+                type="password"
+                className="form-control"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
                 onChange={handleChange}
+                placeholder="Confirm password"
+                required
               />
-              <label className="form-check-label" htmlFor="rememberMe">Remember Me</label>
             </div>
-            <div style={{ textAlign: 'center' }}>
-              <button type="submit" className="btn mt-4" style={{ background: '#b3d1c0' }}>Signup</button>
+            <div className="form-group">
+              <label htmlFor="userType">User Type</label>
+              <select
+                className="form-control"
+                id="userType"
+                name="userType"
+                value={formData.userType}
+                onChange={handleChange}
+              >
+                <option value="user">User</option>
+                <option value="host">Host</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+            <div className="text-center">
+              <button type="submit" className="btn mt-4">Signup</button>
             </div>
           </form>
+          <div className="text-center mt-3">
+            <p>Already have an account? <Link to="/welogin">Login</Link></p> {/* Link to the login page */}
+          </div>
         </div>
       </div>
     </div>

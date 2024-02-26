@@ -32,6 +32,7 @@ function Navigationbar() {
               <Nav.Link as={Link} to={'/chat'} className="text-light px-3">Group Chat</Nav.Link>
               <Nav.Link as={Link} to={'/profile'} className="text-light px-3">Profile</Nav.Link>
               <Nav.Link as={Link} to={'/HostForm'} className="text-light px-3" style={{marginRight:'10px'}}>Host Form</Nav.Link>
+              <Nav.Link as={Link} to={'/weLogin'} className="text-light px-3">LogIn</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
