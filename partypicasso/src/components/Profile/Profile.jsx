@@ -1,98 +1,127 @@
-import { useState } from "react"
-import 'react-multiple-select-dropdown-lite/dist/index.css'
+import React, { useState } from "react";
+import Select from "react-select";
+import { useNavigate } from "react-router-dom";
+import "./profile.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Profile = () => {
+  const [userData, setUserData] = useState({
+    username: "JohnDoe",
+    email: "johndoe@example.com",
+    password: "********",
+    phone_number: "1234567890",
+    interest: [
+      { label: "Party", value: "Party" },
+      { label: "Seminar", value: "Seminar" },
+      { label: "Concert", value: "Concert" },
+    ],
+    url: "https://thumbs.dreamstime.com/b/isolated-white-portrait-happy-cheerful-guy-bearded-man-programmer-coder-profile-user-vector-cartoon-character-avatar-198845686.jpg",
+  });
 
-    const [userData, setUserData] = useState({
-        user_id: "1",
-        university: "",
-        githublink: "",
-        linkedinlink: [],
-        YOE: "",
-        bio: "",
-    })
+  const navigate = useNavigate();
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-    const handleChange = (e) => {
-        console.log("e", e)
-        const value = e.target.value
-        const name = e.target.name
+  const handleChangeInterest = (selectedOptions) => {
+    setUserData((prevData) => ({
+      ...prevData,
+      interest: selectedOptions,
+    }));
+  };
 
-        setUserData((prevState) => ({ ...prevState, [name]: value }))
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Submit updated user data (you can add API call here)
+    console.log("Updated user data:", userData);
+    // Redirect to profile page or any other page as needed
+    navigate("/profile");
+  };
 
-    const handleSubmit = async (e) => {
-        console.log("clicked here")
-        e.preventDefault()
-        console.log(userData)
-    }
+  return (
+    <div className="profile-container h-screen d-flex justify-content-center align-items-center">
+      <div className="profile p-5">
+        <h1 className="text-center mb-4">User Profile</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col-lg-6">
+              <label htmlFor="username">User Name</label>
+              <input
+                type="text"
+                className="form-control mb-3"
+                name="username"
+                value={userData.username}
+                onChange={handleChange}
+              />
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                className="form-control mb-3"
+                name="email"
+                value={userData.email}
+                onChange={handleChange}
+              />
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                className="form-control mb-3"
+                name="password"
+                value={userData.password}
+                onChange={handleChange}
+              />
+              <label htmlFor="phone_number">Phone Number</label>
+              <input
+                type="text"
+                className="form-control mb-3"
+                name="phone_number"
+                value={userData.phone_number}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="col-lg-6">
+              <label>Interest</label>
+              <Select
+                isMulti
+                name="interest"
+                options={[
+                  { label: "Party", value: "Party" },
+                  { label: "Seminar", value: "Seminar" },
+                  { label: "Concert", value: "Concert" },
+                  { label: "Heckathon", value: "Heckathon" },
+                  { label: "Music", value: "Music" },
+                  { label: "Theatre", value: "Theatre" },
+                ]}
+                className="mb-3"
+                value={userData.interest}
+                onChange={handleChangeInterest}
+              />
+              <label htmlFor="url">Profile Photo</label>
+              <input
+                type="url"
+                className="form-control mb-3"
+                name="url"
+                value={userData.url}
+                onChange={handleChange}
+              />
+              <div className="photo-container">
+                {userData.url && <img src={userData.url} alt="Profile" />}
+              </div>
+            </div>
+          </div>
+          <div className="text-center mt-4">
+            <button type="submit" className="btn btn-primary">
+              Update Profile
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
 
-    return (
-        <>
-            <div className="userdata">
-                <h2>User Details</h2>
-
-                <form onSubmit={handleSubmit}>
-                    <section>
-                        <label htmlFor="university">University</label>
-                        <input
-                            id="university"
-                            type="text"
-                            name="university"
-                            placeholder="Enter University"
-                            required={true}
-                            value={userData.university}
-                            onChange={handleChange}
-                        />
-
-                        <label htmlFor="githublink">Github </label>
-                        <input
-                            id="githublink"
-                            type="text"
-                            name="githublink"
-                            placeholder="Enter Github Link"
-                            required={true}
-                            value={userData.githublink}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="linkedinlink">LinkedIn </label>
-                        <input
-                            id="linkedinlink"
-                            type="text"
-                            name="linkedinlink"
-                            placeholder="Enter LinkedIn Link"
-                            required={true}
-                            value="http://linked/demon1.com"
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="YOE">Years of Experience</label>
-                        <input
-                            id="YOE"
-                            type="number"
-                            name="YOE"
-                            placeholder="Years"
-                            required={true}
-                            value = "1"
-                            onChange={handleChange}
-                        />
-                        <input className="submit-button" type="submit" />
-                    </section>
-                    <section>
-                        <label htmlFor="bio">Short Bio</label>
-                        <input
-                            id="bio"
-                            type="text"
-                            name="bio"
-                            required={true}
-                            placeholder="Enter Bio"
-                            value="I like to sing"
-                            onChange={handleChange}
-                        />
-                    </section>
-                </form>
-            </div >
-
-        </>
-    )
-}
-export default Profile
+export default Profile;
