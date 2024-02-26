@@ -7,6 +7,13 @@ import { useState } from 'react';
 export default function Chat(){
 
     const [selectedUserId,setSelectedUserId] = useState(null);
+    const [data,setData] = useState("");
+
+
+    const handleChange = (e) => {
+        setData(e.target.value);
+    };
+
 
     return (
         <div className="flex h-screen">
@@ -82,9 +89,11 @@ export default function Chat(){
                 </div>
                 <form className="flex gap-2 my-10" onSubmit>
                     <input type="text"
-                        value= "Message Text"
+                        value={data}
                         placeholder="Type your message here"
-                        className="bg-white flex-grow border rounded-sm p-2"/>
+                        className="bg-white flex-grow border rounded-sm p-2"
+                        onChange= {handleChange}
+                        />
                     <label className="bg-blue-200 p-2 text-gray-600 cursor-pointer rounded-sm border border-blue-200">
                         <input type="file" className="hidden" onChange />
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
