@@ -13,6 +13,8 @@ const Signup = () => {
     phone_number: "",
     password: "",
     confirmPassword: "",
+    profilePicture: null,
+    profilePictureName: "",
   });
 
   const navigate = useNavigate();
@@ -30,10 +32,22 @@ const Signup = () => {
     setFormData((prevState) => ({ ...prevState, skill: selectedOptions }));
   };
 
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, profilePicture: e.target.files[0], profilePictureName: e.target.files[0].name });
+  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add validation for password and confirm password match here
-    navigate("/weLogin");
+    try {
+      const formDataToUpload = new FormData();
+      formDataToUpload.append("profilePicture", formData.profilePicture);
+      // Make your Axios request to upload the file here
+      // Example:
+      // const response = await axios.post("/upload-profile-picture", formDataToUpload);
+      navigate("/weLogin");
+    } catch (error) {
+      console.error("Error", error);
+    }
   };
 
   const options = [
@@ -118,19 +132,18 @@ const Signup = () => {
                 value={formData.phone_number}
                 onChange={handleChange}
               />
-              <label htmlFor="url">Profile Photo</label>
+              <label htmlFor="profilePicture">Upload Profile Picture</label>
               <input
-                id="url"
-                type="url"
-                name="url"
+                type="file"
+                id="profilePicture"
+                name="profilePicture"
                 className="form-control mb-3"
-                placeholder="Enter Profile Photo URL"
-                required={true}
-                value={formData.url}
-                onChange={handleChange}
+                onChange={handleFileChange}
               />
               <div className="photo-container">
-                {formData.url && <img src={formData.url} alt="Profile" />}
+                {formData.profilePictureName && (
+                  <p>{formData.profilePictureName}</p>
+                )}
               </div>
             </div>
           </div>
