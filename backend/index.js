@@ -2,6 +2,8 @@ import express from 'express';
 import { PORT, mongodbURL } from './config.js';
 import mongoose from 'mongoose';
 import userRoutes from './routes/UserRoutes.js';
+import AdminRoutes from './routes/AdminRoutes.js';
+import EventRoutes from './routes/EventRoutes.js';
 const app=express();
 
 app.use(express.json());
@@ -13,6 +15,12 @@ app.get('/', (request, response) => {
 
 // User Routes
 app.use('/user', userRoutes);
+
+//Admin Routes
+app.use('/admin', AdminRoutes);
+
+//Event Routes
+app.use('/events', EventRoutes);
 
 app.listen(PORT, () => {
     console.log('Server Running');
