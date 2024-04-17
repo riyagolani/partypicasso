@@ -101,13 +101,13 @@ const Profile = () => {
                 onChange={handleChangeInterest}
               />
               <label htmlFor="url">Profile Photo</label>
-              <input
+              {/* <input
                 type="url"
                 className="form-control mb-3"
                 name="url"
                 value={userData.url}
                 onChange={handleChange}
-              />
+              /> */}
               <div className="photo-container">
                 {userData.url && <img src={userData.url} alt="Profile" />}
               </div>
