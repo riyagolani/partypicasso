@@ -34,9 +34,12 @@ const HostDashboard = () => {
                 <p>No events applied yet</p>
               ) : (
                 appliedEvents.map((event) => (
-                  <Link key={event.id} to={`/event/${event.id}`} className="event-link">
+                  <Link key={event.id} to={`/eventdetails/${event.id}`} className="event-link">
                     <EventCard event={event} />
                   </Link>
+                //   <Link key={event.id} to={`/eventdetails`} className="event-link">
+                //   <EventCard event={event} />
+                // </Link>
                 ))
               )}
             </div>

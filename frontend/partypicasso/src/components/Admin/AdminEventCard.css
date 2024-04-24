@@ -1,0 +1,58 @@
+/* AdminEventCard.css */
+
+.admin-event-card {
+    background-color: #e8e8e8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin: 20px auto;
+}
+
+.event-details {
+    margin-bottom: 20px;
+}
+
+.event-details {
+    height: auto;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 15%; /* Apply rounded corners */
+}
+.event-image {
+    height: 150px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 15%; /* Apply rounded corners */
+    margin-bottom: 20px;
+}
+
+.action-buttons button {
+    margin-top: 15px;
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.action-buttons button:hover {
+    background-color: #45a049;
+}
+
+.action-buttons button:last-child {
+    background-color: #f44336;
+}
+
+.action-buttons button:last-child:hover {
+    background-color: #c0392b;
+}
