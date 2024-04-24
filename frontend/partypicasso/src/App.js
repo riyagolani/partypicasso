@@ -13,7 +13,8 @@ import WeLogin from "./components/Login/weLogin";
 import Profile from "./components/Profile/Profile";
 import EventDetails from "./components/Events/EventDetails";
 import BookingDetails from "./components/Events/BookingDetails";
-
+import AdminDashboard from "./components/Admin/AdminDashboard";
+import AdminEventCard from "./components/Admin/AdminEventCard";
 function App() {
   return (
     <>
@@ -31,8 +32,10 @@ function App() {
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
             <Route path="/welogin" element={<WeLogin />} />
-            <Route path="/eventdetails" element={<EventDetails />} />
+            <Route path="/eventdetails/:id" element={<EventDetails />} />
             <Route path="/bookingdetails" element={<BookingDetails />} />
+            <Route path="/AdminDashboard" element={<AdminDashboard />} />
+            <Route path="/AdminEventCard" element={<AdminEventCard />} />
           </Routes>
         </Router>
       </div>
