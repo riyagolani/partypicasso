@@ -9,7 +9,7 @@
     margin: 20px auto;
 }
 
-.event-details {
+.admin-event-details {
     margin-bottom: 20px;
 }
 
@@ -20,7 +20,7 @@
     margin: 0 auto;
     border-radius: 15%; /* Apply rounded corners */
 }
-.event-image {
+.admin-event-image {
     height: 150px;
     width: auto;
     display: block;

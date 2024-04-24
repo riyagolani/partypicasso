@@ -17,14 +17,16 @@ const HostForm = () => {
     bookingCharge: "",
     capacity: "",
     category: "",
+    image: null, // Include image in formData
   });
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -35,8 +37,21 @@ const HostForm = () => {
     });
   };
 
+  const handleImageChange = (e) => {
+    const selectedImage = e.target.files[0];
+
+    // Update formData with selected image
+    setFormData({
+      ...formData,
+      image: selectedImage,
+    });
+  };
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    alert(JSON.stringify(formData));
+
     // Add form submission logic here
     navigate("/EventCreatedPage");
   };
@@ -219,7 +234,28 @@ const HostForm = () => {
               </select>
             </div>
           </div>
-          <div className="text-center mt-4">
+
+          <div className="form-group">
+            <label htmlFor="eventImage">Event Image</label>
+            <input
+              type="file"
+              className="form-control"
+              id="eventImage"
+              name="eventImage"
+              onChange={handleImageChange}
+              required
+            />
+          </div>
+          {/* Image preview */}
+          {/* {formData.image && (
+            <img
+              src={URL.createObjectURL(formData.image)}
+              alt="Event"
+              className="mt-3 "
+              style={{ maxWidth: "300px", maxHeight: "300px" }}
+            />
+          )} */}
+          <div className="mt-4">
             <button type="submit" className="btn btn-primary">
               Submit
             </button>

@@ -64,3 +64,8 @@
     margin-bottom: -10px;
   }
   
+  .hostform-image{
+    width: 100px;
+    height: auto;
+    justify-content: center;
+  }
