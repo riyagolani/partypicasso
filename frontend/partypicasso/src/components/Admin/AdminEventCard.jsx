@@ -4,8 +4,8 @@ import "./AdminEventCard.css";
 const AdminEventCard = ({ event, onAccept, onReject, imageUrl }) => {
     return (
         <div className="admin-event-card">
-            <div className="event-details">
-                <img src={imageUrl} alt={event.name} className="event-image" />
+            <div className="admin-event-details">
+                <img src={imageUrl} alt={event.name} className="admin-event-image" />
                 <h2>{event.name}</h2>
                 <p>Date: {event.date}</p>
                 <p>Description: {event.description}</p>

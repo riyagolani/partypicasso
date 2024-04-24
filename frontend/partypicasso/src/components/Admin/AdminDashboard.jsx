@@ -8,11 +8,11 @@ const AdminDashboard = () => {
     const [requestedEvents, setRequestedEvents] = useState([
         { id: 1, name: "Event 1", date: "2024-05-01", description: "Description of Event 1", hostName: "Host 1", hostId: 101 },
         { id: 2, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
-        { id: 2, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
-        { id: 2, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
-        { id: 2, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
-        { id: 2, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
-        { id: 2, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
+        { id: 3, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
+        { id: 4, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
+        { id: 5, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
+        { id: 6, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
+        { id: 7, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
     ]);
 
     // Function to handle event acceptance
