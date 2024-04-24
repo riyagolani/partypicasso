@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AdminDashboard.css";
 import admindashboardImg from "../../Images/admindashboard_image.jpg";
-import AdminEventCard from "./AdminEventCard.js";
+import AdminEventCard from "./AdminEventCard.jsx";
 
 const AdminDashboard = () => {
     // Sample event request data (assuming it's an array of objects)
