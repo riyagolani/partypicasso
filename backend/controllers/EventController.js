@@ -1,4 +1,5 @@
 import Event from '../models/EventModel.js';
+import EventRequest from '../models/EventRequestModel.js';
 // import Chat from '../models/Chat.js';
 // import Booking from '../models/Booking.js';
 // import Confirmation from '../models/Confirmation.js';
@@ -44,6 +45,18 @@ export const submitEventProposal = async (request, response) => {
 
         // Save the event proposal to the database
         await newEventProposal.save();
+
+        // Create new event request
+        const newEventRequest = new EventRequest({
+            hostId: id,
+            eventId: newEventProposal._id, // Assuming the event ID is stored in _id field
+            eventName: eventData.name,
+            requestStatus: 'pending',
+            reasonForRejection: null // Initially set to null
+        });
+
+        // Save the event request to the database
+        await newEventRequest.save();
 
         // Send confirmation message
         return response.status(201).json({ message: 'Event proposal submitted successfully.' });
