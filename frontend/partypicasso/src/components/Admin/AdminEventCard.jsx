@@ -1,20 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AdminEventCard.css";
 
-const AdminEventCard = ({ event, onAccept, onReject, imageUrl }) => {
+const AdminEventCard = ({ eventRequest, onAccept, onReject, imageUrl }) => {
+    // Destructure eventRequest object and provide default values for properties
+    const { _id, status, reasonForRejection } = eventRequest;
+    const { name, date, description } = eventRequest.eventId;
+    const { username: hostName, email: hostEmail } = eventRequest.hostId;
+
+    // Format date string
+    const formattedDate = new Date(date).toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true
+    });
+
+    // State to store the reason for rejection
+    const [rejectionReason, setRejectionReason] = useState("");
+
+    const handleReject = () => {
+        // Call the onReject function with the event ID and the reason for rejection
+        onReject(_id, rejectionReason);
+        // Reset the rejectionReason state
+        setRejectionReason("");
+    };
+
     return (
-        <div className="admin-event-card">
-            <div className="admin-event-details">
-                <img src={imageUrl} alt={event.name} className="admin-event-image" />
-                <h2>{event.name}</h2>
-                <p>Date: {event.date}</p>
-                <p>Description: {event.description}</p>
-                <p>Host: {event.hostName}</p>
-                <p>Host ID: {event.hostId}</p>
+        <div className="admin-event-card bg-white rounded-lg shadow-md p-4 mb-4">
+            <div className="event-image-container mb-4">
+                <img src={imageUrl} alt={name} className="admin-event-image rounded" />
             </div>
-            <div className="action-buttons">
-                <button onClick={() => onAccept(event.id)}>Accept</button>
-                <button onClick={() => onReject(event.id)}>Reject</button>
+            <div className="eventRequest-details">
+                <p className="text-xs text-gray-500 mb-2">Current Request Status: {status}</p>
+                <h2 className="text-lg font-bold mb-2">{name}</h2>
+                <p className="text-sm mb-2">{description}</p>
+                <p className="text-sm mb-2">On {formattedDate}</p>
+                <p className="text-sm mb-2">Hosted By: {hostName}</p>
+                <p className="text-sm mb-2">Contact: {hostEmail}</p>
+                {status === "pending" && (
+                    <div className="reason-for-rejection mb-2">
+                        <input
+                            type="text"
+                            placeholder="Reason for rejection"
+                            value={rejectionReason}
+                            onChange={(e) => setRejectionReason(e.target.value)}
+                            className="border border-gray-300 rounded-md px-2 py-1 w-full"
+                        />
+                    </div>
+                )}
+                <p className="text-xs text-gray-500 mb-2">Reason for Rejection: {reasonForRejection}</p>
+            </div>
+
+            <div className="action-buttons mt-4">
+                <button className="mr-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => onAccept(_id)}>Accept</button>
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={handleReject}>Reject</button>
             </div>
         </div>
     );

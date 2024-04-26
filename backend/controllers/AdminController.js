@@ -20,6 +20,7 @@ export const adminLogin = async (request, response)=>{
         const payload = {
             id: admin._id,
             username: admin.username,
+            role: admin.role,
         };
         const token = jwt.sign(payload, JWT_SECRET, {expiresIn: '1h'});
         console.log('Admin has logged in!');
@@ -55,6 +56,7 @@ export const manageEventRequest = async (request, response) => {
     try {
         // Check if the user is an admin
         if (request.user.role !== 'admin') {
+            console.log('Access forbidden: Only admins can access this resource.');
             return response.status(403).json({ message: 'Access forbidden: Only admins can access this resource.' });
         }
 
@@ -64,6 +66,7 @@ export const manageEventRequest = async (request, response) => {
         // Find the event request by ID
         const eventRequest = await EventRequest.findById(requestId);
         if (!eventRequest) {
+            console.log('Event request not found.');
             return response.status(404).json({ message: 'Event request not found.' });
         }
 
@@ -85,6 +88,7 @@ export const manageEventRequest = async (request, response) => {
                 await event.save();
             }
         }
+        console.log('Event request updated successfully.');
         return response.status(200).json({ message: 'Event request updated successfully.' });
     } catch (error) {
         console.error('Error updating event request:', error);

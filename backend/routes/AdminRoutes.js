@@ -11,6 +11,6 @@ router.post('/login', adminLogin);
 router.get('/event-requests', authenticate, getAllEventRequests);
 
 // Accept or decline Event Request
-router.get('/event-requests/:requestId', authenticate, manageEventRequest);
+router.put('/event-requests/:requestId', authenticate, manageEventRequest);
 
 export default router;

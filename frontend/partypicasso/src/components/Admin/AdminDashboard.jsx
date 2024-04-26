@@ -1,36 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AdminDashboard.css";
 import admindashboardImg from "../../Images/admindashboard_image.jpg";
 import AdminEventCard from "./AdminEventCard.jsx";
-
+import axios from 'axios';
+const SERVER_ROUTE = 'http://localhost:5555/admin/';
 const AdminDashboard = () => {
     // Sample event request data (assuming it's an array of objects)
-    const [requestedEvents, setRequestedEvents] = useState([
-        { id: 1, name: "Event 1", date: "2024-05-01", description: "Description of Event 1", hostName: "Host 1", hostId: 101 },
-        { id: 2, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
-        { id: 3, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
-        { id: 4, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
-        { id: 5, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
-        { id: 6, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
-        { id: 7, name: "Event 2", date: "2024-05-10", description: "Description of Event 2", hostName: "Host 2", hostId: 102 },
-    ]);
+    const [requestedEvents, setRequestedEvents] = useState([]);
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        setLoading(true);
+        const token = localStorage.getItem("token");
+        const fetchEventRequests = async () => {
+            try {
+                const response = await axios.get(`${SERVER_ROUTE}event-requests`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setRequestedEvents(response.data);
+                setLoading(false);
+                console.log(response.data); // Log eventRequests object to the console
+            }
+            catch (error) {
+                console.log(error);
+                setLoading(false);
+            }
+        };
+        fetchEventRequests();
+    }, []);
 
     // Function to handle event acceptance
-    const handleAccept = (eventId) => {
+    const handleAccept = async (eventId) => {
+
         // Logic to accept event request
         console.log("Event accepted with ID:", eventId);
         // Update requested events after accepting
-        // For now, let's assume the event is removed from the list after accepting
-        setRequestedEvents(requestedEvents.filter(event => event.id !== eventId));
+        try{
+            const token = localStorage.getItem('token');
+            await axios.put(`${SERVER_ROUTE}event-requests/${eventId}`,{
+                status: 'accepted'
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+        }catch(error){
+            console.log(error);
+        }   
     };
 
-    // Function to handle event rejection
-    const handleReject = (eventId) => {
-        // Logic to reject event request
-        console.log("Event rejected with ID:", eventId);
-        // Update requested events after rejection
-        // For now, let's assume the event is removed from the list after rejection
-        setRequestedEvents(requestedEvents.filter(event => event.id !== eventId));
+    const handleReject = async (eventId, reasonForRejection) => {
+        try {
+            const token = localStorage.getItem("token");
+            await axios.put(`${SERVER_ROUTE}event-requests/${eventId}`, { // Use server route variable here
+                status: 'rejected',
+                reasonForRejection: reasonForRejection
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            // Update UI or fetch event requests again to reflect changes
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -50,16 +84,20 @@ const AdminDashboard = () => {
                         </div>
                         <h2 className="admindashboard-events-title">Requested Events</h2>
                         <div className="hostdashboard-event-list event-list">
-                            {requestedEvents.map(event => (
-                                <AdminEventCard 
-                                    key={event.id}
-                                    event={event}
-                                    onAccept={handleAccept}
-                                    onReject={handleReject}
-                                    imageUrl={admindashboardImg} // Pass small size event image URL
-                                />
+                            {requestedEvents.map(eventrequest => (
+                                <div key={eventrequest._id}>
+                                    <AdminEventCard
+                                        key={eventrequest._id}
+                                        eventRequest={eventrequest} // Pass the entire event object as a prop
+                                        onAccept={handleAccept} // Pass onAccept function if needed
+                                        onReject={handleReject} // Pass onReject function if needed
+                                        imageUrl={admindashboardImg} // Pass imageUrl if needed
+                                    />
+                                </div>
                             ))}
                         </div>
+
+
                     </div>
                 </div>
             </div>
