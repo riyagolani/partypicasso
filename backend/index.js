@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import userRoutes from "./routes/UserRoutes.js";
 import AdminRoutes from "./routes/AdminRoutes.js";
 import EventRoutes from "./routes/EventRoutes.js";
+import cors from "cors";
 import chatRoutes from "./routes/chatRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 const app = express();
