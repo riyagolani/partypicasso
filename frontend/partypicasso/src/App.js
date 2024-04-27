@@ -15,6 +15,7 @@ import EventDetails from "./components/Events/EventDetails";
 import BookingDetails from "./components/Events/BookingDetails";
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import AdminEventCard from "./components/Admin/AdminEventCard";
+
 function App() {
   return (
     <>
