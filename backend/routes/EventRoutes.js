@@ -1,20 +1,23 @@
 import express from 'express';
 import {authenticate} from '../middleware/authMiddleware.js';
-import { submitEventProposal } from '../controllers/EventController.js';
+import { getEvents, searchEvents, getEventDetails, submitEventProposal, eventProposalStatus, bookEvent} from '../controllers/EventController.js';
 
 const router = express.Router();
 
 // Event Listing API
-// router.get('/', getAllEvents);
+router.get('/', authenticate, getEvents);
 
-// // Event Search API
-// router.get('/search', searchEvents);
+// Event Search API
+router.get('/search', authenticate, searchEvents);
 
-// // Event Details API
-// router.get('/:eventId', getEventDetails);
+// Event Details API
+router.get('/:eventId', authenticate, getEventDetails);
 
-// Event Host Request
-router.post('/host', authenticate, submitEventProposal);
+// Event Proposal Request
+router.post('/proposal', authenticate, submitEventProposal);
+
+// Event Proposal Request Status
+router.get('/proposal/:requestId/status', authenticate, eventProposalStatus);
 
 // // Group Chat API
 // router.get('/:eventId/chat', authenticate, getEventChat);
@@ -23,7 +26,7 @@ router.post('/host', authenticate, submitEventProposal);
 // router.get('/user/chats', authenticate, getUserChats);
 
 // // Booking API
-// router.post('/:eventId/bookings', authenticate, bookEvent);
+router.post('/:eventId/book', authenticate, bookEvent);
 
 // // Confirmation API
 // router.post('/booking/:bookingId/confirmations', authenticate, confirmBooking);
