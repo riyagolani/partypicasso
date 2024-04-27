@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom"; // Import Link from react-router-dom
 import "./Login.css"; // Import the CSS file
-import axios from 'axios';
+import axios from "axios";
 
 const Login = () => {
   const location = useLocation();
@@ -29,15 +29,17 @@ const Login = () => {
 
     const loginEndpoint = userType === "Admin" ? "/admin/login" : "/user/login";
     try {
-      const response = await axios.post(`http://localhost:5555${loginEndpoint}`, {
-        username: formData.username,
-        password: formData.password,
-      });
+      const response = await axios.post(
+        `http://localhost:5555${loginEndpoint}`,
+        {
+          username: formData.username,
+          password: formData.password,
+        }
+      );
       const { token } = response.data;
       localStorage.setItem("token", token);
       navigate("/AdminDashboard");
-    }
-    catch (error) {
+    } catch (error) {
       console.log("Error logging in", error);
     }
   };

@@ -26,7 +26,9 @@ const EventCard = ({ event }) => {
   return (
     <div className="event-card">
       <h3 className="event-card-name">{event.name}</h3>
-      <p className="event-card-status" style={{ color: statusColor }}>{statusText}</p>
+      <p className="event-card-status" style={{ color: statusColor }}>
+        {statusText}
+      </p>
       {/* <p className="event-card-id">Event ID: {event.id}</p> */}
     </div>
   );

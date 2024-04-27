@@ -17,16 +17,24 @@ const HostDashboard = () => {
       <div className="hostdashboard-container">
         <div className="hostdashboard-card card">
           <div className="hostdashboard-card-body card-body">
-            <h1 className="hostdashboard-card-title card-title">Host Dashboard</h1>
+            <h1 className="hostdashboard-card-title card-title">
+              Host Dashboard
+            </h1>
             <hr className="hostdashboard-divider" />
             <div className="hostdashboard-image-container">
-              <img src={hostdashboardImg} alt="Host Dashboard" className="hostdashboard-image" />
+              <img
+                src={hostdashboardImg}
+                alt="Host Dashboard"
+                className="hostdashboard-image"
+              />
               <h2 className="image-text">Welcome to your Dashboard</h2>
             </div>
             <div className="hostdashboard-subtitle">
               <p>Ready to Register your Event with us !!</p>
               <p>Manage your events and registrations here.</p>
-              <Link to="/hostform" className="btn btn-primary mt-4">Register Event</Link>
+              <Link to="/hostform" className="btn btn-primary mt-4">
+                Register Event
+              </Link>
             </div>
             <h2 className="hostdashboard-events-title">Applied Events</h2>
             <div className="hostdashboard-event-list event-list">
@@ -34,12 +42,16 @@ const HostDashboard = () => {
                 <p>No events applied yet</p>
               ) : (
                 appliedEvents.map((event) => (
-                  <Link key={event.id} to={`/eventdetails/${event.id}`} className="event-link">
+                  <Link
+                    key={event.id}
+                    to={`/eventdetails/${event.id}`}
+                    className="event-link"
+                  >
                     <EventCard event={event} />
                   </Link>
-                //   <Link key={event.id} to={`/eventdetails`} className="event-link">
-                //   <EventCard event={event} />
-                // </Link>
+                  //   <Link key={event.id} to={`/eventdetails`} className="event-link">
+                  //   <EventCard event={event} />
+                  // </Link>
                 ))
               )}
             </div>

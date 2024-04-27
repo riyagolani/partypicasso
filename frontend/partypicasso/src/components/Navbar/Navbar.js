@@ -2,7 +2,6 @@ import React from "react";
 import "../../App.css";
 import { Navbar, Nav } from "react-bootstrap";
 import Logo from "../../Images/Logo.jpg";
-
 import { Link } from "react-router-dom";
 
 function Navigationbar() {

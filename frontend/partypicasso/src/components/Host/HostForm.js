@@ -46,7 +46,6 @@ const HostForm = () => {
       image: selectedImage,
     });
   };
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -33,9 +33,13 @@ const Signup = () => {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, profilePicture: e.target.files[0], profilePictureName: e.target.files[0].name });
+    setFormData({
+      ...formData,
+      profilePicture: e.target.files[0],
+      profilePictureName: e.target.files[0].name,
+    });
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
