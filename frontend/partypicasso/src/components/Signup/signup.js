@@ -3,10 +3,10 @@ import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import "./signup.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    user_id: 1,
     username: "",
     email: "",
     Interest: [],
@@ -15,6 +15,7 @@ const Signup = () => {
     confirmPassword: "",
     profilePicture: null,
     profilePictureName: "",
+    role:"",
   });
 
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Signup = () => {
   };
 
   const handleChange2 = (selectedOptions) => {
-    setFormData((prevState) => ({ ...prevState, skill: selectedOptions }));
+    setFormData((prevState) => ({ ...prevState, Interest: selectedOptions }));
   };
 
   const handleFileChange = (e) => {
@@ -40,19 +41,42 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formDataToUpload = new FormData();
-      formDataToUpload.append("profilePicture", formData.profilePicture);
-      // Make your Axios request to upload the file here
-      // Example:
-      // const response = await axios.post("/upload-profile-picture", formDataToUpload);
+      const { password, confirmPassword } = formData;
+  
+      // Check if password and confirmed password match
+      if (password !== confirmPassword) {
+        console.error("Passwords do not match");
+        alert("Passwords do not match");
+        document.getElementById('password').focus();
+        return;
+      }
+      const response = await axios.post(
+        'http://localhost:5555/user/',
+        {
+          username: formData.username,
+          password: formData.password,
+          email:formData.email,
+          contact:formData.phone_number,
+          role:formData.role,
+
+        });
+      
       navigate("/weLogin");
     } catch (error) {
       console.error("Error", error);
     }
   };
+  
+
+   // Define options for role dropdown
+   const roleOptions = [
+    { label: "Admin", value: "Admin" },
+    { label: "Host", value: "Host" },
+    { label: "User", value: "User" },
+  ];
 
   const options = [
     { label: "Party", value: "Party" },
@@ -149,6 +173,21 @@ const Signup = () => {
                   <p>{formData.profilePictureName}</p>
                 )}
               </div>
+              {/* Role Selection */}
+              <label htmlFor="role">Role</label>
+              <Select
+                name="role"
+                options={roleOptions}
+                required={true}
+                className="mb-3"
+                value={roleOptions.find((option) => option.value === formData.role)}
+                onChange={(selectedOption) =>
+                  setFormData({
+                    ...formData,
+                    role: selectedOption.value,
+                  })
+                }
+              />
             </div>
           </div>
           <div className="text-center">
