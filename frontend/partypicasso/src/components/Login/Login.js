@@ -38,7 +38,22 @@ const Login = () => {
       );
       const { token } = response.data;
       localStorage.setItem("token", token);
-      navigate("/AdminDashboard");
+
+      switch (userType) {
+        case "Admin":
+          navigate("/AdminDashboard");
+          break;
+        case "User":
+          navigate("/dashboard");
+          break;
+        case "Host":
+          navigate("/HostDashbord");
+          break;
+        default:
+          navigate("/welogin");
+          break;
+      }
+      
     } catch (error) {
       console.log("Error logging in", error);
     }
