@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom"; // Import Link from react-router-dom
 import "./Login.css"; // Import the CSS file
 import axios from "axios";
@@ -15,6 +15,28 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  // Check if user is already logged in (if "Remember Me" is checked and credentials are saved)
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // Redirect to dashboard based on userType
+      switch (userType) {
+        case "Admin":
+          navigate("/AdminDashboard");
+          break;
+        case "User":
+          navigate("/dashboard");
+          break;
+        case "Host":
+          navigate("/HostDashboard");
+          break;
+        default:
+          navigate("/welogin");
+          break;
+      }
+    }
+  }, [userType, navigate]);
+
   const handleChange = (e) => {
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
@@ -27,7 +49,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loginEndpoint = userType === "Admin" ? "/admin/login" : "/user/login";
+    const token = localStorage.getItem("token");
+
+    if(token){
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
+
+    const loginEndpoint =
+      userType === "Admin" ? "/admin/login" : "/user/login";
     try {
       const response = await axios.post(
         `http://localhost:5555${loginEndpoint}`,
@@ -38,6 +67,7 @@ const Login = () => {
       );
       const { token } = response.data;
       localStorage.setItem("token", token);
+      localStorage.setItem("userInfo", JSON.stringify(response));
 
       switch (userType) {
         case "Admin":
@@ -47,13 +77,12 @@ const Login = () => {
           navigate("/dashboard");
           break;
         case "Host":
-          navigate("/HostDashbord");
+          navigate("/HostDashboard");
           break;
         default:
           navigate("/welogin");
           break;
       }
-      
     } catch (error) {
       console.log("Error logging in", error);
     }

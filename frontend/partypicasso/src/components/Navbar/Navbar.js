@@ -2,9 +2,21 @@ import React from "react";
 import "../../App.css";
 import { Navbar, Nav } from "react-bootstrap";
 import Logo from "../../Images/Logo.jpg";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate  } from "react-router-dom";
+
 
 function Navigationbar() {
+
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    // Clear token from local storage
+    localStorage.removeItem("token");
+    navigate("/weLogin");
+    // Redirect to login page or homepage
+    // You may use useHistory hook or any other navigation method here
+  };
+
   return (
     <>
       <Navbar expand="lg" className="custom-navbar">
@@ -29,19 +41,18 @@ function Navigationbar() {
             </Nav.Link>
             <Nav.Link
               as={Link}
-              to={"/HostForm"}
-              className="text-light px-3"
-              style={{ marginRight: "10px" }}
-            >
-              Host Form
-            </Nav.Link>
-            <Nav.Link
-              as={Link}
               to={"/weLogin"}
               className="text-light px-3"
               style={{ marginRight: "10px" }}
             >
               LogIn
+            </Nav.Link>
+            <Nav.Link
+              onClick={handleSignOut} // Call handleSignOut function on click
+              className="text-light px-3"
+              style={{ marginRight: "10px" }}
+            >
+              Sign Out
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
