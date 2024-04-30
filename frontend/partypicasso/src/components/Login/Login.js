@@ -41,10 +41,6 @@ const Login = () => {
         { username: formData.username, password: formData.password },
         config
       );
-<<<<<<< HEAD
-      const { token } = response.data;
-      localStorage.setItem("token", token);
-=======
       localStorage.setItem("userInfo", JSON.stringify(data));
       // try {
       //   const response = await axios.post(
@@ -56,7 +52,6 @@ const Login = () => {
       //   );
       //   const { token } = response.data;
       //   localStorage.setItem("token", token);
->>>>>>> groupChat
 
       switch (userType) {
         case "Admin":
@@ -72,10 +67,6 @@ const Login = () => {
           navigate("/welogin");
           break;
       }
-<<<<<<< HEAD
-      
-=======
->>>>>>> groupChat
     } catch (error) {
       console.log("Error logging in", error);
     }
