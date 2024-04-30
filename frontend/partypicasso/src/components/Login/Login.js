@@ -6,7 +6,8 @@ import axios from "axios";
 const Login = () => {
   const location = useLocation();
   const userType = new URLSearchParams(location.search).get("user");
-
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -58,16 +59,30 @@ const Login = () => {
     const loginEndpoint =
       userType === "Admin" ? "/admin/login" : "/user/login";
     try {
-      const response = await axios.post(
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const { data } = await axios.post(
         `http://localhost:5555${loginEndpoint}`,
-        {
-          username: formData.username,
-          password: formData.password,
-        }
+        { username: formData.username, password: formData.password },
+        config
       );
-      const { token } = response.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("userInfo", JSON.stringify(response));
+
+
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      // try {
+      //   const response = await axios.post(
+      //     `http://localhost:5555${loginEndpoint}`,
+      //     {
+      //       username: formData.username,
+      //       password: formData.password,
+      //     }
+      //   );
+      //   const { token } = response.data;
+      //   localStorage.setItem("token", token);
 
       switch (userType) {
         case "Admin":
