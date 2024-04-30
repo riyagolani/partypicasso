@@ -32,6 +32,9 @@ app.use("/admin", AdminRoutes);
 //Event Routes
 app.use("/events", EventRoutes);
 
+//Chat Routes
+app.use("/chats", chatRoutes);
+
 app.use(notFound);
 app.use(errorHandler);
 
