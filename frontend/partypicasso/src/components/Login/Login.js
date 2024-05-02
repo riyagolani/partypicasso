@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom"; // Import Link from react-router-dom
 import "./Login.css"; // Import the CSS file
 import axios from "axios";
@@ -6,8 +6,7 @@ import axios from "axios";
 const Login = () => {
   const location = useLocation();
   const userType = new URLSearchParams(location.search).get("user");
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -15,6 +14,28 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
+
+  // Check if user is already logged in (if "Remember Me" is checked and credentials are saved)
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // Redirect to dashboard based on userType
+      switch (userType) {
+        case "Admin":
+          navigate("/AdminDashboard");
+          break;
+        case "User":
+          navigate("/dashboard");
+          break;
+        case "Host":
+          navigate("/HostDashboard");
+          break;
+        default:
+          navigate("/welogin");
+          break;
+      }
+    }
+  }, [userType, navigate]);
 
   const handleChange = (e) => {
     const value =
@@ -28,30 +49,25 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loginEndpoint = userType === "Admin" ? "/admin/login" : "/user/login";
-    try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
+    const token = localStorage.getItem("token");
 
-      const { data } = await axios.post(
+    if(token){
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
+
+    const loginEndpoint =
+      userType === "Admin" ? "/admin/login" : "/user/login";
+    try {
+      const response = await axios.post(
         `http://localhost:5555${loginEndpoint}`,
-        { username: formData.username, password: formData.password },
-        config
+        {
+          username: formData.username,
+          password: formData.password,
+        }
       );
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      // try {
-      //   const response = await axios.post(
-      //     `http://localhost:5555${loginEndpoint}`,
-      //     {
-      //       username: formData.username,
-      //       password: formData.password,
-      //     }
-      //   );
-      //   const { token } = response.data;
-      //   localStorage.setItem("token", token);
+      const { token } = response.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("userInfo", JSON.stringify(response));
 
       switch (userType) {
         case "Admin":
@@ -61,7 +77,7 @@ const Login = () => {
           navigate("/dashboard");
           break;
         case "Host":
-          navigate("/HostDashbord");
+          navigate("/HostDashboard");
           break;
         default:
           navigate("/welogin");
