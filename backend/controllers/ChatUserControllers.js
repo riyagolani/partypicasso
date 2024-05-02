@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import chatUser from "../models/chatuserModel.js";
+import User from "../models/UserModel.js";
 
 //@description     Get or Search all users
 //@route           GET /api/chatUser?search=
@@ -8,14 +8,14 @@ export const allUsers = asyncHandler(async (req, res) => {
   const keyword = req.query.search
     ? {
         $or: [
-          { name: { $regex: req.query.search, $options: "i" } },
+          { username: { $regex: req.query.search, $options: "i" } },
           { email: { $regex: req.query.search, $options: "i" } },
         ],
       }
     : {};
 
-  const users = await chatUser
-    .find(keyword)
-    .find({ _id: { $ne: req.chatUser._id } });
+  const users = await User.find(keyword).find({
+    _id: { $ne: req.User._id },
+  });
   res.send(users);
 });

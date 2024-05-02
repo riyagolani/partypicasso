@@ -29,7 +29,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/HostForm" element={<HostForm />} />
             <Route path="/EventCreatedPage" element={<EventCreatedPage />} />
-            <Route path="/HostDashboard" element={<HostDashboard />} />
+            <Route path="/HostDashbord" element={<HostDashboard />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
             <Route path="/welogin" element={<WeLogin />} />

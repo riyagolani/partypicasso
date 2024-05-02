@@ -98,7 +98,7 @@ const submitEventProposal = async (formData) => {
       // Handle error
     }
   };
-  
+
   return (
     <div className="hostform-container h-screen d-flex justify-content-center align-items-center">
       <div className="hostform p-5">
