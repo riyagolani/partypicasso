@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./hostform.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from 'axios';
 
 const HostForm = () => {
   const [formData, setFormData] = useState({
@@ -47,12 +48,55 @@ const HostForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(JSON.stringify(formData));
 
-    // Add form submission logic here
-    navigate("/EventCreatedPage");
+const submitEventProposal = async (formData) => {
+  try {
+
+    // const user = JSON.parse(localStorage.getItem("userInfo"));
+    const token = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+    // Append image file separately if it exists
+    // if (formData.image) {
+    //   formDataToSend.append('image', formData.image);
+    // }
+
+    const response = await axios.post('http://localhost:5555/events/proposal', {
+      
+    name: formData.eventName,
+    description: formData.description,
+    date: formData.eventDate,
+    location:{ 
+      streetAddress: formData.streetAddress,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode
+      },
+        category: formData.category.toString(),
+        price: parseFloat(formData.bookingCharge),
+        totalSeats: parseInt(formData.capacity),
+      
+    });
+    return response.data; // Assuming the API returns the newly created event data
+  } catch (error) {
+    throw error; // Throw the error to be caught by the caller
+  }
+};
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      // alert(JSON.stringify(formData));
+      const eventData = await submitEventProposal(formData);
+      const eventId = eventData._id;
+      // alert(`Event proposal submitted successfully. Event ID: ${eventId}`);
+      navigate("/EventCreatedPage");
+    } catch (error) {
+      console.error('Error submitting event proposal:', error);
+      // Handle error
+    }
   };
 
   return (
