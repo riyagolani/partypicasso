@@ -31,9 +31,6 @@ const AdminDashboard = () => {
 
   // Function to handle event acceptance
   const handleAccept = async (eventId) => {
-    // Logic to accept event request
-    console.log("Event accepted with ID:", eventId);
-    // Update requested events after accepting
     try {
       const token = localStorage.getItem("token");
       await axios.put(
@@ -47,18 +44,23 @@ const AdminDashboard = () => {
           },
         }
       );
+      // Update the requestedEvents state to reflect the changes
+      setRequestedEvents((prevEvents) =>
+        prevEvents.map((event) =>
+          event._id === eventId ? { ...event, status: "accepted" } : event
+        )
+      );
     } catch (error) {
       console.log(error);
     }
   };
-
+  
   const handleReject = async (eventId, reasonForRejection) => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
         `${SERVER_ROUTE}event-requests/${eventId}`,
         {
-          // Use server route variable here
           status: "rejected",
           reasonForRejection: reasonForRejection,
         },
@@ -68,11 +70,17 @@ const AdminDashboard = () => {
           },
         }
       );
-      // Update UI or fetch event requests again to reflect changes
+      // Update the requestedEvents state to reflect the changes
+      setRequestedEvents((prevEvents) =>
+        prevEvents.map((event) =>
+          event._id === eventId ? { ...event, status: "rejected" } : event
+        )
+      );
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   return (
     <div className="admindashboard-container-bg">

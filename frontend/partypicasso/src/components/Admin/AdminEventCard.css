@@ -56,3 +56,11 @@
 .action-buttons button:last-child:hover {
     background-color: #c0392b;
 }
+
+.bg-red-100 {
+    background-color: #fa9b9b; /* light red */
+  }
+  
+  .bg-green-100 {
+    background-color: #87dd93; /* light green */
+  }

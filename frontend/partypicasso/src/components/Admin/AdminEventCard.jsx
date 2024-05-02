@@ -27,8 +27,18 @@ const AdminEventCard = ({ eventRequest, onAccept, onReject, imageUrl }) => {
     setRejectionReason("");
   };
 
+  // Determine the background color based on the status
+  let backgroundColor;
+  if (status === "rejected") {
+    backgroundColor = "bg-red-100";
+  } else if (status === "accepted") {
+    backgroundColor = "bg-green-100";
+  } else {
+    backgroundColor = "bg-white";
+  }
+
   return (
-    <div className="admin-event-card bg-white rounded-lg shadow-md p-4 mb-4">
+    <div className={`admin-event-card rounded-lg shadow-md p-4 mb-4 ${backgroundColor}`}>
       <div className="event-image-container mb-4">
         <img src={imageUrl} alt={name} className="admin-event-image rounded" />
       </div>
@@ -52,24 +62,32 @@ const AdminEventCard = ({ eventRequest, onAccept, onReject, imageUrl }) => {
             />
           </div>
         )}
-        <p className="text-xs text-gray-500 mb-2">
-          Reason for Rejection: {reasonForRejection}
-        </p>
+        {(status !== "pending" && status !== "accepted") && (
+          <p className="text-xs text-gray-500 mb-2">
+            Reason for Rejection: {reasonForRejection || "None"}
+          </p>
+        )}
       </div>
 
       <div className="action-buttons mt-4">
-        <button
-          className="mr-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => onAccept(_id)}
-        >
-          Accept
-        </button>
-        <button
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          onClick={handleReject}
-        >
-          Reject
-        </button>
+        {status === "pending" && (
+          <>
+            <button
+              className={`mr-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ${status !== "pending" && "bg-gray-400 cursor-not-allowed"}`}
+              onClick={() => status === "pending" && onAccept(_id)}
+              disabled={status !== "pending"}
+            >
+              Accept
+            </button>
+            <button
+              className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ${status !== "pending" && "bg-gray-400 cursor-not-allowed"}`}
+              onClick={() => status === "pending" && handleReject()}
+              disabled={status !== "pending"}
+            >
+              Reject
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
