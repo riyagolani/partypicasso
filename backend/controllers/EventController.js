@@ -112,7 +112,7 @@ export const submitEventProposal = async (request, response) => {
         const { id, role } = request.user;
 
         // Check if the user has the 'host' role
-        if (role !== 'Host') {
+        if (role !== 'host') {
             return response.status(403).json({ message: 'Unauthorized: Only hosts can submit event proposals.' });
         }
 
@@ -123,15 +123,15 @@ export const submitEventProposal = async (request, response) => {
         eventData.organizer = id;
 
         // Create new event proposal
-        const newEventProposal = new Event(eventData);
+        const newEvent = new Event(eventData);
 
         // Save the event proposal to the database
-        await newEventProposal.save();
+        await newEvent.save();
 
         // Create new event request
         const newEventRequest = new EventRequest({
             hostId: id,
-            eventId: newEventProposal._id, // Assuming the event ID is stored in _id field
+            eventId: newEvent._id, // Assuming the event ID is stored in _id field
             eventName: eventData.name,
             requestStatus: 'pending',
             reasonForRejection: null // Initially set to null
@@ -142,7 +142,7 @@ export const submitEventProposal = async (request, response) => {
 
         // Send confirmation message
         console.log('Event proposal submitted successfully.' );
-        return response.status(201).json(newEventRequest._id);
+        return response.status(201).json({"eventRequestId": newEventRequest._id, "eventId": newEvent._id});
     } catch (error) {
         console.error('Error submitting event proposal:', error);
         return response.status(500).json({ message: 'Internal server error.' });

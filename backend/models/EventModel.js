@@ -3,19 +3,15 @@ import mongoose from 'mongoose';
 const addressSchema = new mongoose.Schema({
     streetAddress: {
       type: String,
-      required: true,
     },
     city: {
       type: String,
-      required: true,
     },
     state: {
       type: String,
-      required: true,
     },
     zipCode: {
       type: String,
-      required: true,
     },
   });
 
@@ -32,9 +28,17 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  startTime: {
+    type: String, // Assuming the start time will be stored as a string (e.g., "10:00 AM")
+  },
+  duration: {
+    type: Number, // Duration in minutes
+  },
   location: {
     type: addressSchema,
-    required: true,
+  },
+  onlineLink: {
+    type: String, // Optional link for online or hybrid events
   },
   category: {
     type: String,
@@ -46,23 +50,23 @@ const eventSchema = new mongoose.Schema({
   },
   organizer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Reference to the UserModel
+    ref: 'User',
   },
   registeredAttendees: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Reference to the UserModel
+    ref: 'User',
   }],
   totalSeats: {
     type: Number,
     required: true,
   },
   chatId: {
-    type: String, // Reference to the group chat for this event
+    type: String,
   },
   proposalStatus: {
     type: String,
-    enum: ['accepted', 'rejected', 'pending'], // Proposal status can be one of these values
-    default: 'pending', // Default value if not specified
+    enum: ['accepted', 'rejected', 'pending'],
+    default: 'pending',
   },
 });
 

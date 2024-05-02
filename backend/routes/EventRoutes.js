@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', authenticate, getEvents);
 
 // Event Lsting API For All The Events
-router.get('/getall',authenticate,getAllEvents);
+router.get('/getAll',authenticate,getAllEvents);
 
 router.get('/:category',authenticate, getCategoryEvents);
 
