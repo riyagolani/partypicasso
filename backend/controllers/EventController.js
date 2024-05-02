@@ -112,7 +112,7 @@ export const submitEventProposal = async (request, response) => {
         const { id, role } = request.user;
 
         // Check if the user has the 'host' role
-        if (role !== 'host') {
+        if (role !== 'Host') {
             return response.status(403).json({ message: 'Unauthorized: Only hosts can submit event proposals.' });
         }
 

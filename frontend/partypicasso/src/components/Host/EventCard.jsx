@@ -3,6 +3,7 @@ import "./EventCard.css";
 
 const EventCard = ({ event, sequenceId }) => {
     const name = event.name;
+    const desc = event.description;
 
   let statusText = event.proposalStatus;
   let statusColor;
@@ -32,7 +33,7 @@ const EventCard = ({ event, sequenceId }) => {
       <p className="event-card-status" style={{ color: statusColor }}>
         {statusText}
       </p>
-      <p className="event-card-id">{sequenceId}</p>
+      <p className="event-card-id">{desc}</p>
     </div>
   );
 };
