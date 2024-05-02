@@ -28,6 +28,35 @@ export const getEvents = async (request, response) => {
     }
 };
 
+// Function to get all the events from the database of perticular host
+export const getAllEvents = async (request, response) => {
+    try {
+        const userId = request.user.id;
+        if (!request.user || request.user.role == 'user') {
+            return response.status(403).json({ message: 'Access forbidden: Only authenticated users with role user can access this resource.' });
+        }
+        const events = await Event.find({ organizer: userId });
+        return response.status(200).json(events);
+    } catch (error) {
+        return response.status(500).json({ message: error.message });
+    }
+};
+
+//By category
+export const getCategoryEvents = async (request, response) => {
+    try {
+        const category = request.params.category;
+        if (!request.user || !request.user.role == 'user') {
+            return response.status(403).json({ message: 'Access forbidden: Only authenticated users with role user can access this resource.' });
+        }
+        const events = await Event.find({ category: category });
+        return response.status(200).json(events);
+    } catch (error) {
+        return response.status(500).json({ message: error.message });
+    }
+};
+
+
 // Function to search events by name, description, or category
 export const searchEvents = async (request, response) => {
     try {

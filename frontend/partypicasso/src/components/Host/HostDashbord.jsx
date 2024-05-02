@@ -1,16 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import EventCard from "./EventCard";
 import hostdashboardImg from "../../Images/hostdashboard_img.jpg"; // Import the image
 import "./HostDashboard.css";
+import axios from "axios";
 
 const HostDashboard = () => {
-  const appliedEvents = [
-    // Event data
-    { id: 1, name: "Event 1", status: "Pending" },
-    { id: 2, name: "Event 2", status: "Approved" },
-    { id: 3, name: "Event 3", status: "Rejected" },
-  ];
+
+  const [Events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const token = localStorage.getItem("token");
+    const fetchEvent = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5555/events/getAll`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setEvents(response.data);
+        setLoading(false);
+        console.log(response.data); // Log eventRequests object to the console
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    };
+    fetchEvent();
+  }, []);
 
   return (
     <div className="hostdashboard-container-bg">
@@ -38,16 +57,16 @@ const HostDashboard = () => {
             </div>
             <h2 className="hostdashboard-events-title">Applied Events</h2>
             <div className="hostdashboard-event-list event-list">
-              {appliedEvents.length === 0 ? (
+              {Events.length === 0 ? (
                 <p>No events applied yet</p>
               ) : (
-                appliedEvents.map((event) => (
+                Events.map((event, index) => (
                   <Link
-                    key={event.id}
-                    to={`/eventdetails/${event.id}`}
+                    key={event._id}
+                    to={`/eventdetails/${event._id}`}
                     className="event-link"
                   >
-                    <EventCard event={event} />
+                    <EventCard event={event} sequenceId={index + 1}/>
                   </Link>
                   //   <Link key={event.id} to={`/eventdetails`} className="event-link">
                   //   <EventCard event={event} />

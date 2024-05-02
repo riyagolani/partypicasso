@@ -52,6 +52,7 @@ const HostForm = () => {
 const submitEventProposal = async (formData) => {
   try {
 
+    // const user = JSON.parse(localStorage.getItem("userInfo"));
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
@@ -90,7 +91,7 @@ const submitEventProposal = async (formData) => {
       // alert(JSON.stringify(formData));
       const eventData = await submitEventProposal(formData);
       const eventId = eventData._id;
-      alert(`Event proposal submitted successfully. Event ID: ${eventId}`);
+      // alert(`Event proposal submitted successfully. Event ID: ${eventId}`);
       navigate("/EventCreatedPage");
     } catch (error) {
       console.error('Error submitting event proposal:', error);

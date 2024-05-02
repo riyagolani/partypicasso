@@ -1,21 +1,23 @@
 import React from "react";
 import "./EventCard.css";
 
-const EventCard = ({ event }) => {
-  let statusText;
+const EventCard = ({ event, sequenceId }) => {
+    const name = event.name;
+
+  let statusText = event.proposalStatus;
   let statusColor;
 
-  switch (event.status) {
-    case "Pending":
-      statusText = "Pending Approval";
+  switch (event.proposalStatus) {
+    case "pending":
+      statusText = "pending";
       statusColor = "#ffc107"; // Yellow
       break;
-    case "Approved":
-      statusText = "Approved";
+    case "accepted":
+      statusText = "accepted";
       statusColor = "#28a745"; // Green
       break;
-    case "Rejected":
-      statusText = "Rejected";
+    case "rejected":
+      statusText = "rejected";
       statusColor = "#dc3545"; // Red
       break;
     default:
@@ -25,11 +27,12 @@ const EventCard = ({ event }) => {
 
   return (
     <div className="event-card">
-      <h3 className="event-card-name">{event.name}</h3>
+      <h5 className="event-card-id">{sequenceId}</h5>
+      <h4 className="event-card-name">{name}</h4>
       <p className="event-card-status" style={{ color: statusColor }}>
         {statusText}
       </p>
-      {/* <p className="event-card-id">Event ID: {event.id}</p> */}
+      <p className="event-card-id">{sequenceId}</p>
     </div>
   );
 };
