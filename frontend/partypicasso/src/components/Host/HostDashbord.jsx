@@ -8,6 +8,7 @@ import axios from "axios";
 const HostDashboard = () => {
 
   const [Events, setEvents] = useState([]);
+  const [EventRequests, setEventRequests] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -15,12 +16,12 @@ const HostDashboard = () => {
     const token = localStorage.getItem("token");
     const fetchEvent = async () => {
       try {
-        const response = await axios.get(`http://localhost:5555/events/getall`, {
+        const response = await axios.get(`http://localhost:5555/events/getallrequests`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setEvents(response.data);
+        setEventRequests(response.data);
         setLoading(false);
         console.log(response.data); // Log eventRequests object to the console
       } catch (error) {
@@ -55,15 +56,15 @@ const HostDashboard = () => {
                 Register Event
               </Link>
             </div>
-            <h2 className="hostdashboard-events-title">Applied Events</h2>
+            <h2 className="hostdashboard-events-title">Registered Event Requests</h2>
             <div className="hostdashboard-event-list event-list">
-              {Events.length === 0 ? (
-                <p>No events applied yet</p>
+              {EventRequests.length === 0 ? (
+                <p>No event requests applied yet</p>
               ) : (
                 Events.map((event, index) => (
                   <Link
                     key={event._id}
-                    to={`/eventdetails/${event._id}`}
+                    to={`/${event._id}/details`}
                     className="event-link"
                   >
                     <EventCard event={event} sequenceId={index + 1}/>

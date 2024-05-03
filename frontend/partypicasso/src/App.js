@@ -26,20 +26,22 @@ function App() {
           <Navigationbar />
           <Routes>
             <Route path="/" element={<WeLogin />} />
-            <Route path="/dashboard" element={<UserProtectedRoute><Dashboard /></UserProtectedRoute>} />
-            <Route path="/chat" element={<Chat />} />
-            <Route path="/profile" element={<UserProtectedRoute><Profile /></UserProtectedRoute>} />
-            <Route path="/HostForm" element={<HostProtectedRoute><HostForm /></HostProtectedRoute>} />
-            <Route path="/EventCreatedPage" element={<HostProtectedRoute><EventCreatedPage /></HostProtectedRoute>} />
-            <Route path="/HostDashboard" element={<HostProtectedRoute><HostDashboard /></HostProtectedRoute>} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/signout" element={<SignOutPage />} />
             <Route path="/welogin" element={<WeLogin />} />
+            <Route path="/dashboard" element={<UserProtectedRoute><Dashboard /></UserProtectedRoute>} />
+            <Route path="/chat" element={<UserProtectedRoute><Chat /></UserProtectedRoute>} />
+            <Route path="/profile" element={<UserProtectedRoute><Profile /></UserProtectedRoute>} />
             <Route path="/eventdetails/:id" element={<UserProtectedRoute><EventDetails /></UserProtectedRoute>} />
             <Route path="/bookingdetails" element={<UserProtectedRoute><BookingDetails /></UserProtectedRoute>} />
-            <Route path="/AdminDashboard" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
-            <Route path="/AdminEventCard" element={<AdminProtectedRoute><AdminEventCard /></AdminProtectedRoute>} />
+            <Route path="/bookings" element={<UserProtectedRoute></UserProtectedRoute>}/>
+            <Route path="/hostform" element={<HostProtectedRoute><HostForm /></HostProtectedRoute>} />
+            <Route path="/eventcreatedpage" element={<HostProtectedRoute><EventCreatedPage /></HostProtectedRoute>} />
+            <Route path="/hostdashboard" element={<HostProtectedRoute><HostDashboard /></HostProtectedRoute>} />
+            <Route path="/:id/details" element={<HostProtectedRoute><EventDetails /></HostProtectedRoute>} />
+            <Route path="/admindashboard" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
+            <Route path="/admineventcard" element={<AdminProtectedRoute><AdminEventCard /></AdminProtectedRoute>} />
           </Routes>
         </Router>
       </div>
