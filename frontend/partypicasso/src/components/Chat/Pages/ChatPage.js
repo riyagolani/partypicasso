@@ -8,10 +8,13 @@ import { ChatState } from "../Context/ChatProvider";
 const Chatpage = () => {
   const [fetchAgain, setFetchAgain] = useState(false);
   const { user } = ChatState();
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  console.log("provider");
+  console.log(userInfo);
 
   return (
     <div style={{ width: "100%" }}>
-      {user && <SideDrawer />}
+      {userInfo && <SideDrawer />}
       <Box d="flex" justifyContent="space-between" w="100%" h="91.5vh" p="10px">
         {user && <MyChats fetchAgain={fetchAgain} />}
         {user && (
