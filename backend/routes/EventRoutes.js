@@ -3,20 +3,18 @@ import {authenticate} from '../middleware/authMiddleware.js';
 import { getEvents, searchEvents, getEventDetails, submitEventProposal, eventProposalStatus, bookEvent, getAllEvents, getCategoryEvents} from '../controllers/EventController.js';
 
 const router = express.Router();
-
 // Event Listing API
 router.get('/', authenticate, getEvents);
 
-// Event Lsting API For All The Events
-router.get('/getAll',authenticate,getAllEvents);
+// Event Listing API for all the Events for logged in host
+router.get('/getall', authenticate, getAllEvents);
 
-router.get('/:category',authenticate, getCategoryEvents);
+// List of events based on category
+router.get('/category/:category', authenticate, getCategoryEvents);
 
 // Event Search API
 router.get('/search', authenticate, searchEvents);
 
-// Event Details API
-router.get('/:eventId', authenticate, getEventDetails);
 
 // Event Proposal Request
 router.post('/proposal', authenticate, submitEventProposal);
@@ -32,6 +30,10 @@ router.get('/proposal/:requestId/status', authenticate, eventProposalStatus);
 
 // // Booking API
 router.post('/:eventId/book', authenticate, bookEvent);
+
+
+// Route to get event details by ID
+router.get('/:eventId', authenticate, getEventDetails); // This needs to be defined after all the generic routes
 
 // // Confirmation API
 // router.post('/booking/:bookingId/confirmations', authenticate, confirmBooking);

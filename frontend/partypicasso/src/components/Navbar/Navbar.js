@@ -2,7 +2,7 @@ import React from "react";
 import "../../App.css";
 import { Navbar, Nav } from "react-bootstrap";
 import Logo from "../../Images/Logo.jpg";
-import { Link ,useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navigationbar() {
 
@@ -11,10 +11,8 @@ function Navigationbar() {
 
   const handleSignOut = () => {
     // Clear token from local storage
-    localStorage.removeItem("token");
-    navigate("/weLogin");
-    // Redirect to login page or homepage
-    // You may use useHistory hook or any other navigation method here
+    localStorage.clear();
+    navigate("/signout");
   };
 
   return (

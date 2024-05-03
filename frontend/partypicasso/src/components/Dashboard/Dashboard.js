@@ -7,7 +7,7 @@ import axios from "axios";
 function Dashboard() {
   const [category, setCategory] = useState("Music Concerts");
   const apiUrl = "http://localhost:5555/events/";
-  const categoryApiUrl = "http://localhost:5555/events/";
+  const categoryApiUrl = "http://localhost:5555/events/category/";
 
   const setCategoryChange = (event) => {
     setCategory(event.target.value);

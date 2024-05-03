@@ -30,11 +30,13 @@ export const getEvents = async (request, response) => {
 
 // Function to get all the events from the database of perticular host
 export const getAllEvents = async (request, response) => {
+    console.log("getAll events");
     try {
         const userId = request.user.id;
-        if (!request.user || request.user.role == 'user') {
+        if (!request.user || request.user.role !== 'host') {
             return response.status(403).json({ message: 'Access forbidden: Only authenticated users with role user can access this resource.' });
         }
+        
         const events = await Event.find({ organizer: userId });
         return response.status(200).json(events);
     } catch (error) {
@@ -85,6 +87,7 @@ export const searchEvents = async (request, response) => {
 
 // Function to get event details by eventId
 export const getEventDetails = async (request, response) => {
+    console.log("get event details");
     try {
         // Extract the eventId parameter from the request URL
         const { eventId } = request.params;

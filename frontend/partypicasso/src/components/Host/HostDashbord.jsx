@@ -15,7 +15,7 @@ const HostDashboard = () => {
     const token = localStorage.getItem("token");
     const fetchEvent = async () => {
       try {
-        const response = await axios.get(`http://localhost:5555/events/getAll`, {
+        const response = await axios.get(`http://localhost:5555/events/getall`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

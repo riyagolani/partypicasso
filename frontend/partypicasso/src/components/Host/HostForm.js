@@ -38,55 +38,58 @@ const HostForm = () => {
     });
   };
 
-  const handleImageChange = (e) => {
-    const selectedImage = e.target.files[0];
+  // const handleImageChange = (e) => {
+  //   const selectedImage = e.target.files[0];
 
-    // Update formData with selected image
-    setFormData({
-      ...formData,
-      image: selectedImage,
-    });
-  };
+  //   // Update formData with selected image
+  //   setFormData({
+  //     ...formData,
+  //     image: selectedImage,
+  //   });
+  // };
 
 
-const submitEventProposal = async (formData) => {
-  try {
+  const submitEventProposal = async (formData) => {
+    try {
 
-    // const user = JSON.parse(localStorage.getItem("userInfo"));
-    const token = localStorage.getItem("token");
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      // const user = JSON.parse(localStorage.getItem("userInfo"));
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-    // Append image file separately if it exists
-    // if (formData.image) {
-    //   formDataToSend.append('image', formData.image);
-    // }
+      // Append image file separately if it exists
+      // if (formData.image) {
+      //   formDataToSend.append('image', formData.image);
+      // }
 
-    const response = await axios.post('http://localhost:5555/events/proposal', {
-      
-    name: formData.eventName,
-    description: formData.description,
-    date: formData.eventDate,
-    location:{ 
-      streetAddress: formData.streetAddress,
-        city: formData.city,
-        state: formData.state,
-        zipCode: formData.zipCode
-      },
+      const response = await axios.post('http://localhost:5555/events/proposal', {
+
+        name: formData.eventName,
+        description: formData.description,
+        date: formData.eventDate,
+        location: {
+          streetAddress: formData.streetAddress,
+          city: formData.city,
+          state: formData.state,
+          zipCode: formData.zipCode
+        },
+        startTime: formData.eventTime,
+        duration: formData.duration,
+        onlineLink: formData.onlineLink,
         category: formData.category.toString(),
         price: parseFloat(formData.bookingCharge),
         totalSeats: parseInt(formData.capacity),
-      
-    });
-    return response.data; // Assuming the API returns the newly created event data
-  } catch (error) {
-    throw error; // Throw the error to be caught by the caller
-  }
-};
+
+      });
+      return response.data; // Assuming the API returns the newly created event data
+    } catch (error) {
+      throw error; // Throw the error to be caught by the caller
+    }
+  };
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       // alert(JSON.stringify(formData));
       const eventData = await submitEventProposal(formData);
@@ -167,52 +170,58 @@ const submitEventProposal = async (formData) => {
                   Hybrid
                 </label>
               </section>
-              <label htmlFor="streetAddress">Street Address</label>
-              <input
-                type="text"
-                className="form-control"
-                id="streetAddress"
-                name="streetAddress"
-                value={formData.streetAddress}
-                onChange={handleChange}
-                placeholder="Enter street address"
-                required
-              />
-              <label htmlFor="city">City</label>
-              <input
-                type="text"
-                className="form-control"
-                id="city"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                placeholder="Enter city"
-                required
-              />
-              <label htmlFor="state">State</label>
-              <input
-                type="text"
-                className="form-control"
-                id="state"
-                name="state"
-                value={formData.state}
-                onChange={handleChange}
-                placeholder="Enter state"
-                required
-              />
+              {formData.eventMode !== "Online" && (
+                <div>
+                  <label htmlFor="streetAddress">Street Address</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="streetAddress"
+                    name="streetAddress"
+                    value={formData.streetAddress}
+                    onChange={handleChange}
+                    placeholder="Enter street address"
+                    required
+                  />
+                  <label htmlFor="city">City</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="city"
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                    placeholder="Enter city"
+                    required
+                  />
+                  <label htmlFor="state">State</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="state"
+                    name="state"
+                    value={formData.state}
+                    onChange={handleChange}
+                    placeholder="Enter state"
+                    required
+                  />
+
+                  <label htmlFor="zipCode">ZIP Code</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="zipCode"
+                    name="zipCode"
+                    value={formData.zipCode}
+                    onChange={handleChange}
+                    placeholder="Enter ZIP code"
+                    required
+                  />
+                </div>
+              )}
+
             </div>
             <div className="col-lg-6">
-              <label htmlFor="zipCode">ZIP Code</label>
-              <input
-                type="text"
-                className="form-control"
-                id="zipCode"
-                name="zipCode"
-                value={formData.zipCode}
-                onChange={handleChange}
-                placeholder="Enter ZIP code"
-                required
-              />
               <label htmlFor="eventDate">Event Date</label>
               <input
                 type="date"
@@ -275,10 +284,39 @@ const submitEventProposal = async (formData) => {
                 <option value="Business Seminar">Business Seminar</option>
                 <option value="Comedy Show">Comedy Show</option>
               </select>
+
+              <label htmlFor="duration">Duration (in minutes)</label>
+              <input
+                type="number"
+                className="form-control"
+                id="duration"
+                name="duration"
+                value={formData.duration}
+                onChange={handleChange}
+                placeholder="Enter duration in minutes"
+                min="0"
+                required
+              />
+              {formData.eventMode === "Online" && (
+                <div>
+                  <label htmlFor="onlineLink">Event Link</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="onlineLink"
+                    name="onlineLink"
+                    value={formData.onlineLink}
+                    onChange={handleChange}
+                    placeholder="Enter zoom/google meet link including password"
+                    required
+                  />
+                </div>
+
+              )}
+
             </div>
           </div>
-
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="eventImage">Event Image</label>
             <input
               type="file"
@@ -288,7 +326,7 @@ const submitEventProposal = async (formData) => {
               onChange={handleImageChange}
               required
             />
-          </div>
+          </div> */}
           {/* Image preview */}
           {/* {formData.image && (
             <img
