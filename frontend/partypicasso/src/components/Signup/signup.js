@@ -73,9 +73,9 @@ const Signup = () => {
 
    // Define options for role dropdown
    const roleOptions = [
-    { label: "Admin", value: "Admin" },
-    { label: "Host", value: "Host" },
-    { label: "User", value: "User" },
+    { label: "Admin", value: "admin" },
+    { label: "Host", value: "host" },
+    { label: "User", value: "user" },
   ];
 
   const options = [
