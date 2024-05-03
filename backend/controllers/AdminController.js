@@ -23,7 +23,7 @@ export const adminLogin = async (request, response) => {
     };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
     console.log("Admin has logged in!");
-    return response.status(200).send({ token });
+    return response.status(200).send({"token": token, "role": admin.role, "username": admin.username });
   } catch (error) {
     console.log(error.message);
     return response.status(500).send({ message: "Internal Server Error" });

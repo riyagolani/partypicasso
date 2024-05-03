@@ -5,7 +5,6 @@ import AdminEventCard from "./AdminEventCard.jsx";
 import axios from "axios";
 const SERVER_ROUTE = "http://localhost:5555/admin/";
 const AdminDashboard = () => {
-  // Sample event request data (assuming it's an array of objects)
   const [requestedEvents, setRequestedEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {

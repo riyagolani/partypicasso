@@ -64,7 +64,7 @@ const AdminEventCard = ({ eventRequest, onAccept, onReject, imageUrl }) => {
         )}
         {(status !== "pending" && status !== "accepted") && (
           <p className="text-xs text-gray-500 mb-2">
-            Reason for Rejection: {reasonForRejection || "None"}
+            Reason for Rejection: {rejectionReason || reasonForRejection || "None"}
           </p>
         )}
       </div>
