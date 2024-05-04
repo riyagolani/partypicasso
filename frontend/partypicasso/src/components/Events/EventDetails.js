@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-
+import defaultimage from "../../Images/default.png";
+import {formatDate, formatTime} from "../utility/Utility.js";
 const EventDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const token = localStorage.getItem("token");
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -34,29 +36,27 @@ const EventDetails = () => {
     return <div>Loading...</div>;
   }
 
-  const formattedDate = new Date(event.date).toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric"
-  });
+
   console.log(event);
   return (
     <div className="h-screen flex justify-center items-center" style={{ marginTop: "-30px" }}>
-      <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8">
-        <div className="h-60 rounded-t-xl bg-orange-900 flex justify-center items-center">
-          <img src={event.img} alt="" className="h-44 w-44 rounded-full" />
+      <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center items-center">
+        <div className="h-80 w-80 rounded-t-xl bg-orange-900 flex justify-center items-center">
+          <img src={event.img || defaultimage} alt="" className="h-60 w-60 rounded" />
         </div>
         <div className="flex flex-col justify-center items-center gap-4 p-4">
           <p className="text-xl font-bold">{event.name}</p>
           <p>
-            {formattedDate} {event.time}
+            {event.date && formatDate(event.date)} {event.startTime && formatTime(event.startTime)}
           </p>
-          <p className="font-semibold">{event.price}</p>
+          <p className="font-semibold">${event.price}</p>
           <p>{event.description}</p>
 
+          {userInfo.data.role === "user" && (
           <button className="bg-neutral-700 text-white text-l w-80 px-4 py-2 rounded" onClick={payment}>
             Book this Event
           </button>
+          )}
         </div>
       </div>
     </div>

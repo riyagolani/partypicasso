@@ -4,6 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import defaultimage from "../../Images/default.png";
+import { formatDate, formatTime } from "../utility/Utility.js";
 
 function SliderComponent({ apiUrl }) {
   const [data, setData] = useState([]);
@@ -39,28 +41,32 @@ function SliderComponent({ apiUrl }) {
   return (
     <div className="w-11/12 m-auto">
       <div className="mt-5">
-        <Slider {...settings}>
-          {data.map((d) => (
-            <div className="bg-white h=[450px] text-black rounded-xl">
-              <div className="h-60 rounded-t-xl bg-orange-900 flex justify-center items-center">
-                <img src={d.img} alt="" className="h-44 w-44 rounded-full" />
+        {data.length === 0 ? (
+          <p className="text-center">Oops, looks like no one is interested in hosting these events.</p>
+        ) : (
+          <Slider {...settings}>
+            {data.map((d) => (
+              <div className="bg-white h=[450px] text-black rounded-xl">
+                <div className="h-60 rounded-t-xl bg-orange-900 flex justify-center items-center">
+                  <img src={d.img || defaultimage} alt="" className="h-44 w-44 rounded-full" />
+                </div>
+                <div className=" flex flex-col justify-center items-center gap-4 p-4">
+                  <p className="text-xl font-bold">{d.name}</p>
+                  <p>
+                    {d.date && formatDate(d.date)} {d.startTime && formatTime(d.startTime)}
+                  </p>
+                  <p className="font-semibold">{d.price}</p>
+                  <button
+                    className="bg-neutral-700 text-white text-l w-40 px-5 py-1 rounded"
+                    onClick={() => openDetails(d._id)}
+                  >
+                    Event Details
+                  </button>
+                </div>
               </div>
-              <div className=" flex flex-col justify-center items-center gap-4 p-4">
-                <p className="text-xl font-bold">{d.name}</p>
-                <p>
-                  {d.date} {d.time}
-                </p>
-                <p className="font-semibold">{d.price}</p>
-                <button
-                  className="bg-neutral-700 text-white text-l w-40 px-5 py-1 rounded"
-                  onClick={() => openDetails(d._id)}
-                >
-                  Event Details
-                </button>
-              </div>
-            </div>
-          ))}
-        </Slider>
+            ))}
+          </Slider>
+        )}
       </div>
     </div>
   );

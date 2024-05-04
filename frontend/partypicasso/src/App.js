@@ -33,13 +33,13 @@ function App() {
             <Route path="/dashboard" element={<UserProtectedRoute><Dashboard /></UserProtectedRoute>} />
             <Route path="/chat" element={<UserProtectedRoute><Chat /></UserProtectedRoute>} />
             <Route path="/profile" element={<UserProtectedRoute><Profile /></UserProtectedRoute>} />
-            <Route path="/eventdetails/:id" element={<UserProtectedRoute><EventDetails /></UserProtectedRoute>} />
+            <Route path="/eventdetails/:id" element={<EventDetails />} />
             <Route path="/bookingdetails" element={<UserProtectedRoute><BookingDetails /></UserProtectedRoute>} />
             <Route path="/bookings" element={<UserProtectedRoute></UserProtectedRoute>}/>
             <Route path="/hostform" element={<HostProtectedRoute><HostForm /></HostProtectedRoute>} />
             <Route path="/eventcreatedpage" element={<HostProtectedRoute><EventCreatedPage /></HostProtectedRoute>} />
             <Route path="/hostdashboard" element={<HostProtectedRoute><HostDashboard /></HostProtectedRoute>} />
-            <Route path="/:id/details" element={<HostProtectedRoute><EventDetails /></HostProtectedRoute>} />
+            {/* <Route path="/:id/details" element={<HostProtectedRoute><EventDetails /></HostProtectedRoute>} /> */}
             <Route path="/admindashboard" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
             <Route path="/admineventcard" element={<AdminProtectedRoute><AdminEventCard /></AdminProtectedRoute>} />
           </Routes>

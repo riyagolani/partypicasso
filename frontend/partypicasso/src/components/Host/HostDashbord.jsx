@@ -1,20 +1,20 @@
+// HostDashboard.js
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import EventCard from "./EventCard";
 import hostdashboardImg from "../../Images/hostdashboard_img.jpg"; // Import the image
-import "./HostDashboard.css";
 import axios from "axios";
 
 const HostDashboard = () => {
-
-  const [Events, setEvents] = useState([]);
-  const [EventRequests, setEventRequests] = useState([]);
+  const [eventRequests, setEventRequests] = useState([]);
   const [loading, setLoading] = useState(false);
+  const userinfo = localStorage.getItem('userInfo');
 
   useEffect(() => {
     setLoading(true);
     const token = localStorage.getItem("token");
-    const fetchEvent = async () => {
+    const fetchEventRequests = async () => {
       try {
         const response = await axios.get(`http://localhost:5555/events/getallrequests`, {
           headers: {
@@ -23,59 +23,53 @@ const HostDashboard = () => {
         });
         setEventRequests(response.data);
         setLoading(false);
-        console.log(response.data); // Log eventRequests object to the console
       } catch (error) {
         console.log(error);
         setLoading(false);
       }
     };
-    fetchEvent();
+    fetchEventRequests();
   }, []);
 
   return (
     <div className="hostdashboard-container-bg">
       <div className="hostdashboard-container">
-        <div className="hostdashboard-card card">
-          <div className="hostdashboard-card-body card-body">
-            <h1 className="hostdashboard-card-title card-title">
-              Host Dashboard
-            </h1>
-            <hr className="hostdashboard-divider" />
-            <div className="hostdashboard-image-container">
-              <img
-                src={hostdashboardImg}
-                alt="Host Dashboard"
-                className="hostdashboard-image"
-              />
-              <h2 className="image-text">Welcome to your Dashboard</h2>
-            </div>
-            <div className="hostdashboard-subtitle">
-              <p>Ready to Register your Event with us !!</p>
-              <p>Manage your events and registrations here.</p>
-              <Link to="/hostform" className="btn btn-primary mt-4">
-                Register Event
+        
+        <div className="flex items-center justify-center mb-8">
+          <img
+            src={hostdashboardImg}
+            alt="Host Dashboard"
+            className="hostdashboard-image"
+          />
+          
+        
+        </div>
+        <div className="text-center mb-8">
+
+        <h2 className="text-5xl text-white mb-4">Welcome to your Dashboard </h2>
+          <p>Ready to Register your Event with us !!</p>
+          <p>Manage your events and registrations here.</p>
+          <Link to="/hostform" className="btn btn-primary mt-4">
+            Register Event
+          </Link>
+        </div>
+        <h2 className="text-2xl font-bold mb-4 text-center">Registered Event Requests</h2>
+        <div className="hostdashboard-event-list event-list">
+          {loading ? (
+            <p>Loading...</p>
+          ) : eventRequests.length === 0 ? (
+            <p>No event requests applied yet</p>
+          ) : (
+            eventRequests.map((request, index) => (
+              <Link
+                key={request._id}
+                to={`/eventdetails/${request.eventId}`}
+                className="event-link"
+              >
+                <EventCard eventRequest={request} sequenceId={index + 1} />
               </Link>
-            </div>
-            <h2 className="hostdashboard-events-title">Registered Event Requests</h2>
-            <div className="hostdashboard-event-list event-list">
-              {EventRequests.length === 0 ? (
-                <p>No event requests applied yet</p>
-              ) : (
-                Events.map((event, index) => (
-                  <Link
-                    key={event._id}
-                    to={`/${event._id}/details`}
-                    className="event-link"
-                  >
-                    <EventCard event={event} sequenceId={index + 1}/>
-                  </Link>
-                  //   <Link key={event.id} to={`/eventdetails`} className="event-link">
-                  //   <EventCard event={event} />
-                  // </Link>
-                ))
-              )}
-            </div>
-          </div>
+            ))
+          )}
         </div>
       </div>
     </div>

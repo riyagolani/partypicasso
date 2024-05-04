@@ -86,7 +86,6 @@ export const searchEvents = async (request, response) => {
 
 // Function to get event details by eventId
 export const getEventDetails = async (request, response) => {
-    console.log("get event details");
     try {
         // Extract the eventId parameter from the request URL
         const { eventId } = request.params;
