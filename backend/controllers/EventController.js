@@ -208,14 +208,6 @@ export const bookEvent = async (request, response) => {
         if (!event) {
             return response.status(404).json({ message: 'Event not found.' });
         }
-
-        // Check if the requested quantity of tickets is available
-        const remainingSeats = await calculateRemainingSeats(eventId);
-        console.log("Remaining seats "+remainingSeats);
-        if (remainingSeats < quantity) {
-            return response.status(400).json({ message: 'Not enough tickets available.' });
-        }
-
         // Create booking records in the database
         const booking = new Booking({
             eventId,
@@ -225,10 +217,14 @@ export const bookEvent = async (request, response) => {
         });
         await booking.save();
 
+        // Calculate the new value for availableSeats
+        const updatedAvailableSeats = event.availableSeats - quantity;
+
+        // Update the event document in the database with the new value of availableSeats
+        await Event.findByIdAndUpdate(eventId, { availableSeats: updatedAvailableSeats });
+
         // Return the booking ID or any relevant success message as a response
-        return response.status(200).json({ bookingId: booking._id,
-            remainingSeats : remainingSeats
-         });
+        return response.status(200).json({ bookingId: booking._id});
     } catch (error) {
         console.error('Error booking tickets:', error);
         return response.status(500).json({ message: 'Internal server error.' });

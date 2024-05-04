@@ -60,6 +60,12 @@ const eventSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  availableSeats: {
+    type: Number,
+    default: function () {
+      return this.totalSeats; // Set availableSeats to the value of totalSeats by default
+    },
+  },
   chatId: {
     type: String,
   },
