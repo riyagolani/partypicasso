@@ -41,12 +41,9 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
     try {
       setLoading(true);
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(
+        `http://localhost:5555/chats?search=${search}`
+      );
       console.log(data);
       setLoading(false);
       setSearchResult(data);
@@ -68,19 +65,10 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
     try {
       setRenameLoading(true);
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      const { data } = await axios.put(
-        `/api/chat/rename`,
-        {
-          chatId: selectedChat._id,
-          chatName: groupChatName,
-        },
-        config
-      );
+      const { data } = await axios.put(`http://localhost:5555/chats/rename`, {
+        chatId: selectedChat._id,
+        chatName: groupChatName,
+      });
 
       console.log(data._id);
       // setSelectedChat("");
@@ -126,19 +114,11 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
     try {
       setLoading(true);
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      const { data } = await axios.put(
-        `/api/chat/groupadd`,
-        {
-          chatId: selectedChat._id,
-          userId: user1._id,
-        },
-        config
-      );
+
+      const { data } = await axios.put(`http://localhost:5555/chats/groupadd`, {
+        chatId: selectedChat._id,
+        userId: user1._id,
+      });
 
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);
@@ -171,18 +151,13 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
     try {
       setLoading(true);
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
+
       const { data } = await axios.put(
-        `/api/chat/groupremove`,
+        `http://localhost:5555/chats/groupremove`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
-        },
-        config
+        }
       );
 
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data);

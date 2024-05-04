@@ -10,7 +10,7 @@ function Navigationbar() {
   const handleSignOut = () => {
     // Clear token from local storage
     localStorage.clear();
-    navigate("/signout");
+    navigate("/");
   };
 
   return (
