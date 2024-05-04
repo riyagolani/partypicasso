@@ -9,7 +9,7 @@ function Navigationbar() {
 const role = userInfo?.data?.role;
   const handleSignOut = () => {
     localStorage.clear();
-    navigate("/signout");
+    navigate("/");
   };
 
   return (

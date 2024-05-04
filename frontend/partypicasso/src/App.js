@@ -7,43 +7,108 @@ import HostForm from "./components/Host/HostForm";
 import EventCreatedPage from "./components/Host/EventCreatedPage";
 import HostDashboard from "./components/Host/HostDashbord";
 import Chat from "./components/Chat/chat";
+import Chatpage from "./components/Chat/Pages/ChatPage";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/signup";
-import SignOutPage from './components/Signout/Signout';
+import SignOutPage from "./components/Signout/Signout";
 import WeLogin from "./components/Login/weLogin";
 import Profile from "./components/Profile/Profile";
 import EventDetails from "./components/Events/EventDetails";
 import BookingDetails from "./components/Events/BookingDetails";
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import AdminEventCard from "./components/Admin/AdminEventCard";
-import {UserProtectedRoute, HostProtectedRoute, AdminProtectedRoute} from "./ProtectedRoute";
+import {
+  UserProtectedRoute,
+  HostProtectedRoute,
+  AdminProtectedRoute,
+} from "./ProtectedRoute";
 
 function App() {
   return (
     <>
       <div className="main-div">
-        <Router>
-          <Navigationbar />
-          <Routes>
-            <Route path="/" element={<WeLogin />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/signout" element={<SignOutPage />} />
-            <Route path="/welogin" element={<WeLogin />} />
-            <Route path="/dashboard" element={<UserProtectedRoute><Dashboard /></UserProtectedRoute>} />
-            <Route path="/chat" element={<UserProtectedRoute><Chat /></UserProtectedRoute>} />
-            <Route path="/profile" element={<UserProtectedRoute><Profile /></UserProtectedRoute>} />
-            <Route path="/eventdetails/:id" element={<UserProtectedRoute><EventDetails /></UserProtectedRoute>} />
-            <Route path="/bookingdetails" element={<UserProtectedRoute><BookingDetails /></UserProtectedRoute>} />
-            <Route path="/bookings" element={<UserProtectedRoute></UserProtectedRoute>}/>
-            <Route path="/hostform" element={<HostProtectedRoute><HostForm /></HostProtectedRoute>} />
-            <Route path="/eventcreatedpage" element={<HostProtectedRoute><EventCreatedPage /></HostProtectedRoute>} />
-            <Route path="/hostdashboard" element={<HostProtectedRoute><HostDashboard /></HostProtectedRoute>} />
-            <Route path="/:id/details" element={<HostProtectedRoute><EventDetails /></HostProtectedRoute>} />
-            <Route path="/admindashboard" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
-            <Route path="/admineventcard" element={<AdminProtectedRoute><AdminEventCard /></AdminProtectedRoute>} />
-          </Routes>
-        </Router>
+        <Navigationbar />
+        <Routes>
+          <Route path="/" element={<WeLogin />} />
+          <Route
+            path="/dashboard"
+            element={
+              <UserProtectedRoute>
+                <Dashboard />
+              </UserProtectedRoute>
+            }
+          />
+          {/* <Route path="/chat" element={<Chat />} /> */}
+          <Route path="/chat" element={<Chatpage />} />
+          <Route
+            path="/profile"
+            element={
+              <UserProtectedRoute>
+                <Profile />
+              </UserProtectedRoute>
+            }
+          />
+          <Route
+            path="/HostForm"
+            element={
+              <HostProtectedRoute>
+                <HostForm />
+              </HostProtectedRoute>
+            }
+          />
+          <Route
+            path="/EventCreatedPage"
+            element={
+              <HostProtectedRoute>
+                <EventCreatedPage />
+              </HostProtectedRoute>
+            }
+          />
+          <Route
+            path="/HostDashboard"
+            element={
+              <HostProtectedRoute>
+                <HostDashboard />
+              </HostProtectedRoute>
+            }
+          />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Signup" element={<Signup />} />
+          <Route path="/signout" element={<SignOutPage />} />
+          <Route path="/welogin" element={<WeLogin />} />
+          <Route
+            path="/eventdetails/:id"
+            element={
+              <UserProtectedRoute>
+                <EventDetails />
+              </UserProtectedRoute>
+            }
+          />
+          <Route
+            path="/bookingdetails"
+            element={
+              <UserProtectedRoute>
+                <BookingDetails />
+              </UserProtectedRoute>
+            }
+          />
+          <Route
+            path="/AdminDashboard"
+            element={
+              <AdminProtectedRoute>
+                <AdminDashboard />
+              </AdminProtectedRoute>
+            }
+          />
+          <Route
+            path="/AdminEventCard"
+            element={
+              <AdminProtectedRoute>
+                <AdminEventCard />
+              </AdminProtectedRoute>
+            }
+          />
+        </Routes>
       </div>
     </>
   );
