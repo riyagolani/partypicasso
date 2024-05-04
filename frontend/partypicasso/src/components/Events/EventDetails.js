@@ -50,12 +50,16 @@ const EventDetails = () => {
           </p>
           <p className="font-semibold">${event.price}</p>
           <p>{event.description}</p>
+          <p>Available Seats: <b>{event.availableSeats}</b></p>
 
-          {userInfo.data.role === "user" && (
+
+          {userInfo.data.role === "user"&& event.availableSeats && (
           <button className="bg-neutral-700 text-white text-l w-80 px-4 py-2 rounded" onClick={payment}>
             Book this Event
           </button>
           )}
+
+
         </div>
       </div>
     </div>

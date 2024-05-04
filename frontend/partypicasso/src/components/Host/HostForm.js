@@ -281,7 +281,7 @@ const HostForm = () => {
                 <option value="Educational Workshop">
                   Educational Workshop
                 </option>
-                <option value="Business Seminar">Business Seminar</option>
+                <option value="Business Seminars">Business Seminars</option>
                 <option value="Comedy Show">Comedy Show</option>
               </select>
 

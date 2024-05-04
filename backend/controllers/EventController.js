@@ -208,6 +208,10 @@ export const bookEvent = async (request, response) => {
         if (!event) {
             return response.status(404).json({ message: 'Event not found.' });
         }
+
+        if( quantity > event.availableSeats){
+            return response.status(503).json({message:"Seats not available"});
+        }
         // Create booking records in the database
         const booking = new Booking({
             eventId,
