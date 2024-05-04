@@ -10,10 +10,21 @@ export const calculateRemainingSeats = async (eventId) => {
     if (!event) {
         throw new Error('Event not found');
     }
-    const bookingsCount = await Booking.countDocuments({ eventId });
-    const remainingSeats = event.totalSeats - bookingsCount;
+    
+    // Find all bookings for the event
+    const bookings = await Booking.find({ eventId });
+
+    // Calculate total seats booked by summing the quantity of each booking
+    let totalSeatsBooked = 0;
+    bookings.forEach(booking => {
+        totalSeatsBooked += booking.quantity;
+    });
+
+    // Calculate remaining seats
+    const remainingSeats = event.totalSeats - totalSeatsBooked;
+    
     return remainingSeats;
-}; //Not final yet
+};
 
 // Function to get list of events
 export const getEvents = async (request, response) => {
@@ -201,7 +212,7 @@ export const bookEvent = async (request, response) => {
 
         // Check if the requested quantity of tickets is available
         const remainingSeats = await calculateRemainingSeats(eventId);
-
+        console.log("Remaining seats "+remainingSeats);
         if (remainingSeats < quantity) {
             return response.status(400).json({ message: 'Not enough tickets available.' });
         }
@@ -216,7 +227,9 @@ export const bookEvent = async (request, response) => {
         await booking.save();
 
         // Return the booking ID or any relevant success message as a response
-        return response.status(200).json({ bookingId: booking._id });
+        return response.status(200).json({ bookingId: booking._id,
+            remainingSeats : remainingSeats
+         });
     } catch (error) {
         console.error('Error booking tickets:', error);
         return response.status(500).json({ message: 'Internal server error.' });
