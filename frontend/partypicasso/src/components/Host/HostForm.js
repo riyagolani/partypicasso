@@ -95,7 +95,7 @@ const HostForm = () => {
       const eventData = await submitEventProposal(formData);
       const eventId = eventData._id;
       // alert(`Event proposal submitted successfully. Event ID: ${eventId}`);
-      navigate("/EventCreatedPage");
+      navigate("/eventcreatedpage");
     } catch (error) {
       console.error('Error submitting event proposal:', error);
       // Handle error

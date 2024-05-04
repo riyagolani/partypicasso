@@ -37,12 +37,9 @@ const EventDetails = () => {
   const formattedDate = new Date(event.date).toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
+    day: "numeric"
   });
-
+  console.log(event);
   return (
     <div className="h-screen flex justify-center items-center" style={{ marginTop: "-30px" }}>
       <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8">

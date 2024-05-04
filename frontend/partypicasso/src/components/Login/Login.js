@@ -22,13 +22,13 @@ const Login = () => {
       // Redirect to dashboard based on userType
       switch (userType) {
         case "Admin":
-          navigate("/AdminDashboard");
+          navigate("/admindashboard");
           break;
         case "User":
           navigate("/dashboard");
           break;
         case "Host":
-          navigate("/HostDashboard");
+          navigate("/hostdashboard");
           break;
         default:
           navigate("/welogin");
@@ -93,13 +93,13 @@ const Login = () => {
 
       switch (userType) {
         case "Admin":
-          navigate("/AdminDashboard");
+          navigate("/admindashboard");
           break;
         case "User":
           navigate("/dashboard");
           break;
         case "Host":
-          navigate("/HostDashboard");
+          navigate("/hostdashboard");
           break;
         default:
           navigate("/welogin");

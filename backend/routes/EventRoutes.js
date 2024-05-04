@@ -1,13 +1,13 @@
 import express from 'express';
 import {authenticate} from '../middleware/authMiddleware.js';
-import { getEvents, searchEvents, getEventDetails, submitEventProposal, eventProposalStatus, bookEvent, getAllEvents, getCategoryEvents} from '../controllers/EventController.js';
+import { getEvents, searchEvents, getEventDetails, submitEventProposal, eventProposalStatus, bookEvent, getAllRequests, getCategoryEvents} from '../controllers/EventController.js';
 
 const router = express.Router();
 // Event Listing API
 router.get('/', authenticate, getEvents);
 
 // Event Listing API for all the Events for logged in host
-router.get('/getall', authenticate, getAllEvents);
+router.get('/getallrequests', authenticate, getAllRequests);
 
 // List of events based on category
 router.get('/category/:category', authenticate, getCategoryEvents);

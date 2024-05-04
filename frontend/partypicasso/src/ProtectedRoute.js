@@ -8,7 +8,7 @@ export const UserProtectedRoute = (props) => {
     const checkUserToken = () => {
         const userToken = localStorage.getItem('token');
         const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        if (!userInfo || !userToken || userToken === 'undefined') {
+        if (!userInfo || !userToken || userInfo.data.role !== 'user') {
             setIsLoggedIn(false);
             return navigate('/welogin');
         }

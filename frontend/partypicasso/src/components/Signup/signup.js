@@ -64,7 +64,7 @@ const Signup = () => {
 
         });
       
-      navigate("/weLogin");
+      navigate("/welogin");
     } catch (error) {
       console.error("Error", error);
     }

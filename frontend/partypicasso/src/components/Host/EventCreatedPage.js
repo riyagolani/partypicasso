@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const EventRegisteredPage = () => {
   const navigate = useNavigate();
   const handleSubmit = () => {
-    navigate("/HostDashboard");
+    navigate("/hostdashboard");
   };
 
   return (
