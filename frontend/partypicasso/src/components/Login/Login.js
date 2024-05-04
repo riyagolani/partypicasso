@@ -51,11 +51,12 @@ const Login = () => {
 
     const token = localStorage.getItem("token");
 
-    if (token) {
+    if(token){
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
 
-    const loginEndpoint = userType === "Admin" ? "/admin/login" : "/user/login";
+    const loginEndpoint =
+      userType === "Admin" ? "/admin/login" : "/user/login";
     try {
       const response = await axios.post(
         `http://localhost:5555${loginEndpoint}`,
@@ -66,30 +67,7 @@ const Login = () => {
       );
       const { token } = response.data;
       localStorage.setItem("token", token);
-      localStorage.setItem("userInfo", JSON.stringify(response.data));
-
-      // try {
-      //   const config = {
-      //     headers: {
-      //       "Content-type": "application/json",
-      //     },
-      //   };
-
-      //   const { data } = await axios.post(
-      //     `http://localhost:5555${loginEndpoint}`,
-      //     {
-      //       username: formData.username,
-      //       password: formData.password,
-      //     },
-      //     config
-      //   );
-      //   const token = data.token;
-      //   localStorage.setItem("token", token);
-      //   console.log(JSON.stringify(token));
-      //   setUser(data);
-      //   localStorage.setItem("userInfo", JSON.stringify(data));
-
-      //   localStorage.setItem("userInfo", JSON.stringify(response));
+      localStorage.setItem("userInfo", JSON.stringify(response));
 
       switch (userType) {
         case "Admin":
