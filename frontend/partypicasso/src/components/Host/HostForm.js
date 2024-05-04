@@ -34,7 +34,7 @@ const HostForm = () => {
   const handleCategoryChange = (e) => {
     setFormData({
       ...formData,
-      category: e.target.value,
+      category: parseInt(e.target.value), // Parse the selected value to an integer
     });
   };
 
@@ -72,10 +72,11 @@ const HostForm = () => {
           state: formData.state,
           zipCode: formData.zipCode
         },
+        mode: formData.eventMode,
         startTime: formData.eventTime,
         duration: formData.duration,
         onlineLink: formData.onlineLink,
-        category: formData.category.toString(),
+        category: parseInt(formData.category),
         price: parseFloat(formData.bookingCharge),
         totalSeats: parseInt(formData.capacity),
 
@@ -138,7 +139,7 @@ const HostForm = () => {
                   type="radio"
                   name="eventMode"
                   id="inPerson"
-                  value="In-person"
+                  value="inPerson"
                   onChange={handleChange}
                   required
                 />
@@ -150,7 +151,7 @@ const HostForm = () => {
                   type="radio"
                   name="eventMode"
                   id="online"
-                  value="Online"
+                  value="online"
                   onChange={handleChange}
                   required
                 />
@@ -162,7 +163,7 @@ const HostForm = () => {
                   type="radio"
                   name="eventMode"
                   id="hybrid"
-                  value="Hybrid"
+                  value="hybrid"
                   onChange={handleChange}
                   required
                 />
@@ -276,13 +277,11 @@ const HostForm = () => {
                 required
               >
                 <option value="">Select Category</option>
-                <option value="Music Concerts">Music Concerts</option>
-                <option value="Party">Party</option>
-                <option value="Educational Workshop">
-                  Educational Workshop
-                </option>
-                <option value="Business Seminars">Business Seminars</option>
-                <option value="Comedy Show">Comedy Show</option>
+                <option value="1">Party</option>
+                <option value="2">Business</option>
+                <option value="3">Education</option>
+                <option value="4">Gathering</option>
+                <option value="5">Show</option>
               </select>
 
               <label htmlFor="duration">Duration (in minutes)</label>

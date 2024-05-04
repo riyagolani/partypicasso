@@ -15,6 +15,14 @@ const addressSchema = new mongoose.Schema({
     },
   });
 
+  const CategoryEnum = {
+    Party: 1,
+    Business: 2,
+    Education: 3,
+    Gathering: 4,
+    Show: 5,
+  };
+
 const eventSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -37,11 +45,17 @@ const eventSchema = new mongoose.Schema({
   location: {
     type: addressSchema,
   },
+  mode: {
+    type: String,
+    enum: ['inPerson', 'online', 'hybrid'],
+    default: 'inPerson',
+  },
   onlineLink: {
     type: String, // Optional link for online or hybrid events
   },
   category: {
-    type: String,
+    type: Number,
+    enum: Object.values(CategoryEnum),
     required: true,
   },
   price: {
