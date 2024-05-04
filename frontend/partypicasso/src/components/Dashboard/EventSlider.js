@@ -37,6 +37,35 @@ function SliderComponent({ apiUrl }) {
     slidesToShow: 3,
     slidesToScroll: 2,
   };
+  
+  // If there's only one event, render it directly
+  if (data.length === 1) {
+    const event = data[0];
+    return (
+      <div className="w-1/2 m-auto">
+        <div className="mt-5">
+          <div className="bg-white h-[450px] text-black rounded-xl">
+            <div className="h-60 rounded-t-xl bg-orange-900 flex justify-center items-center">
+              <img src={event.img || defaultimage} alt="" className="h-44 w-44 rounded-full" />
+            </div>
+            <div className=" flex flex-col justify-center items-center gap-4 p-4">
+              <p className="text-xl font-bold">{event.name}</p>
+              <p>
+                {event.date && formatDate(event.date)} {event.startTime && formatTime(event.startTime)}
+              </p>
+              <p className="font-semibold">{event.price}</p>
+              <button
+                className="bg-neutral-700 text-white text-l w-40 px-5 py-1 rounded"
+                onClick={() => openDetails(event._id)}
+              >
+                Event Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-11/12 m-auto">

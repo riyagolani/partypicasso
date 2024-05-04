@@ -35,12 +35,12 @@ function Dashboard() {
       <SliderComponent apiUrl={apiUrl} />
       <div className="pt-8">
         <p>Explore events from our various categories: </p>
-        <select id="category" onChange={setCategoryChange} value={category}>
-          <option value="Music Concerts">Music Concerts</option>
-          <option value="Party">Party</option>
-          <option value="Educational Workshop">Educational Workshop</option>
-          <option value="Business Seminars">Business Seminars</option>
-          <option value="Comedy Shows">Comedy Shows</option>
+        <select id="category" onChange={setCategoryChange} value={parseInt(category)}>
+                <option value="1">Party</option>
+                <option value="2">Business</option>
+                <option value="3">Education</option>
+                <option value="4">Gathering</option>
+                <option value="5">Show</option>
         </select>
       </div>
       <SliderComponent apiUrl={`${categoryApiUrl}${category}`} />
