@@ -29,13 +29,12 @@ const EventDetails = () => {
 
   const payment = (e) => {
     e.preventDefault();
-    navigate("/bookingdetails");
+    navigate(`/bookingdetails/${id}`); // Navigate to booking details page with event ID
   };
 
   if (!event) {
     return <div>Loading...</div>;
   }
-
 
   console.log(event);
   return (
