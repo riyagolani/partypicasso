@@ -27,7 +27,7 @@ const EventDetails = () => {
 
   const payment = (e) => {
     e.preventDefault();
-    navigate("/bookingdetails");
+    navigate(`/bookingdetails/${id}`); // Navigate to booking details page with event ID
   };
 
   if (!event) {
@@ -39,7 +39,7 @@ const EventDetails = () => {
     month: "long",
     day: "numeric"
   });
-  console.log(event);
+
   return (
     <div className="h-screen flex justify-center items-center" style={{ marginTop: "-30px" }}>
       <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8">
