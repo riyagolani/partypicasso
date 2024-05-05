@@ -3,6 +3,8 @@ import EventRequest from "../models/EventRequestModel.js";
 // import Chat from '../models/Chat.js';
 import Booking from "../models/BookingModel.js";
 // import Confirmation from '../models/Confirmation.js';
+import User from "../models/UserModel.js";
+import sendEmail from "../sendEmail.js";
 
 export const calculateRemainingSeats = async (eventId) => {
   const event = await Event.findById(eventId);
@@ -215,47 +217,54 @@ export const eventProposalStatus = async (request, response) => {
 //     // Implement logic to retrieve list of user's event chats
 // };
 
+
+
+
 // // Function to book tickets for an event
 export const bookEvent = async (request, response) => {
-  try {
-    // Extract the eventId and quantity of tickets from the request body
-    const { eventId } = request.params;
-    const { quantity } = request.body;
-    const userId = request.user.id;
-    // Find the event by eventId in the database
-    const event = await Event.findById(eventId);
+    try {
+        // Extract the eventId and quantity of tickets from the request body
+        const { eventId } = request.params;
+        const { quantity } = request.body;
+        const userId = request.user.id;
+        // Find the event by eventId in the database
+        const event = await Event.findById(eventId);
 
-    // Check if the event exists
-    if (!event) {
-      return response.status(404).json({ message: "Event not found." });
+        // Check if the event exists
+        if (!event) {
+            return response.status(404).json({ message: 'Event not found.' });
+        }
+
+        if( quantity > event.availableSeats){
+            return response.status(503).json({message:"Seats not available"});
+        }
+        // Create booking records in the database
+        const booking = new Booking({
+            eventId,
+            quantity,
+            userId
+            // You can add more fields like user ID, booking date, etc.
+        });
+        await booking.save();
+
+        // Calculate the new value for availableSeats
+        const updatedAvailableSeats = event.availableSeats - quantity;
+
+        // Update the event document in the database with the new value of availableSeats
+        await Event.findByIdAndUpdate(eventId, { availableSeats: updatedAvailableSeats });
+
+         // Fetch user details for email id
+         const user = await User.findById(request.user.id);
+        
+         const email = user.email;
+         await sendEmail(email, booking._id);
+
+        // Return the booking ID or any relevant success message as a response
+        return response.status(200).json({ bookingId: booking._id});
+    } catch (error) {
+        console.error('Error booking tickets:', error);
+        return response.status(500).json({ message: 'Internal server error.' });
     }
-
-    if (quantity > event.availableSeats) {
-      return response.status(503).json({ message: "Seats not available" });
-    }
-    // Create booking records in the database
-    const booking = new Booking({
-      eventId,
-      quantity,
-      userId,
-      // You can add more fields like user ID, booking date, etc.
-    });
-    await booking.save();
-
-    // Calculate the new value for availableSeats
-    const updatedAvailableSeats = event.availableSeats - quantity;
-
-    // Update the event document in the database with the new value of availableSeats
-    await Event.findByIdAndUpdate(eventId, {
-      availableSeats: updatedAvailableSeats,
-    });
-
-    // Return the booking ID or any relevant success message as a response
-    return response.status(200).json({ bookingId: booking._id });
-  } catch (error) {
-    console.error("Error booking tickets:", error);
-    return response.status(500).json({ message: "Internal server error." });
-  }
 };
 
 // // Function to send booking confirmation
@@ -263,6 +272,9 @@ export const bookEvent = async (request, response) => {
 //     // Implement logic to send booking confirmation to user
 // };
 
+
+
+// Registered bookings
 export const getRegisteredEvents = async (request, response) => {
   try {
     const userId = request.user.id;
