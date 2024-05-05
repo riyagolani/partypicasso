@@ -51,9 +51,13 @@ const HostDashboard = () => {
               <p>Ready to Register your Event with us !!</p>
               <p>Manage your events and registrations here.</p>
             </div>
+            <Link to="/hostform" className="btn btn-primary mt-2 mb-2">
+              Register Event
+            </Link>
             <h2 className="admindashboard-events-title">
               Registered Event Requests
             </h2>
+            <hr className="admindashboard-divider mb-8" />
             <div className="hostdashboard-event-list event-list">
               {loading ? (
                 <p>Loading...</p>
