@@ -39,16 +39,8 @@ const GroupChatModal = ({ children }) => {
       return;
     }
     try {
-      setLoading(true);
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
       const { data } = await axios.get(
-        `http://localhost:5555/chats?search=${query}`,
-        config
+        `http://localhost:5555/chats?search=${query}`
       );
       setLoading(false);
       setSearchResults(data);
@@ -79,19 +71,10 @@ const GroupChatModal = ({ children }) => {
       return;
     }
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      const { data } = await axios.post(
-        "http://localhost:5555/chats/group",
-        {
-          name: groupChatName,
-          users: JSON.stringify(selectedUsers.map((u) => u._id)),
-        },
-        config
-      );
+      const { data } = await axios.post("http://localhost:5555/chats/group", {
+        name: groupChatName,
+        users: JSON.stringify(selectedUsers.map((u) => u._id)),
+      });
       setChats([data, ...chats]);
       setSelectedUsers([]);
       setGroupChatName("");

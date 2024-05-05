@@ -6,6 +6,7 @@ import userRoutes from "./routes/UserRoutes.js";
 import AdminRoutes from "./routes/AdminRoutes.js";
 import EventRoutes from "./routes/EventRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
+import { Server } from "socket.io";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 const app = express();
 
@@ -38,7 +39,7 @@ app.use("/chats", chatRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log("Server Running");
 });
 
@@ -50,3 +51,43 @@ mongoose
   .catch(() => {
     console.log("Error");
   });
+
+const io = new Server(server, {
+  pingTimeout: 60000,
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("Connected to socket.io");
+  socket.on("setup", (userData) => {
+    socket.join(userData._id);
+    console.log("User Joined: ", userData._id);
+    socket.emit("connected");
+  });
+
+  socket.on("join chat", (room) => {
+    socket.join(room);
+    console.log("User Joined Room: ", room);
+  });
+
+  socket.on("typing", (room) => socket.in(room).emit("typing"));
+  socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
+
+  socket.on("new message", (newMessageReceived) => {
+    var chat = newMessageReceived.chat;
+
+    if (!chat.users) return console.log("Chat.users not defined");
+
+    chat.users.forEach((user) => {
+      if (user._id == newMessageReceived.sender._id) return;
+      socket.in(user._id).emit("message received", newMessageReceived);
+    });
+  });
+
+  socket.off("setup", () => {
+    console.log("Disconnected from socket.io");
+    socket.leave(userData._id);
+  });
+});
