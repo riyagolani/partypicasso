@@ -25,10 +25,23 @@ const HostForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+
+    // Set the event mode and clear address fields if event mode is "Online"
+    if (name === "eventMode" && value === "online") {
+      setFormData({
+        ...formData,
+        eventMode: value,
+        streetAddress: "",
+        city: "",
+        state: "",
+        zipCode: "",
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleCategoryChange = (e) => {
@@ -169,7 +182,7 @@ const HostForm = () => {
                   Hybrid
                 </label>
               </section>
-              {formData.eventMode !== "Online" && (
+              {formData.eventMode !== "online" && (
                 <div>
                   <label htmlFor="streetAddress">Street Address</label>
                   <input
