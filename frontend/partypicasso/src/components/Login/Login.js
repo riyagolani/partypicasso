@@ -51,12 +51,11 @@ const Login = () => {
 
     const token = localStorage.getItem("token");
 
-    if(token){
+    if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
 
-    const loginEndpoint =
-      userType === "Admin" ? "/admin/login" : "/user/login";
+    const loginEndpoint = userType === "Admin" ? "/admin/login" : "/user/login";
     try {
       const response = await axios.post(
         `http://localhost:5555${loginEndpoint}`,

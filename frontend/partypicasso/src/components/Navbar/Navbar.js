@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 function Navigationbar() {
   const navigate = useNavigate();
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-const role = userInfo?.data?.role;
+  const role = userInfo?.data?.role;
   const handleSignOut = () => {
     localStorage.clear();
     navigate("/signout");
@@ -30,13 +30,21 @@ const role = userInfo?.data?.role;
           <Nav className="ml-auto">
             {role === "user" && (
               <>
-                <Nav.Link as={Link} to={"/dashboard"} className="text-light px-3">
+                <Nav.Link
+                  as={Link}
+                  to={"/dashboard"}
+                  className="text-light px-3"
+                >
                   Dashboard
                 </Nav.Link>
                 <Nav.Link as={Link} to={"/chat"} className="text-light px-3">
                   Group Chat
                 </Nav.Link>
-                <Nav.Link as={Link} to={"/bookings"} className="text-light px-3">
+                <Nav.Link
+                  as={Link}
+                  to={"/bookings"}
+                  className="text-light px-3"
+                >
                   Bookings
                 </Nav.Link>
                 <Nav.Link as={Link} to={"/profile"} className="text-light px-3">
@@ -46,10 +54,18 @@ const role = userInfo?.data?.role;
             )}
             {role === "host" && (
               <>
-                <Nav.Link as={Link} to={"/hostdashboard"} className="text-light px-3">
+                <Nav.Link
+                  as={Link}
+                  to={"/hostdashboard"}
+                  className="text-light px-3"
+                >
                   Host Dashboard
                 </Nav.Link>
-                <Nav.Link as={Link} to={"/hostform"} className="text-light px-3">
+                <Nav.Link
+                  as={Link}
+                  to={"/hostform"}
+                  className="text-light px-3"
+                >
                   Host Form
                 </Nav.Link>
               </>

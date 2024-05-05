@@ -12,11 +12,14 @@ const EventCard = ({ eventRequest, sequenceId }) => {
     const token = localStorage.getItem("token");
     const fetchEventDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5555/events/${eventId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `http://localhost:5555/events/${eventId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         console.log(response);
         setEventDetails(response.data);
       } catch (error) {
@@ -55,11 +58,19 @@ const EventCard = ({ eventRequest, sequenceId }) => {
           <p className="event-card-description">{eventDetails.description}</p>
         </>
       )}
-      <p className="event-card-status text-lg font-bold" style={{ color: statusColor }}>
+      <p
+        className="event-card-status text-lg font-bold"
+        style={{ color: statusColor }}
+      >
         {statusText}
       </p>
       {status === "rejected" && (
-        <p className="event-card-rejection-reason text-sm" style={{ color: statusColor }}>Reason for Rejection: {reasonForRejection}</p>
+        <p
+          className="event-card-rejection-reason text-sm"
+          style={{ color: statusColor }}
+        >
+          Reason for Rejection: {reasonForRejection}
+        </p>
       )}
     </div>
   );
