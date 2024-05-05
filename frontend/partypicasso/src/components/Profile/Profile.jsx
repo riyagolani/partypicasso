@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Select from "react-select";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ProofileLogo from "../../Images/userProfile.png";
 
 const Profile = () => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -12,13 +13,13 @@ const Profile = () => {
     username: userInfo.data.username,
     email: userInfo.data.email,
     contact: userInfo.data.contact,
-    interest: [
-      { label: "Party", value: "Party" },
-      { label: "Seminar", value: "Seminar" },
-      { label: "Concert", value: "Concert" },
-    ],
+    url: "https://thumbs.dreamstime.com/b/isolated-white-portrait-happy-cheerful-guy-bearded-man-programmer-coder-profile-user-vector-cartoon-character-avatar-198845686.jpg",
+    newPassword: "",
+    confirmPassword: "",
   });
 
+  const [showPasswordFields, setShowPasswordFields] = useState(false);
+  const newPasswordRef = useRef(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,28 +30,36 @@ const Profile = () => {
     }));
   };
 
-  const handleChangeInterest = (selectedOptions) => {
-    seteditUser((prevData) => ({
-      ...prevData,
-      interest: selectedOptions,
-    }));
-  };
-
   const handleSubmit = async (e) => {
-    console.log("clicked here");
     e.preventDefault();
-    console.log("Edited", editUser);
-
     try {
+      if (editUser.newPassword !== editUser.confirmPassword) {
+        // Display alert message
+        alert("New password and confirm password do not match");
+        // Focus on the new password field
+        newPasswordRef.current.focus();
+        return;
+      }
+      const updateProfile ={
+        username:editUser.username,
+        email:editUser.email,
+        contact:editUser.contact,
+        newPassword:editUser.newPassword,
+      }
+      // alert(JSON.stringify(editUser));
       const response = await axios.put("http://localhost:5555/user/profile", {
         editUser,
       });
       const success = response.status === 200;
       localStorage.setItem("userInfo", JSON.stringify(response));
-      if (success) navigate("/dashboard");
+      // if (success) navigate("/dashboard");
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const togglePasswordFields = () => {
+    setShowPasswordFields(!showPasswordFields);
   };
 
   return (
@@ -76,14 +85,6 @@ const Profile = () => {
                 value={editUser.email}
                 onChange={handleChange}
               />
-              {/* <label htmlFor="password">Password</label> 
-               <input
-                type="password"
-                className="form-control mb-3"
-                name="password"
-                value={editUser.password}
-                onChange={handleChange}
-              /> */}
               <label htmlFor="phone_number">Phone Number</label>
               <input
                 type="text"
@@ -92,36 +93,45 @@ const Profile = () => {
                 value={editUser.contact}
                 onChange={handleChange}
               />
+              {/* Password Fields */}
+              {showPasswordFields && (
+                <>
+                  <label htmlFor="newPassword">New Password</label>
+                  <input
+                    ref={newPasswordRef}
+                    type="password"
+                    className="form-control mb-3"
+                    name="newPassword"
+                    value={editUser.newPassword}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="confirmPassword">Confirm Password</label>
+                  <input
+                    type="password"
+                    className="form-control mb-3"
+                    name="confirmPassword"
+                    value={editUser.confirmPassword}
+                    onChange={handleChange}
+                  />
+                </>
+              )}
             </div>
             <div className="col-lg-6">
-              <label>Interest</label>
-              <Select
-                isMulti
-                name="interest"
-                options={[
-                  { label: "Party", value: "Party" },
-                  { label: "Seminar", value: "Seminar" },
-                  { label: "Concert", value: "Concert" },
-                  { label: "Heckathon", value: "Heckathon" },
-                  { label: "Music", value: "Music" },
-                  { label: "Theatre", value: "Theatre" },
-                ]}
-                className="mb-3"
-                value={editUser.interest}
-                onChange={handleChangeInterest}
-              />
-              <label htmlFor="url">Profile Photo</label>
-              {/* <input
-                type="url"
-                className="form-control mb-3"
-                name="url"
-                value={editUser.url}
-                onChange={handleChange}
-              /> */}
-              <div className="photo-container">
-                {editUser.url && <img src={editUser.url} alt="Profile" />}
+              <div className="photo-container text-center">
+                {/* Profile Picture */}
+                {editUser.url && <img src={editUser.url} alt="Profile" className="mb-3" />}
+
+                {/* Button to toggle password fields */}
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={togglePasswordFields}
+                >
+                  Change Password
+                </button>
               </div>
             </div>
+
           </div>
           <div className="text-center mt-4">
             <button type="submit" className="btn btn-primary">

@@ -109,6 +109,11 @@ export const getUserProfile = async (request, response) => {
         contact: editUser.contact,
       },
     };
+
+    if (editUser.newPassword) {
+      updateDocument.$set.password = editUser.newPassword;
+    }
+
     console.log("Fetching user profile data");
     const insertedUser = await User.findOneAndUpdate(
       { _id: request.user.id },
