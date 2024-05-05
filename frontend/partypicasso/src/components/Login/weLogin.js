@@ -1,10 +1,29 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import "./weLogin.css";
 
 const WeLogin = () => {
   const navigate = useNavigate();
-
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userInfo = localStorage.getItem("userInfo");
+    if (token && userInfo) {
+      const { role } = JSON.parse(userInfo).data;
+      switch (role) {
+        case "host":
+          navigate("/hostdashboard");
+          break;
+        case "user":
+          navigate("/dashboard");
+          break;
+        case "admin":
+          navigate("/admindashboard");
+          break;
+        default:
+          break;
+      }
+    }
+  }, [navigate]);
   const handleCardClick = (userType) => {
     navigate(`/login?user=${userType}`);
   };
