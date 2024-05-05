@@ -6,6 +6,7 @@ import axios from "axios";
 
 function Dashboard() {
   const [category, setCategory] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const apiUrl = "http://localhost:5555/events/";
   const categoryApiUrl = "http://localhost:5555/events/category/";
 
@@ -20,7 +21,6 @@ function Dashboard() {
     try {
       const token = localStorage.getItem("token");
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -30,18 +30,31 @@ function Dashboard() {
     <>
       <Hero />
       <div>
-        <p>Explore all events: </p>
+        <p style={{ fontSize: "20px" }}>
+          Explore all events:
+          <input
+            style={{ marginLeft: "20px" }}
+            type="text"
+            placeholder="Search events"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </p>
       </div>
-      <SliderComponent apiUrl={apiUrl} />
+      <SliderComponent apiUrl={apiUrl} searchTerm={searchTerm} />
       <div className="pt-8">
         <p>Explore events from our various categories: </p>
-        <select id="category" onChange={setCategoryChange} value={parseInt(category)}>
-                <option value="0">Select Category</option>
-                <option value="1">Party</option>
-                <option value="2">Business</option>
-                <option value="3">Education</option>
-                <option value="4">Gathering</option>
-                <option value="5">Show</option>
+        <select
+          id="category"
+          onChange={setCategoryChange}
+          value={parseInt(category)}
+        >
+          <option value="0">Select Category</option>
+          <option value="1">Party</option>
+          <option value="2">Business</option>
+          <option value="3">Education</option>
+          <option value="4">Gathering</option>
+          <option value="5">Show</option>
         </select>
       </div>
       <SliderComponent apiUrl={`${categoryApiUrl}${category}`} />
