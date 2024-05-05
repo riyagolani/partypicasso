@@ -6,6 +6,7 @@ import axios from "axios";
 const Login = () => {
   const location = useLocation();
   const userType = new URLSearchParams(location.search).get("user");
+  const [error, setError] = useState(""); // State for error message
 
   const [formData, setFormData] = useState({
     username: "",
@@ -84,6 +85,7 @@ const Login = () => {
       }
     } catch (error) {
       console.log("Error logging in", error);
+      setError("Wrong username or password. Please try again."); // Set error message
     }
   };
 
@@ -92,6 +94,8 @@ const Login = () => {
       <div className="card-container-login">
         <div className="card-body-login">
           <h1 className="title-login">{userType} Login</h1>
+          {/* Render error message if error exists */}
+          {error && <div className="alert alert-danger">{error}</div>}
           <form onSubmit={handleSubmit}>
             <div className="form-group-login my-4">
               <label htmlFor="username">Username</label>
