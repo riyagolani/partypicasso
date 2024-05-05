@@ -26,7 +26,7 @@ const HostForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Set the event mode and clear address fields if event mode is "Online"
+    // Set the event mode and clear address fields if event mode is "online"
     if (name === "eventMode" && value === "online") {
       setFormData({
         ...formData,
@@ -167,7 +167,7 @@ const HostForm = () => {
                   required
                 />
                 <label className="form-check-label" htmlFor="online">
-                  Online
+                  online
                 </label>
                 <input
                   className="form-check-input ml-3 mr-1 mt-3"
@@ -183,6 +183,7 @@ const HostForm = () => {
                 </label>
               </section>
               {formData.eventMode !== "online" && (
+                <>
                 <div>
                   <label htmlFor="streetAddress">Street Address</label>
                   <input
@@ -230,6 +231,7 @@ const HostForm = () => {
                     required
                   />
                 </div>
+                </>
               )}
             </div>
             <div className="col-lg-6">
@@ -306,7 +308,8 @@ const HostForm = () => {
                 min="0"
                 required
               />
-              {formData.eventMode === "Online" && (
+              {formData.eventMode === "online" && (
+                <>
                 <div>
                   <label htmlFor="onlineLink">Event Link</label>
                   <input
@@ -320,6 +323,7 @@ const HostForm = () => {
                     required
                   />
                 </div>
+                </>
               )}
             </div>
           </div>
