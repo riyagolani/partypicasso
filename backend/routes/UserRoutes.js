@@ -16,7 +16,7 @@ router.post("/", registerUser);
 router.post("/login", loginUser);
 
 // User profile route
-router.get("/profile", authenticate, getUserProfile);
+router.put("/profile", authenticate, getUserProfile);
 
 router.get("/chat", allUsers);
 

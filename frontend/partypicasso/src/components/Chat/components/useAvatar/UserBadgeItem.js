@@ -1,9 +1,22 @@
-import { CloseIcon } from "@chakra-ui/icons";
-import { Badge } from "@chakra-ui/layout";
+import { Box } from "@chakra-ui/react";
+import React from "react";
+import styled from "styled-components";
+import { IoCloseSharp } from "react-icons/io5";
 
-const UserBadgeItem = ({ user, handleFunction, admin }) => {
+const CrossIcon = styled(IoCloseSharp)`
+  padding-left: 5px;
+`;
+const UserBatchItem = ({
+  color = "#4FB2E5",
+  hover = "#298bbd",
+  user,
+  handleFunction,
+}) => {
   return (
-    <Badge
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
       px={2}
       py={1}
       borderRadius="lg"
@@ -11,15 +24,19 @@ const UserBadgeItem = ({ user, handleFunction, admin }) => {
       mb={2}
       variant="solid"
       fontSize={12}
-      colorScheme="purple"
+      backgroundColor={color}
+      color="black"
       cursor="pointer"
+      _hover={{
+        background: { hover },
+        color: "white",
+      }}
       onClick={handleFunction}
     >
-      {user.name}
-      {admin === user._id && <span> (Admin)</span>}
-      <CloseIcon pl={1} />
-    </Badge>
+      {user.firstname + " " + user.lastname}
+      <CrossIcon size="17px" />
+    </Box>
   );
 };
 
-export default UserBadgeItem;
+export default UserBatchItem;

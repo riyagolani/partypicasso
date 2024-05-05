@@ -1,46 +1,56 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Profile = () => {
-  const [userData, setUserData] = useState({
-    username: "JohnDoe",
-    email: "johndoe@example.com",
-    password: "********",
-    phone_number: "1234567890",
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const [editUser, seteditUser] = useState({
+    user_id: userInfo.data._id,
+    username: userInfo.data.username,
+    email: userInfo.data.email,
+    contact: userInfo.data.contact,
     interest: [
       { label: "Party", value: "Party" },
       { label: "Seminar", value: "Seminar" },
       { label: "Concert", value: "Concert" },
     ],
-    url: "https://thumbs.dreamstime.com/b/isolated-white-portrait-happy-cheerful-guy-bearded-man-programmer-coder-profile-user-vector-cartoon-character-avatar-198845686.jpg",
   });
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserData((prevData) => ({
+    seteditUser((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
   const handleChangeInterest = (selectedOptions) => {
-    setUserData((prevData) => ({
+    seteditUser((prevData) => ({
       ...prevData,
       interest: selectedOptions,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    console.log("clicked here");
     e.preventDefault();
-    // Submit updated user data (you can add API call here)
-    console.log("Updated user data:", userData);
-    // Redirect to profile page or any other page as needed
-    navigate("/profile");
+    console.log("Edited", editUser);
+
+    try {
+      const response = await axios.put("http://localhost:5555/user/profile", {
+        editUser,
+      });
+      const success = response.status === 200;
+      localStorage.setItem("userInfo", JSON.stringify(response));
+      if (success) navigate("/dashboard");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -55,7 +65,7 @@ const Profile = () => {
                 type="text"
                 className="form-control mb-3"
                 name="username"
-                value={userData.username}
+                value={editUser.username}
                 onChange={handleChange}
               />
               <label htmlFor="email">Email</label>
@@ -63,23 +73,23 @@ const Profile = () => {
                 type="email"
                 className="form-control mb-3"
                 name="email"
-                value={userData.email}
+                value={editUser.email}
                 onChange={handleChange}
               />
-              <label htmlFor="password">Password</label>
-              <input
+              {/* <label htmlFor="password">Password</label> 
+               <input
                 type="password"
                 className="form-control mb-3"
                 name="password"
-                value={userData.password}
+                value={editUser.password}
                 onChange={handleChange}
-              />
+              /> */}
               <label htmlFor="phone_number">Phone Number</label>
               <input
                 type="text"
                 className="form-control mb-3"
-                name="phone_number"
-                value={userData.phone_number}
+                name="contact"
+                value={editUser.contact}
                 onChange={handleChange}
               />
             </div>
@@ -97,7 +107,7 @@ const Profile = () => {
                   { label: "Theatre", value: "Theatre" },
                 ]}
                 className="mb-3"
-                value={userData.interest}
+                value={editUser.interest}
                 onChange={handleChangeInterest}
               />
               <label htmlFor="url">Profile Photo</label>
@@ -105,11 +115,11 @@ const Profile = () => {
                 type="url"
                 className="form-control mb-3"
                 name="url"
-                value={userData.url}
+                value={editUser.url}
                 onChange={handleChange}
               /> */}
               <div className="photo-container">
-                {userData.url && <img src={userData.url} alt="Profile" />}
+                {editUser.url && <img src={editUser.url} alt="Profile" />}
               </div>
             </div>
           </div>
