@@ -77,13 +77,12 @@ const BookingPage = () => {
             <h2 className="text-2xl font-bold mb-4">Booking Details</h2>
             <p className="text-lg font-semibold">{eventData.name}</p>
             <p className="text-gray-700">{eventData.description}</p>
-            <p className="text-gray-600">{eventData.category}</p>
             <p className="text-gray-600">{formattedDate}</p>
             <hr className="mt-3 border-b border-black-300" /><div className="mt-3">
               <h3 className="text-xl font-bold mb-3">Tickets</h3>
               <div className="flex justify-between items-center mb-4">
                 <span>General Admission Ticket</span>
-                <span>{eventData.price}</span>
+                <span>${eventData.price}</span>
                 <input
                   type="number"
                   min="1"

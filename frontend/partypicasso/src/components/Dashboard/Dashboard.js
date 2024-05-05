@@ -5,7 +5,7 @@ import SliderComponent from "./EventSlider";
 import axios from "axios";
 
 function Dashboard() {
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("1");
   const apiUrl = "http://localhost:5555/events/";
   const categoryApiUrl = "http://localhost:5555/events/category/";
 
@@ -36,7 +36,6 @@ function Dashboard() {
       <div className="pt-8">
         <p>Explore events from our various categories: </p>
         <select id="category" onChange={setCategoryChange} value={parseInt(category)}>
-                <option value="0">Select Category</option>
                 <option value="1">Party</option>
                 <option value="2">Business</option>
                 <option value="3">Education</option>

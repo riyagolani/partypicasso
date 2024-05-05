@@ -71,7 +71,7 @@ function Navigationbar() {
               </>
             )}
             {role === "admin" && (
-              <Nav.Link as={Link} to={"/dashboard"} className="text-light px-3">
+              <Nav.Link as={Link} to={"/admindashboard"} className="text-light px-3">
                 Dashboard
               </Nav.Link>
             )}
