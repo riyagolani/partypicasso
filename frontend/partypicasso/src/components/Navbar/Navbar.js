@@ -20,8 +20,25 @@ function Navigationbar() {
           alt="Blog Logo"
           style={{ borderRadius: "50%", marginLeft: "6px" }}
         />
-        <Navbar.Brand>
+        {/* <Navbar.Brand>
           <Nav.Link as={Link} to={"/"} className="text-light px-3">
+            PARTY PICASSO
+          </Nav.Link>
+        </Navbar.Brand> */}
+        <Navbar.Brand>
+          <Nav.Link
+            as={Link}
+            to={
+              role === "user"
+                ? "/dashboard"
+                : role === "host"
+                  ? "/hostdashboard"
+                  : role === "admin"
+                    ? "/admindashboard"
+                    : "/"
+            }
+            className="text-light px-3"
+          >
             PARTY PICASSO
           </Nav.Link>
         </Navbar.Brand>
