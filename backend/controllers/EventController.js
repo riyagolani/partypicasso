@@ -3,6 +3,8 @@ import EventRequest from '../models/EventRequestModel.js';
 // import Chat from '../models/Chat.js';
 import Booking from '../models/BookingModel.js';
 // import Confirmation from '../models/Confirmation.js';
+import User from "../models/UserModel.js";
+import sendEmail from "../sendEmail.js";
 
 
 export const calculateRemainingSeats = async (eventId) => {
@@ -194,6 +196,9 @@ export const eventProposalStatus = async (request, response) => {
 //     // Implement logic to retrieve list of user's event chats
 // };
 
+
+
+
 // // Function to book tickets for an event
 export const bookEvent = async (request, response) => {
     try {
@@ -227,6 +232,12 @@ export const bookEvent = async (request, response) => {
         // Update the event document in the database with the new value of availableSeats
         await Event.findByIdAndUpdate(eventId, { availableSeats: updatedAvailableSeats });
 
+         // Fetch user details for email id
+         const user = await User.findById(request.user.id);
+        
+         const email = user.email;
+         await sendEmail(email, booking._id);
+
         // Return the booking ID or any relevant success message as a response
         return response.status(200).json({ bookingId: booking._id});
     } catch (error) {
@@ -241,6 +252,8 @@ export const bookEvent = async (request, response) => {
 // };
 
 
+
+// Registered bookings
 export const getRegisteredEvents = async (request, response) => {
     try {
         const userId = request.user.id;

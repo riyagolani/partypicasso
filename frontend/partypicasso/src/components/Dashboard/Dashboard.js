@@ -5,7 +5,7 @@ import SliderComponent from "./EventSlider";
 import axios from "axios";
 
 function Dashboard() {
-  const [category, setCategory] = useState("Music Concerts");
+  const [category, setCategory] = useState("");
   const apiUrl = "http://localhost:5555/events/";
   const categoryApiUrl = "http://localhost:5555/events/category/";
 

@@ -23,12 +23,15 @@ const BookingPage = () => {
     };
 
     const cancelBooking = async bookingId => {
-        const token = localStorage.getItem("token");
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        await axios.put(`http://localhost:5555/events/cancelBooking/${bookingId}`);
-        alert("Booking Canceled");
-        fetchBookings();
-        console.log(`Cancelled booking with ID: ${bookingId}`);
+        const confirmed = window.confirm("Are you sure you want to cancel this booking?");
+        if (confirmed) {
+            const token = localStorage.getItem("token");
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            await axios.put(`http://localhost:5555/events/cancelBooking/${bookingId}`);
+            alert("Booking Canceled");
+            fetchBookings();
+            console.log(`Cancelled booking with ID: ${bookingId}`);
+        }
     };
 
     return (
