@@ -203,11 +203,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                       size="sm"
                       cursor="pointer"
                       name={getSender(user, selectedChat.users)}
-                      src={
-                        selectedChat.users[0]._id === user._id
-                          ? selectedChat.users[1].pic
-                          : selectedChat.users[0].pic
-                      }
                       bg="#4FB2E5"
                       mr={1}
                     />

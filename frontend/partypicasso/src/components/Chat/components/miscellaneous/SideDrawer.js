@@ -7,10 +7,6 @@ import {
   Text,
   Menu,
   MenuButton,
-  MenuList,
-  Avatar,
-  MenuItem,
-  MenuDivider,
   Drawer,
   DrawerOverlay,
   DrawerContent,
@@ -52,13 +48,6 @@ const SideDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user, setSelectedChat, chats, setChats } = ChatState();
 
-  const navigate = useNavigate();
-  const logoutHandler = () => {
-    localStorage.removeItem("userInfo");
-    setSelectedChat();
-    navigate("/auth");
-  };
-
   const searchHandler = async (e) => {
     e.preventDefault();
     if (!search) {
@@ -75,14 +64,8 @@ const SideDrawer = () => {
     }
     try {
       setLoading(true);
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
       const { data } = await axios.get(
-        `http://localhost:5555/chats/?search=${search}`,
-        config
+        `http://localhost:5555/chats/?search=${search}`
       );
       setLoading(false);
       setSearchResults(data);
@@ -103,17 +86,9 @@ const SideDrawer = () => {
   const accessChats = async (userId) => {
     try {
       setLoadingChat(true);
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      const { data } = await axios.post(
-        `http://localhost:5555/chats`,
-        { userId },
-        config
-      );
+      const { data } = await axios.post(`http://localhost:5555/chats`, {
+        userId,
+      });
 
       if (!chats.find((c) => c._id === data._id)) {
         setChats([data, ...chats]);
@@ -177,34 +152,6 @@ const SideDrawer = () => {
             </MenuButton>
             {/* <MenuList></MenuList> */}
           </Menu>
-          <Menu>
-            <MenuButton
-              as={Button}
-              rightIcon={<FiChevronDown />}
-              _hover={{ background: "#C1EAFF" }}
-              bg="#EEF8FD"
-              _active={{
-                background: "#EEF8FD",
-                _hover: { background: "#C1EAFF" },
-              }}
-            >
-              <Avatar
-                size="sm"
-                cursor="pointer"
-                name={user.username}
-                bg="teal.500"
-                src={user.pic}
-              />
-            </MenuButton>
-            <MenuList>
-              <ProfileModal user={user}>
-                <MenuItem>Profile</MenuItem>
-              </ProfileModal>
-
-              <MenuDivider />
-              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
-            </MenuList>
-          </Menu>
         </RightDiv>
       </Box>
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
@@ -238,7 +185,7 @@ const SideDrawer = () => {
               searchResults.map((user) => (
                 <UserListItem
                   key={user._id}
-                  user={user}
+                  user={user.username}
                   handleFunction={() => accessChats(user._id)}
                 ></UserListItem>
               ))

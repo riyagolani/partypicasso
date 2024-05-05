@@ -31,12 +31,7 @@ const MyChats = ({ fetchAgain }) => {
   const fetchChats = async () => {
     setChatLoader(true);
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      const { data } = await axios.get("http://localhost:5555/chats", config);
+      const { data } = await axios.get("http://localhost:5555/chats");
 
       setChats(data);
       setChatLoader(false);
@@ -129,11 +124,6 @@ const MyChats = ({ fetchAgain }) => {
                           cursor="pointer"
                           name={getSender(loggedUser, chat.users)}
                           bg="#4FB2E5"
-                          src={
-                            chat.users[0]._id === loggedUser._id
-                              ? chat.users[1].pic
-                              : chat.users[0].pic
-                          }
                         />
                         <Box
                           display="flex"
@@ -182,10 +172,7 @@ const MyChats = ({ fetchAgain }) => {
                                   {chat.lastestMessage.sender._id ===
                                   loggedUser._id
                                     ? "You : "
-                                    : chat.lastestMessage.sender.firstname +
-                                      " " +
-                                      chat.lastestMessage.sender.lastname +
-                                      " : "}
+                                    : chat.lastestMessage.sender.name + " : "}
                                 </b>
                                 {chat.lastestMessage.content.length > 50
                                   ? chat.lastestMessage.content.substring(
