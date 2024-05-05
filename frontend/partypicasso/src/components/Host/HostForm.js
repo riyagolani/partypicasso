@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./hostform.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from 'axios';
+import axios from "axios";
 
 const HostForm = () => {
   const [formData, setFormData] = useState({
@@ -48,10 +48,8 @@ const HostForm = () => {
   //   });
   // };
 
-
   const submitEventProposal = async (formData) => {
     try {
-
       // const user = JSON.parse(localStorage.getItem("userInfo"));
       const token = localStorage.getItem("token");
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -61,32 +59,32 @@ const HostForm = () => {
       //   formDataToSend.append('image', formData.image);
       // }
 
-      const response = await axios.post('http://localhost:5555/events/proposal', {
-
-        name: formData.eventName,
-        description: formData.description,
-        date: formData.eventDate,
-        location: {
-          streetAddress: formData.streetAddress,
-          city: formData.city,
-          state: formData.state,
-          zipCode: formData.zipCode
-        },
-        mode: formData.eventMode,
-        startTime: formData.eventTime,
-        duration: formData.duration,
-        onlineLink: formData.onlineLink,
-        category: parseInt(formData.category),
-        price: parseFloat(formData.bookingCharge),
-        totalSeats: parseInt(formData.capacity),
-
-      });
+      const response = await axios.post(
+        "http://localhost:5555/events/proposal",
+        {
+          name: formData.eventName,
+          description: formData.description,
+          date: formData.eventDate,
+          location: {
+            streetAddress: formData.streetAddress,
+            city: formData.city,
+            state: formData.state,
+            zipCode: formData.zipCode,
+          },
+          mode: formData.eventMode,
+          startTime: formData.eventTime,
+          duration: formData.duration,
+          onlineLink: formData.onlineLink,
+          category: parseInt(formData.category),
+          price: parseFloat(formData.bookingCharge),
+          totalSeats: parseInt(formData.capacity),
+        }
+      );
       return response.data; // Assuming the API returns the newly created event data
     } catch (error) {
       throw error; // Throw the error to be caught by the caller
     }
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,7 +96,7 @@ const HostForm = () => {
       // alert(`Event proposal submitted successfully. Event ID: ${eventId}`);
       navigate("/eventcreatedpage");
     } catch (error) {
-      console.error('Error submitting event proposal:', error);
+      console.error("Error submitting event proposal:", error);
       // Handle error
     }
   };
@@ -220,7 +218,6 @@ const HostForm = () => {
                   />
                 </div>
               )}
-
             </div>
             <div className="col-lg-6">
               <label htmlFor="eventDate">Event Date</label>
@@ -310,9 +307,7 @@ const HostForm = () => {
                     required
                   />
                 </div>
-
               )}
-
             </div>
           </div>
           {/* <div className="form-group">
