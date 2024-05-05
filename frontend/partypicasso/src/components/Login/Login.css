@@ -2,9 +2,14 @@
   background-color: #b3d1c0;
   height: 100vh;
   display: flex;
+  flex-direction: column; /* Set flex direction to column */
   justify-content: center;
   align-items: center;
   font-size: larger;
+}
+
+.error-message {
+  margin-bottom: 20px; /* Add margin to separate from card */
 }
 
 .card-container-login {

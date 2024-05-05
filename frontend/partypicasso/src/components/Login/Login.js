@@ -91,11 +91,13 @@ const Login = () => {
 
   return (
     <div className="container-login">
+      <div className="error-message">
+        {error && <div className="alert alert-danger">{error}</div>}
+      </div>
       <div className="card-container-login">
         <div className="card-body-login">
           <h1 className="title-login">{userType} Login</h1>
           {/* Render error message if error exists */}
-          {error && <div className="alert alert-danger">{error}</div>}
           <form onSubmit={handleSubmit}>
             <div className="form-group-login my-4">
               <label htmlFor="username">Username</label>
