@@ -183,6 +183,7 @@ const HostForm = () => {
                 </label>
               </section>
               {formData.eventMode !== "online" && (
+                <>
                 <div>
                   <label htmlFor="streetAddress">Street Address</label>
                   <input
@@ -230,6 +231,7 @@ const HostForm = () => {
                     required
                   />
                 </div>
+                </>
               )}
             </div>
             <div className="col-lg-6">
@@ -307,6 +309,7 @@ const HostForm = () => {
                 required
               />
               {formData.eventMode === "online" && (
+                <>
                 <div>
                   <label htmlFor="onlineLink">Event Link</label>
                   <input
@@ -320,6 +323,7 @@ const HostForm = () => {
                     required
                   />
                 </div>
+                </>
               )}
             </div>
           </div>
