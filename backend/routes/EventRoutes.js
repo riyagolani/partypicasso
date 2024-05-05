@@ -1,6 +1,6 @@
 import express from 'express';
 import {authenticate} from '../middleware/authMiddleware.js';
-import { getEvents, searchEvents, getEventDetails, submitEventProposal, eventProposalStatus, bookEvent, getAllRequests, getCategoryEvents} from '../controllers/EventController.js';
+import { getEvents, searchEvents, getEventDetails, submitEventProposal, eventProposalStatus, bookEvent, getAllRequests, getCategoryEvents, getRegisteredEvents, cancelBooking} from '../controllers/EventController.js';
 
 const router = express.Router();
 // Event Listing API
@@ -37,5 +37,11 @@ router.get('/:eventId', authenticate, getEventDetails); // This needs to be defi
 
 // // Confirmation API
 // router.post('/booking/:bookingId/confirmations', authenticate, confirmBooking);
+
+// Get all events registered by user
+router.post('/getUser',authenticate,getRegisteredEvents);
+
+// delete booking
+router.put('/cancelBooking/:bookingId',authenticate, cancelBooking);
 
 export default router;
