@@ -1,4 +1,6 @@
-.hostdashboard-container-bg {
+/* HostDashboard.css */
+
+.admindashboard-container-bg {
   background-color: #b8d4c4;
   width: 100%;
   min-height: calc(100vh - 66px);
@@ -7,7 +9,7 @@
   left: 0;
 }
 
-.hostdashboard-container {
+.admindashboard-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +17,7 @@
   padding-top: 50px;
 }
 
-.hostdashboard-card {
+.admindashboard-card {
   width: 95%;
   max-width: 95%;
   background-color: #fff;
@@ -24,27 +26,19 @@
   margin-bottom: 50px;
 }
 
-.hostdashboard-card-body {
+.admindashboard-card-body {
   padding: 20px;
 }
 
-img{
-  position: relative;
-  width: 300px; /* Adjust width as needed */
-  height: 250px; /* Adjust height as needed */
-  padding: 35px;
-}
-
-.hostdashboard-image-container {
+.admindashboard-image-container {
   position: relative;
   overflow: hidden;
-  width: 300px; /* Adjust width as needed */
-  height: 250px; /* Adjust height as needed */
+  height :350px;
   padding: 35px;
   border-radius: 20px;
 }
 
-.hostdashboard-image {
+.admindashboard-image {
   width: 100%;
   height: auto;
   border-radius: 20px;
@@ -52,8 +46,8 @@ img{
   opacity: 0.87;
 }
 
-.hostdashboard-image:hover {
-  transform: scale(1.05); /* Increase scale on hover */
+.admindashboard-image:hover {
+  transform: scale(1.05);
 }
 
 .image-text {
@@ -63,40 +57,40 @@ img{
   transform: translate(-50%, -50%);
   color: #fff;
   font-size: 24px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for better visibility */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .image-text {
   transition: opacity 0.3s ease;
 }
 
-.hostdashboard-image-container:hover .image-text {
-  opacity: 0.7; /* Reduce opacity on hover */
+.admindashboard-image-container:hover .image-text {
+  opacity: 0.7;
 }
 
-.hostdashboard-card-title {
+.admindashboard-card-title {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-.hostdashboard-subtitle {
+.admindashboard-subtitle {
   font-size: 1.2rem;
   margin-top: 25px;
   margin-bottom: 20px;
 }
 
-.hostdashboard-events-title {
+.admindashboard-events-title {
   font-size: 2rem;
   margin-top: 10px;
   margin-bottom: 20px;
 }
 
-.hostdashboard-subtitle a {
+.admindashboard-subtitle a {
   text-decoration: none;
 }
 
-.hostdashboard-subtitle a:hover {
+.admindashboard-subtitle a:hover {
   text-decoration: underline;
 }
 
@@ -107,9 +101,7 @@ img{
   gap: 20px;
 }
 
-
-
-.hostdashboard-divider {
+.admindashboard-divider {
   width: 50%;
   margin: 0 auto;
   border-top: 2px solid #9ecfb3;
