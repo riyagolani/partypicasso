@@ -40,19 +40,21 @@ const Profile = () => {
         newPasswordRef.current.focus();
         return;
       }
-      const updateProfile ={
-        username:editUser.username,
-        email:editUser.email,
-        contact:editUser.contact,
-        newPassword:editUser.newPassword,
-      }
+      // const updateProfile ={
+      //   username:editUser.username,
+      //   email:editUser.email,
+      //   contact:editUser.contact,
+      //   newPassword:editUser.newPassword,
+      // }
       // alert(JSON.stringify(editUser));
+      const token = localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       const response = await axios.put("http://localhost:5555/user/profile", {
         editUser,
       });
       const success = response.status === 200;
       localStorage.setItem("userInfo", JSON.stringify(response));
-      // if (success) navigate("/dashboard");
+      if (success) navigate("/dashboard");
     } catch (err) {
       console.log(err);
     }
