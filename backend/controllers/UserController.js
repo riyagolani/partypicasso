@@ -109,6 +109,12 @@ export const getUserProfile = async (request, response) => {
         contact: editUser.contact,
       },
     };
+
+    if (editUser.newPassword) {
+      const hashedPassword = await bcrypt.hash(editUser.newPassword, 10);
+      updateDocument.$set.password = hashedPassword;
+    }
+
     console.log("Fetching user profile data");
     const insertedUser = await User.findOneAndUpdate(
       { _id: request.user.id },
