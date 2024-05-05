@@ -7,7 +7,7 @@ import axios from "axios";
 import defaultimage from "../../Images/default.png";
 import { formatDate, formatTime } from "../utility/Utility.js";
 
-function SliderComponent({ apiUrl }) {
+function SliderComponent({ apiUrl, searchTerm }) {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
@@ -30,6 +30,14 @@ function SliderComponent({ apiUrl }) {
     navigate(`/eventdetails/${eventId}`);
   };
 
+  let filteredEvents = data;
+
+  if (searchTerm) {
+    filteredEvents = data.filter((event) =>
+      event.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
   var settings = {
     dots: false,
     infinite: true,
@@ -37,21 +45,28 @@ function SliderComponent({ apiUrl }) {
     slidesToShow: 3,
     slidesToScroll: 2,
   };
-  
-  // If there's only one event, render it directly
-  if (data.length === 1) {
-    const event = data[0];
+
+  if (filteredEvents.length === 1) {
+    const event = filteredEvents[0];
     return (
       <div className="w-1/2 m-auto">
         <div className="mt-5">
-          <div className="bg-white h-[450px] text-black rounded-xl">
+          <div
+            className="bg-white h-[500px] w-[430px] justify-center items-center text-black rounded-xl"
+            style={{ marginLeft: "180px" }}
+          >
             <div className="h-60 rounded-t-xl bg-orange-900 flex justify-center items-center">
-              <img src={event.img || defaultimage} alt="" className="h-44 w-44 rounded-full" />
+              <img
+                src={event.img || defaultimage}
+                alt=""
+                className="h-44 w-44 rounded-full"
+              />
             </div>
             <div className=" flex flex-col justify-center items-center gap-4 p-4">
               <p className="text-xl font-bold">{event.name}</p>
               <p>
-                {event.date && formatDate(event.date)} {event.startTime && formatTime(event.startTime)}
+                {event.date && formatDate(event.date)}{" "}
+                {event.startTime && formatTime(event.startTime)}
               </p>
               <p className="font-semibold">{event.price}</p>
               <button
@@ -70,19 +85,26 @@ function SliderComponent({ apiUrl }) {
   return (
     <div className="w-11/12 m-auto">
       <div className="mt-5">
-        {data.length === 0 ? (
-          <p className="text-center">Oops, looks like no one is interested in hosting these events.</p>
+        {filteredEvents.length === 0 ? (
+          <p className="text-center">
+            Oops, looks like no one is interested in hosting these events.
+          </p>
         ) : (
           <Slider {...settings}>
-            {data.map((d) => (
+            {filteredEvents.map((d) => (
               <div className="bg-white h=[450px] text-black rounded-xl">
                 <div className="h-60 rounded-t-xl bg-orange-900 flex justify-center items-center">
-                  <img src={d.img || defaultimage} alt="" className="h-44 w-44 rounded-full" />
+                  <img
+                    src={d.img || defaultimage}
+                    alt=""
+                    className="h-44 w-44 rounded-full"
+                  />
                 </div>
                 <div className=" flex flex-col justify-center items-center gap-4 p-4">
                   <p className="text-xl font-bold">{d.name}</p>
                   <p>
-                    {d.date && formatDate(d.date)} {d.startTime && formatTime(d.startTime)}
+                    {d.date && formatDate(d.date)}{" "}
+                    {d.startTime && formatTime(d.startTime)}
                   </p>
                   <p className="font-semibold">{d.price}</p>
                   <button

@@ -26,7 +26,7 @@ const HostForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Set the event mode and clear address fields if event mode is "Online"
+    // Set the event mode and clear address fields if event mode is "online"
     if (name === "eventMode" && value === "online") {
       setFormData({
         ...formData,
@@ -167,7 +167,7 @@ const HostForm = () => {
                   required
                 />
                 <label className="form-check-label" htmlFor="online">
-                  Online
+                  online
                 </label>
                 <input
                   className="form-check-input ml-3 mr-1 mt-3"
