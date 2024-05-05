@@ -6,6 +6,7 @@ const BookingPage = () => {
   const [ticketQuantity, setTicketQuantity] = useState(1);
   const [total, setTotal] = useState(0);
   const [eventData, setEventData] = useState(null);
+  const [error, setError] = useState(null);
 
   const serviceFee = 3.0;
 
@@ -22,6 +23,7 @@ const BookingPage = () => {
       })
       .catch(error => {
         console.error("Error fetching event data:", error);
+        setError("Error fetching event data");
       });
   }, [eventId]);
 
@@ -41,8 +43,21 @@ const BookingPage = () => {
 
   const confirmBooking = (e) => {
     e.preventDefault();
-    alert("Booking Confirmed");
-    navigate("/dashboard");
+    const token = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    axios.post(`http://localhost:5555/events/${eventId}/book`, { quantity: ticketQuantity })
+      .then(response => {
+        alert("Booking Confirmed");
+        navigate("/bookings");
+      })
+      .catch(error => {
+        console.error("Error booking tickets:", error);
+      if (error.response && error.response.status === 503 && error.response.data.message === "Seats not available") {
+        alert("Seats are not available. Please try again later.");
+      } else {
+        setError("An error occurred while booking tickets.");
+      }
+      });
   };
 
   const formattedDate = eventData ? new Date(eventData.date).toLocaleDateString("en-US", {

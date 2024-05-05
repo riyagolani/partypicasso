@@ -239,3 +239,88 @@ export const bookEvent = async (request, response) => {
 // export const sendBookingConfirmation = async (request, response) => {
 //     // Implement logic to send booking confirmation to user
 // };
+
+
+export const getRegisteredEvents = async (request, response) => {
+    try {
+        const userId = request.user.id;
+        if (!request.user || request.user.role !== 'user') {
+            return response.status(403).json({ message: 'Access forbidden: Only authenticated users with role user can access this resource.' });
+        }
+
+        // Fetch all bookings for the user
+        const bookings = await Booking.find({ userId });
+
+        // Extract unique event IDs from the bookings
+        const eventIds = Array.from(new Set(bookings.map(booking => booking.eventId)));
+
+        // Fetch events associated with the extracted event IDs
+        const events = await Event.find({ _id: { $in: eventIds } });
+
+        // Prepare response data
+        const responseData = bookings.map(booking => {
+            const event = events.find(event => event._id.toString() === booking.eventId.toString());
+            return {
+                BookingId: booking._id,
+                eventId: booking.eventId,
+                quantity: booking.quantity,
+                eventName: event.name,
+                eventData: {
+                    description: event.description,
+                    date: event.date,
+                    startTime: event.startTime,
+                    duration: event.duration,
+                    mode: event.mode,
+                    category: event.category,
+                    price: event.price,
+                    organizer: event.organizer,
+                    totalSeats: event.totalSeats,
+                    proposalStatus: event.proposalStatus,
+                    availableSeats: event.availableSeats
+                }
+            };
+        });
+
+        return response.status(200).json(responseData);
+        
+    } catch (error) {
+        return response.status(500).json({ message: error.message });
+    }
+};
+
+export const cancelBooking = async (request, response) => {
+    try {
+        // Extract the bookingId parameter from the request URL
+        const { bookingId } = request.params;
+
+        // Fetch booking details from the database using the bookingId
+        const booking = await Booking.findById(bookingId);
+
+        // Check if the booking exists
+        if (!booking) {
+            return response.status(404).json({ message: 'Booking not found.' });
+        }
+
+        // Fetch event details related to the booking
+        const event = await Event.findById(booking.eventId);
+
+        // Update available seats in the event
+        event.availableSeats += booking.quantity;
+
+        // Save the updated event details
+        await event.save();
+
+        // Delete the booking
+        const deletedBooking = await Booking.findByIdAndDelete(bookingId);
+        
+        if (!deletedBooking) {
+            return response.status(404).json({ message: 'Booking not found.' });
+        }
+
+        // Return success response
+        return response.status(200).json({ message: 'Booking cancelled successfully.' });
+    } catch (error) {
+        console.error('Error cancelling booking:', error);
+        return response.status(500).json({ message: 'Internal server error.' });
+    }
+};

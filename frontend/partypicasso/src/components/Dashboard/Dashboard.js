@@ -36,6 +36,7 @@ function Dashboard() {
       <div className="pt-8">
         <p>Explore events from our various categories: </p>
         <select id="category" onChange={setCategoryChange} value={parseInt(category)}>
+                <option value="0">Select Category</option>
                 <option value="1">Party</option>
                 <option value="2">Business</option>
                 <option value="3">Education</option>

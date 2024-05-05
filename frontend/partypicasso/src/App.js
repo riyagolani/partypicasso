@@ -17,6 +17,7 @@ import BookingDetails from "./components/Events/BookingDetails";
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import AdminEventCard from "./components/Admin/AdminEventCard";
 import {UserProtectedRoute, HostProtectedRoute, AdminProtectedRoute} from "./ProtectedRoute";
+import BookingList from "./components/Events/BookingList";
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
             <Route path="/profile" element={<UserProtectedRoute><Profile /></UserProtectedRoute>} />
             <Route path="/eventdetails/:id" element={<EventDetails />} />
             <Route path="/bookingdetails/:eventId" element={<UserProtectedRoute><BookingDetails /></UserProtectedRoute>} />
-            <Route path="/bookings" element={<UserProtectedRoute></UserProtectedRoute>}/>
+            <Route path="/bookings" element={<UserProtectedRoute><BookingList/></UserProtectedRoute>}/>
             <Route path="/hostform" element={<HostProtectedRoute><HostForm /></HostProtectedRoute>} />
             <Route path="/eventcreatedpage" element={<HostProtectedRoute><EventCreatedPage /></HostProtectedRoute>} />
             <Route path="/hostdashboard" element={<HostProtectedRoute><HostDashboard /></HostProtectedRoute>} />
