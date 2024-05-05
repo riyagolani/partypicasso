@@ -1,62 +1,70 @@
-import { ViewIcon } from "@chakra-ui/icons";
 import {
+  Avatar,
+  Button,
+  IconButton,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button,
-  useDisclosure,
-  IconButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Text,
-  Image,
+  useDisclosure,
 } from "@chakra-ui/react";
+import React from "react";
+import { AiFillEye } from "react-icons/ai";
+import styled from "styled-components";
 
+const Span = styled.span`
+  display: flex;
+`;
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
       {children ? (
-        <span onClick={onOpen}>{children}</span>
+        <Span onClick={onOpen}>{children}</Span>
       ) : (
-        <IconButton d={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
+        <IconButton
+          bg="#b3d1f8"
+          _hover={{ bg: "#7eaff0" }}
+          display={{ base: "flex" }}
+          onClick={onOpen}
+          icon={<AiFillEye />}
+        />
       )}
-      <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal size="sm" isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent h="410px">
-          <ModalHeader
-            fontSize="40px"
-            fontFamily="Work sans"
-            d="flex"
-            justifyContent="center"
-          >
-            {user.name}
+        <ModalContent>
+          <ModalHeader display="flex" fontSize="35px" justifyContent="center">
+            {user.firstname + " " + user.lastname}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody
-            d="flex"
+            display="flex"
             flexDir="column"
             alignItems="center"
-            justifyContent="space-between"
+            justifyContent="center"
           >
-            <Image
+            <Avatar
               borderRadius="full"
               boxSize="150px"
+              size="2xl"
               src={user.pic}
-              alt={user.name}
+              name={user.username}
+              bg="teal.500"
+              mb="20px"
             />
-            <Text
-              fontSize={{ base: "28px", md: "30px" }}
-              fontFamily="Work sans"
-            >
+            <Text fontSize={{ base: "20px", md: "20px" }}>
               Email: {user.email}
             </Text>
           </ModalBody>
+
           <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
