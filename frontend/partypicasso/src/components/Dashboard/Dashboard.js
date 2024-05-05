@@ -6,7 +6,7 @@ import axios from "axios";
 
 function Dashboard() {
 
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
   const apiUrl = "http://localhost:5555/events/";
