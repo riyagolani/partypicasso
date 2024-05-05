@@ -81,6 +81,8 @@ export const loginUser = async (request, response) => {
 // Function to handle user profile retrieval
 export const getUserProfile = async (request, response) => {
   try {
+    const { editUser } = request.body;
+    console.log(editUser);
     if (request.user.role === "admin") {
       return response
         .status(403)
@@ -92,17 +94,42 @@ export const getUserProfile = async (request, response) => {
     if (!user) {
       return response.status(404).send({ message: "User not found" });
     }
+    console.log(editUser.username);
     console.log("User found");
     // Optionally filter sensitive information before sending response
-    const profileData = {
-      username: user.username,
-      email: user.email,
-      contact: user.contact,
+    // const profileData = {
+    //   username: user.username,
+    //   email: user.email,
+    //   contact: user.contact,
+    // };
+    const updateDocument = {
+      $set: {
+        username: editUser.username,
+        email: editUser.email,
+        contact: editUser.contact,
+      },
     };
     console.log("Fetching user profile data");
-    return response.status(200).send(profileData);
-  } catch (error) {
-    console.log(error.message);
-    return response.status(500).send({ message: error.message });
+    const insertedUser = await User.findOneAndUpdate(
+      { _id: request.user.id },
+      updateDocument,
+      {
+        new: true,
+      }
+    );
+    console.log(insertedUser);
+    response.status(200).json(insertedUser);
+  } catch (err) {
+    console.log(err);
   }
 };
+//     return response.status(200).send(profileData);
+//   } catch (error) {
+//     console.log(error.message);
+//     return response.status(500).send({ message: error.message });
+//   }
+// };
+
+//   try {
+
+//       const query = { user_id: editUser.user_id }
