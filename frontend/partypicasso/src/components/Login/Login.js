@@ -125,19 +125,7 @@ const Login = () => {
                 required
               />
             </div>
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input my-3"
-                id="rememberMe"
-                name="rememberMe"
-                checked={formData.rememberMe}
-                onChange={handleChange}
-              />
-              <label className="form-check-label my-2" htmlFor="rememberMe">
-                Remember Me
-              </label>
-            </div>
+            
             <div className="text-center">
               <button type="submit" className="btn mt-3">
                 Login
@@ -146,7 +134,7 @@ const Login = () => {
           </form>
           <div className="text-center mt-3">
             <p>
-              Don't have an account? <Link to="/signup">Sign up</Link>
+              Don't have an account? <Link to="/signup" className="text-xl font-bold text-blue-500">Sign up</Link>
             </p>
           </div>
         </div>
