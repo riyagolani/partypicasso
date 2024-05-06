@@ -7,6 +7,7 @@ const BookingPage = () => {
   const [total, setTotal] = useState(0);
   const [eventData, setEventData] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false); // New loading state
 
   const serviceFee = 3.0;
 
@@ -43,20 +44,23 @@ const BookingPage = () => {
 
   const confirmBooking = (e) => {
     e.preventDefault();
+    setLoading(true);
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     axios.post(`http://localhost:5555/events/${eventId}/book`, { quantity: ticketQuantity })
       .then(response => {
+        setLoading(false);
         alert("Booking Confirmed");
         navigate("/bookings");
       })
       .catch(error => {
         console.error("Error booking tickets:", error);
-      if (error.response && error.response.status === 503 && error.response.data.message === "Seats not available") {
-        alert("Seats are not available. Please try again later.");
-      } else {
-        setError("An error occurred while booking tickets.");
-      }
+        setLoading(false);
+        if (error.response && error.response.status === 503 && error.response.data.message === "Seats not available") {
+          alert("Seats are not available. Please try again later.");
+        } else {
+          setError("An error occurred while booking tickets.");
+        }
       });
   };
 
@@ -72,58 +76,61 @@ const BookingPage = () => {
       style={{ marginTop: "-30px" }}
     >
       <div className="w-full max-w-4xl bg-white bg-opacity-75 rounded-xl shadow-lg p-6">
-        {eventData && (
-          <>
-            <h2 className="text-2xl font-bold mb-4">Booking Details</h2>
-            <p className="text-lg font-semibold">{eventData.name}</p>
-            <p className="text-gray-700">{eventData.description}</p>
-            <p className="text-gray-600">{formattedDate}</p>
-            <hr className="mt-3 border-b border-black-300" /><div className="mt-3">
-              <h3 className="text-xl font-bold mb-3">Tickets</h3>
-              <div className="flex justify-between items-center mb-4">
-                <span>General Admission Ticket</span>
-                <span>${eventData.price}</span>
-                <input
-                  type="number"
-                  min="1"
-                  value={ticketQuantity}
-                  onChange={handleTicketQuantityChange} />
+        {loading ? (
+          <div>Loading...</div>) : (
+          eventData && (
+            <>
+              <h2 className="text-2xl font-bold mb-4">Booking Details</h2>
+              <p className="text-lg font-semibold">{eventData.name}</p>
+              <p className="text-gray-700">{eventData.description}</p>
+              <p className="text-gray-600">{formattedDate}</p>
+              <hr className="mt-3 border-b border-black-300" /><div className="mt-3">
+                <h3 className="text-xl font-bold mb-3">Tickets</h3>
+                <div className="flex justify-between items-center mb-4">
+                  <span>General Admission Ticket</span>
+                  <span>${eventData.price}</span>
+                  <input
+                    type="number"
+                    min="1"
+                    value={ticketQuantity}
+                    onChange={handleTicketQuantityChange} />
+                </div>
+                {/* Add more ticket options as needed */}
               </div>
-              {/* Add more ticket options as needed */}
-            </div>
 
-            <hr className="my-3 border-b border-black-300" />
+              <hr className="my-3 border-b border-black-300" />
 
-            <div className="mt-3">
-              <h3 className="text-xl font-bold mb-4">Order Summary</h3>
-              <div className="flex justify-between items-center mb-4">
-                <span>Subtotal</span>
-                <span>
-                  $
-                  {(
-                    eventData.price * ticketQuantity
-                  ).toFixed(2)}
-                </span>
+              <div className="mt-3">
+                <h3 className="text-xl font-bold mb-4">Order Summary</h3>
+                <div className="flex justify-between items-center mb-4">
+                  <span>Subtotal</span>
+                  <span>
+                    $
+                    {(
+                      eventData.price * ticketQuantity
+                    ).toFixed(2)}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center mb-4">
+                  <span>Service Fee</span>
+                  <span>${serviceFee.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between items-center mb-4">
+                  <span>Total</span>
+                  <span>${total.toFixed(2)}</span>
+                </div>
               </div>
-              <div className="flex justify-between items-center mb-4">
-                <span>Service Fee</span>
-                <span>${serviceFee.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between items-center mb-4">
-                <span>Total</span>
-                <span>${total.toFixed(2)}</span>
-              </div>
-            </div>
 
-            <hr className="my-3 border-b border-black-300" />
+              <hr className="my-3 border-b border-black-300" />
 
-            <button
-              className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-3 w-full"
-              onClick={confirmBooking}
-            >
-              Proceed to Payment
-            </button>
-          </>
+              <button
+                className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-3 w-full"
+                onClick={confirmBooking}
+              >
+                Proceed to Payment
+              </button>
+            </>
+          )
         )}
       </div>
     </div>
