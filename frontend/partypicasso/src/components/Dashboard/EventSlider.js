@@ -68,7 +68,7 @@ function SliderComponent({ apiUrl, searchTerm }) {
                 {event.date && formatDate(event.date)}{" "}
                 {event.startTime && formatTime(event.startTime)}
               </p>
-              <p className="font-semibold">{event.price}</p>
+              <p className="font-semibold">${event.price}</p>
               <button
                 className="bg-neutral-700 text-white text-l w-40 px-5 py-1 rounded"
                 onClick={() => openDetails(event._id)}
@@ -106,7 +106,7 @@ function SliderComponent({ apiUrl, searchTerm }) {
                     {d.date && formatDate(d.date)}{" "}
                     {d.startTime && formatTime(d.startTime)}
                   </p>
-                  <p className="font-semibold">{d.price}</p>
+                  <p className="font-semibold">${d.price}</p>
                   <button
                     className="bg-neutral-700 text-white text-l w-40 px-5 py-1 rounded"
                     onClick={() => openDetails(d._id)}

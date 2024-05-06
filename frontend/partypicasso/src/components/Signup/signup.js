@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./signup.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -189,6 +190,9 @@ const Signup = () => {
                 }
               />
             </div>
+          </div>
+          <div>
+          <Link to="/weLogin" className="text-xl font-bold text-blue-500">Go back to login page</Link>
           </div>
           <div className="text-center">
             <button type="submit" className="btn mt-3">
