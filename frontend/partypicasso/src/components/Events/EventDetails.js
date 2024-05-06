@@ -3,11 +3,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import defaultimage from "../../Images/default.png";
 import { formatDate, formatTime } from "../utility/Utility.js";
+import { Doughnut } from "react-chartjs-2";
+import FinancialReportPopup from "./FinancialReportPopup"; // Import the FinancialReportPopup component
+import "chart.js/auto"; // Import required chart types
+import "./EventDetails.css"; // Import your CSS file containing modal styles
+
 const EventDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [revenue, setRevenue] = useState(null);
+  const [soldSeats, setSoldSeats] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
   const token = localStorage.getItem("token");
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -23,7 +30,7 @@ const EventDetails = () => {
         let money =
           (response.data.totalSeats - response.data.availableSeats) *
           response.data.price;
-        console.log(money);
+        setSoldSeats(response.data.totalSeats - response.data.availableSeats);
         setRevenue(money);
       } catch (error) {
         console.error("Error fetching event:", error);
@@ -32,6 +39,14 @@ const EventDetails = () => {
     };
     fetchEvent();
   }, [id, token]);
+
+  const handleShowPopup = () => {
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
 
   const payment = (e) => {
     e.preventDefault();
@@ -42,11 +57,10 @@ const EventDetails = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(event);
   return (
     <div
       className="h-screen flex justify-center items-center"
-      style={{ marginTop: "-30px" }}
+      style={{ marginTop: "-20px" }}
     >
       <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center items-center">
         <div className="h-80 w-80 rounded-t-xl bg-orange-900 flex justify-center items-center">
@@ -62,17 +76,27 @@ const EventDetails = () => {
             {event.date && formatDate(event.date)}{" "}
             {event.startTime && formatTime(event.startTime)}
           </p>
-          {userInfo.data.role === "host" ? (
-            <p className="font-semibold"> Total Revanue: ${revenue} </p>
-          ) : (
-            <p className="font-semibold">${event.price}</p>
-          )}
-
+          <p className="font-semibold">${event.price}</p>
           <p>{event.description}</p>
           <p>
             Available Seats: <b>{event.availableSeats}</b>
           </p>
-
+          {userInfo.data.role === "host" && (
+            <>
+              <button className="btn" onClick={handleShowPopup}>
+                Financial Report
+              </button>
+              {showPopup && (
+                <FinancialReportPopup
+                  revenue={revenue}
+                  price={event.price}
+                  soldSeats={soldSeats}
+                  availableSeats={event.availableSeats}
+                  onClose={handleClosePopup}
+                />
+              )}
+            </>
+          )}
           {userInfo.data.role === "user" && event.availableSeats && (
             <button
               className="bg-neutral-700 text-white text-l w-80 px-4 py-2 rounded"

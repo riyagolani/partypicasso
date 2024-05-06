@@ -1,0 +1,41 @@
+/* Add this CSS to your stylesheets or CSS file */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* ensure the modal appears above other content */
+  }
+  
+  .popup-content {
+    background-color: #fff;
+    padding: 20px;
+    max-width: 90%; /* Increase the maximum width */
+    max-height: 90%; /* Increase the maximum height */
+    overflow-y: auto; /* enable scrolling if content exceeds modal height */
+    border-radius: 8px;
+    position: relative;
+  }
+  
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+    background: none;
+    border: none;
+    outline: none;
+  }
+  
+  .chart-container {
+    margin-top: 20px;
+  }
+  
